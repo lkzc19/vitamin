@@ -1,6 +1,12 @@
+server:
+  port: 3000
+
 spring:
   application:
     name: demo-01
+  security:
+    user:
+      name: root
+      password: 1111
 
-server:
-  port: 3000
+
