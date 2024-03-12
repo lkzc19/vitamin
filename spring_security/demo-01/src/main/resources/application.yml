@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: demo-01
+
+server:
+  port: 3000
