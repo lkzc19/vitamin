@@ -15,7 +15,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers("/index").permitAll() // 放行资源写在任何前面
                 .anyRequest().authenticated()
-                .and().formLogin()
+                .and()
+                .formLogin()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new OrRequestMatcher(
