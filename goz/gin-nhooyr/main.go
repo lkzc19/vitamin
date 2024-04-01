@@ -29,7 +29,7 @@ func websocketHandler(c *gin.Context) {
 	conn, err := websocket.Accept(c.Writer, c.Request, nil)
 	if err != nil {
 		// 处理错误
-		c.AbortWithError(http.StatusInternalServerError, err)
+		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 	defer conn.Close(websocket.StatusInternalError, "内部出错了")
