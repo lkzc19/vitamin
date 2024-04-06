@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93736801-aed1-4f7c-800f-7317c901d78b" name="更改" comment="feat: firework">
-      <change afterPath="$PROJECT_DIR$/particle.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Particle/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Particle/lifecycle.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Particle/particle.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firework/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firework/firework.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/firework/lifecycle.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firework.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/particle.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +29,15 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/scoop/apps/go/current" />
+  <component name="GOROOT" url="file:///opt/homebrew/opt/go/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -51,15 +61,26 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "C:/Users/25786/Projects/demo/goz/firework",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/Users/lkzc19/Projects/lkzc19/demo/goz/firework/Particle",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Particle" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Particle" />
+      <recent name="$PROJECT_DIR$/firework" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="firework" />

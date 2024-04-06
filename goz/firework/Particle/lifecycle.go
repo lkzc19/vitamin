@@ -1,4 +1,4 @@
-package main
+package Particle
 
 type Lifecycle = string
 
