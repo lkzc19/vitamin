@@ -23,3 +23,11 @@ func initMongo(ctx context.Context) (common.MongoStr, func(), error) {
 		fmt.Println("mongo close...")
 	}, nil
 }
+
+func initDB(pgsql common.PgsqlStr, mongo common.MongoStr) (common.DBStr, func(), error) {
+	fmt.Printf("测试将容器中的对象再注入到新对象中 \t %s %s\n", pgsql, mongo)
+
+	return "db", func() {
+		fmt.Println("db close...")
+	}, nil
+}

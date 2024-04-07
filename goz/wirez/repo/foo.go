@@ -18,5 +18,5 @@ func ProvideFooRepo(db common.PgsqlStr) *FooRepo {
 }
 
 func (foo FooRepo) Hello() {
-	fmt.Println(foo.DB)
+	fmt.Println("最终效果 \t" + foo.DB)
 }

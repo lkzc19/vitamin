@@ -8,6 +8,7 @@ import (
 type Injector struct {
 	Pgsql common.PgsqlStr
 	Mongo common.MongoStr
+	DB    common.DBStr
 	S     S
 }
 
