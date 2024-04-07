@@ -6,10 +6,11 @@ import (
 )
 
 type Injector struct {
-	Pgsql common.PgsqlStr
-	Mongo common.MongoStr
-	DB    common.DBStr
-	S     S
+	Pgsql    common.PgsqlStr
+	Mongo    common.MongoStr
+	DB       common.DBStr
+	Sussurro common.Sussurro
+	S        S
 }
 
 type S struct {

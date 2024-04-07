@@ -31,3 +31,8 @@ func initDB(pgsql common.PgsqlStr, mongo common.MongoStr) (common.DBStr, func(),
 		fmt.Println("db close...")
 	}, nil
 }
+
+func initSussurro() (common.Sussurro, error) {
+	fmt.Printf("测试无cleanup\n")
+	return "Sussurro", nil
+}

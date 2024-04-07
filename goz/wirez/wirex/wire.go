@@ -15,6 +15,7 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		initPgsql,
 		initMongo,
 		initDB,
+		initSussurro,
 		repo.Set,
 		service.Set,
 		wire.NewSet(wire.Struct(new(S), "*")),

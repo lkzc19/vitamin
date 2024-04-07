@@ -24,6 +24,19 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	dbStr, cleanup3, err := initDB(pgsqlStr, mongoStr)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	sussurro, err := initSussurro()
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	fooRepo := repo.ProvideFooRepo(pgsqlStr)
 	fooService := service.FooService{
 		FooRepo: fooRepo,
@@ -32,11 +45,14 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		FooService: fooService,
 	}
 	injector := &Injector{
-		Pgsql: pgsqlStr,
-		Mongo: mongoStr,
-		S:     s,
+		Pgsql:    pgsqlStr,
+		Mongo:    mongoStr,
+		DB:       dbStr,
+		Sussurro: sussurro,
+		S:        s,
 	}
 	return injector, func() {
+		cleanup3()
 		cleanup2()
 		cleanup()
 	}, nil
