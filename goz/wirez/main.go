@@ -12,8 +12,10 @@ func main() {
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "foo", "bar")
 
-	_, _, err := wirex.BuildInjector(ctx)
+	injector, _, err := wirex.BuildInjector(ctx)
 	if err != nil {
 		panic(err)
 	}
+
+	injector.S.FooService.Hello()
 }

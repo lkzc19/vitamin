@@ -13,7 +13,7 @@ type FooRepo struct {
 	DB common.PgsqlStr
 }
 
-func provideFooRepo(db common.PgsqlStr) *FooRepo {
+func ProvideFooRepo(db common.PgsqlStr) *FooRepo {
 	return &FooRepo{DB: db}
 }
 

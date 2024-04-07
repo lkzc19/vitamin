@@ -1,15 +1,10 @@
-//go:build wireinject
-// +build wireinject
+# wirez
 
-package wirex
+## wirez使用注意
 
-import (
-	"context"
-	"github.com/google/wire"
-	"wirez/repo"
-	"wirez/service"
-)
+### 1. inject BuildInjector: unused provider set "Set"
 
+```go
 func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 	wire.Build(
 		initPgsql,
@@ -21,3 +16,5 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 	)
 	return new(Injector), nil, nil
 }
+```
+在此中注入的所有对象，都要导出，在上述代码片段中，是将所有的都放在`Injector`中导出。

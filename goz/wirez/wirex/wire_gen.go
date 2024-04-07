@@ -8,6 +8,8 @@ package wirex
 
 import (
 	"context"
+	"wirez/repo"
+	"wirez/service"
 )
 
 // Injectors from wire.go:
@@ -22,9 +24,17 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	fooRepo := repo.ProvideFooRepo(pgsqlStr)
+	fooService := service.FooService{
+		FooRepo: fooRepo,
+	}
+	s := S{
+		FooService: fooService,
+	}
 	injector := &Injector{
 		Pgsql: pgsqlStr,
 		Mongo: mongoStr,
+		S:     s,
 	}
 	return injector, func() {
 		cleanup2()
