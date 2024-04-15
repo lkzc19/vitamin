@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gormz/internal/model"
@@ -13,13 +14,14 @@ func main() {
 		panic("failed to connect database")
 	}
 	// 迁移 schema
-	err = db.AutoMigrate(&model.Product{})
+	err = db.AutoMigrate(&model.Product{}, &model.Foo{}, &model.Bar{})
 	if err != nil {
 		return
 	}
-	// Create
-	db.Create(&model.Product{Code: "D42", Price: 100})
-	// Delete - 删除 product
-	var product model.Product
-	db.Delete(&product, 1)
+	//// Create
+	//db.Create(&model.Product{Code: "D42", Price: 100})
+	//// Delete - 删除 product
+	//var product model.Product
+	//db.Delete(&product, 1)
+	fmt.Println("end")
 }

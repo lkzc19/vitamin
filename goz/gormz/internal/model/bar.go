@@ -5,8 +5,8 @@ import (
 	"gorm.io/gorm"
 )
 
-type Foo struct {
+type Bar struct {
 	gorm.Model
-	Foo          string          `json:"foo" gorm:"type:varchar(255);not null;uniqueIndex:ufo"`
+	Bar          string          `json:"foo" gorm:"type:varchar(255);not null;uniqueIndex:ufo"`
 	ChannelPrice decimal.Decimal `json:"channelPrice" gorm:"type:decimal(10,2);not null"`
 }
