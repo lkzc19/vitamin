@@ -17,4 +17,9 @@ func main() {
 	if err != nil {
 		return
 	}
+	// Create
+	db.Create(&model.Product{Code: "D42", Price: 100})
+	// Delete - 删除 product
+	var product model.Product
+	db.Delete(&product, 1)
 }
