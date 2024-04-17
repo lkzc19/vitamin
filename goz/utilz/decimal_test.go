@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"github.com/shopspring/decimal"
+	"testing"
 )
 
-func main() {
+func TestDecimal(t *testing.T) {
 	numStr := "1"
 	d, err := decimal.NewFromString(numStr)
 	if err != nil {
-		panic(err)
+		t.Failed()
 	}
 	fmt.Println(d.String())
 }
