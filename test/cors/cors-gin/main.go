@@ -24,23 +24,53 @@ func main() {
 	})
 
 	// 添加跨域处理插件
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		AllowHeaders:    []string{"Origin", "Content-Length", "Content-Type", "X-Nahida"},
+	}))
 
 	r.GET("/ping", func(c *gin.Context) {
 		fmt.Println("ping...pong")
 		c.JSON(http.StatusOK, "pong")
 	})
 
-	type Foo struct {
+	type Normal struct {
 		Name string `json:"name"`
 	}
-	r.POST("/foo", func(c *gin.Context) {
-		var foo Foo
-		if err := c.ShouldBindJSON(&foo); err != nil {
+	r.POST("/normal", func(c *gin.Context) {
+		var normal Normal
+		if err := c.ShouldBindJSON(&normal); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		fmt.Println(foo.Name)
+		fmt.Println(normal.Name)
+		c.JSON(http.StatusOK, "bar")
+	})
+
+	type XNahida struct {
+		Name string `json:"name"`
+	}
+	r.POST("/XNahida", func(c *gin.Context) {
+		var xNahida XNahida
+		if err := c.ShouldBindJSON(&xNahida); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		fmt.Println(xNahida.Name)
+		c.JSON(http.StatusOK, "bar")
+	})
+
+	type XHutao struct {
+		Name string `json:"name"`
+	}
+	r.POST("/XHutao", func(c *gin.Context) {
+		var xHutao XHutao
+		if err := c.ShouldBindJSON(&xHutao); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		fmt.Println(xHutao.Name)
 		c.JSON(http.StatusOK, "bar")
 	})
 

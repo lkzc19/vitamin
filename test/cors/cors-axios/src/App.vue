@@ -13,7 +13,9 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/ping">Ping</RouterLink>
-        <RouterLink to="/foo">Foo</RouterLink>
+        <RouterLink to="/normal">normal</RouterLink>
+        <RouterLink to="/x-nahida">x-nahida</RouterLink>
+        <RouterLink to="/x-hutao">x-hutao</RouterLink>
         <RouterLink to="/cors-bug">Cors-bug</RouterLink>
       </nav>
     </div>

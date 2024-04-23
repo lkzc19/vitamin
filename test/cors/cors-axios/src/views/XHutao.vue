@@ -1,18 +1,18 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import {bar} from "@/api/cors.js"
+import {xHutao} from "@/api/cors.js"
 
 const el = ref("")
 
 onMounted(async () => {
-  const r = await bar({name: "携带 Authorization"});
+  const r = await xHutao({name: "携带 X-Hutao"});
   el.value = r.data
 })
 </script>
 
 <template>
   <div class="about">
-    <h1>携带 Authorization</h1>
+    <h1>携带请求头X-Hutao 该请求头跨域未处理</h1>
     <p>{{ el }}</p>
   </div>
 </template>

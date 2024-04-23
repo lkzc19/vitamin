@@ -7,11 +7,29 @@ export const ping = () => {
     });
 };
 
-export const foo = (data) => {
+export const normal = (data) => {
     return instance({
-        url: "/foo",
+        url: "/normal",
         method: "post",
         data: data
+    });
+};
+
+export const xNahida = (data) => {
+    return instance({
+        url: "/XNahida",
+        method: "post",
+        data: data,
+        headers: {"X-Nahida": "nahida"}
+    });
+};
+
+export const xHutao = (data) => {
+    return instance({
+        url: "/XHutao",
+        method: "post",
+        data: data,
+        headers: {"X-Hutao": "hutao"}
     });
 };
 

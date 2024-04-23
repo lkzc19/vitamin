@@ -12,7 +12,7 @@ onMounted(async () => {
 
 <template>
   <div class="about">
-    <h1>ping</h1>
+    <h1>cors-bug</h1>
     <p>{{ el }}</p>
   </div>
 </template>

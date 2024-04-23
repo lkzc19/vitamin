@@ -1,18 +1,18 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import {foo1} from "@/api/cors.js"
+import {xNahida} from "@/api/cors.js"
 
 const el = ref("")
 
 onMounted(async () => {
-  const r = await foo1({name: "携带请求头 X-Nahida"});
+  const r = await xNahida({name: "携带请求头 X-Nahida"});
   el.value = r.data
 })
 </script>
 
 <template>
   <div class="about">
-    <h1>携带请求头 X-Nahida</h1>
+    <h1>携带请求头X-Nahida 该请求头跨域已处理</h1>
     <p>{{ el }}</p>
   </div>
 </template>
