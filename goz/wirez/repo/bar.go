@@ -5,19 +5,24 @@ import (
 )
 
 type IBarRepo interface {
-	Hello()
+	Repo[string]
+	Bar()
 }
 
 type BarRepo string
 
-func provideBarRepo() *BarRepo {
-	b := new(BarRepo)
-	*b = "Hello, World!"
-	return b
+func ProvideBarRepo() *BarRepo {
+	r := new(BarRepo)
+	*r = "Hello, Bar!"
+	return r
 }
 
-func (bar *BarRepo) Hello() {
-	fmt.Println("=== bar a ===")
-	fmt.Println(bar)
-	fmt.Println("=== bar z ===")
+func (r *BarRepo) Bar() {
+	fmt.Println("=== BarRepo.Bar ===")
+	fmt.Println(*r)
+}
+
+func (r *BarRepo) Add(str *string) (*string, error) {
+	newStr := *str + *str
+	return &newStr, nil
 }

@@ -38,11 +38,13 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		return nil, nil, err
 	}
 	fooRepo := repo.ProvideFooRepo(pgsqlStr)
-	fooService := service.FooService{
+	barRepo := repo.ProvideBarRepo()
+	helloService := service.HelloService{
 		FooRepo: fooRepo,
+		BarRepo: barRepo,
 	}
 	s := S{
-		FooService: fooService,
+		FooService: helloService,
 	}
 	injector := &Injector{
 		Pgsql:    pgsqlStr,

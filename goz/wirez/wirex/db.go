@@ -15,10 +15,7 @@ func initPgsql(ctx context.Context) (common.PgsqlStr, func(), error) {
 	}, nil
 }
 
-func initMongo(ctx context.Context) (common.MongoStr, func(), error) {
-	fmt.Println("=== mongo ===")
-	fmt.Printf("=== %s ===\n", ctx.Value("foo"))
-
+func initMongo(_ context.Context) (common.MongoStr, func(), error) {
 	return "mongo", func() {
 		fmt.Println("mongo close...")
 	}, nil

@@ -6,7 +6,7 @@ import (
 )
 
 type IFooRepo interface {
-	Hello()
+	Foo()
 }
 
 type FooRepo struct {
@@ -17,6 +17,7 @@ func ProvideFooRepo(db common.PgsqlStr) *FooRepo {
 	return &FooRepo{DB: db}
 }
 
-func (foo FooRepo) Hello() {
-	fmt.Println("最终效果 \t" + foo.DB)
+func (foo FooRepo) Foo() {
+	fmt.Println("=== FooBar.Foo ===")
+	fmt.Println(foo.DB)
 }

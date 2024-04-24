@@ -2,13 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"wirez/wirex"
 )
 
 func main() {
-	fmt.Println("=== hello world ===")
-
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "foo", "bar")
 
@@ -17,5 +14,6 @@ func main() {
 		panic(err)
 	}
 
-	injector.S.FooService.Hello()
+	injector.S.FooService.HelloFoo()
+	injector.S.FooService.HelloBar()
 }

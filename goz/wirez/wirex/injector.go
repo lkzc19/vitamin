@@ -14,5 +14,5 @@ type Injector struct {
 }
 
 type S struct {
-	FooService service.FooService
+	FooService service.HelloService
 }
