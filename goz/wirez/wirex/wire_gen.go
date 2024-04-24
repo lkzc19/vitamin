@@ -10,27 +10,28 @@ import (
 	"context"
 	"wirez/repo"
 	"wirez/service"
+	"wirez/wirex/provider"
 )
 
 // Injectors from wire.go:
 
 func BuildInjector(ctx context.Context) (*Injector, func(), error) {
-	pgsqlStr, cleanup, err := initPgsql(ctx)
+	pgsqlStr, cleanup, err := provider.Pgsql(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
-	mongoStr, cleanup2, err := initMongo(ctx)
+	mongoStr, cleanup2, err := provider.Mongo(ctx)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStr, cleanup3, err := initDB(pgsqlStr, mongoStr)
+	dbStr, cleanup3, err := provider.DB(pgsqlStr, mongoStr)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	sussurro, err := initSussurro()
+	sussurro, err := provider.Sussurro()
 	if err != nil {
 		cleanup3()
 		cleanup2()
