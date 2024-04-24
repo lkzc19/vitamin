@@ -1,4 +1,4 @@
-package wirex
+package initialize
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"wirez/common"
 )
 
-func initPgsql(ctx context.Context) (common.PgsqlStr, func(), error) {
+func InitPgsql(ctx context.Context) (common.PgsqlStr, func(), error) {
 	fmt.Println("=== pgsql ===")
 	fmt.Printf("=== %s ===\n", ctx.Value("foo"))
 
@@ -15,13 +15,13 @@ func initPgsql(ctx context.Context) (common.PgsqlStr, func(), error) {
 	}, nil
 }
 
-func initMongo(_ context.Context) (common.MongoStr, func(), error) {
+func InitMongo(_ context.Context) (common.MongoStr, func(), error) {
 	return "mongo", func() {
 		fmt.Println("mongo close...")
 	}, nil
 }
 
-func initDB(pgsql common.PgsqlStr, mongo common.MongoStr) (common.DBStr, func(), error) {
+func InitDB(pgsql common.PgsqlStr, mongo common.MongoStr) (common.DBStr, func(), error) {
 	fmt.Printf("测试将容器中的对象再注入到新对象中 \t %s %s\n", pgsql, mongo)
 
 	return "db", func() {
@@ -29,7 +29,7 @@ func initDB(pgsql common.PgsqlStr, mongo common.MongoStr) (common.DBStr, func(),
 	}, nil
 }
 
-func initSussurro() (common.Sussurro, error) {
+func InitSussurro() (common.Sussurro, error) {
 	fmt.Printf("测试无cleanup\n")
 	return "Sussurro", nil
 }

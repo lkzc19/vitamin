@@ -2,6 +2,7 @@ package repo
 
 import (
 	"fmt"
+	"wirez/common"
 )
 
 type IBarRepo interface {
@@ -9,17 +10,17 @@ type IBarRepo interface {
 	Bar()
 }
 
-type BarRepo string
+type BarRepo struct {
+	db common.PgsqlStr
+}
 
-func ProvideBarRepo() *BarRepo {
-	r := new(BarRepo)
-	*r = "Hello, Bar!"
-	return r
+func ProvideBarRepo(db common.PgsqlStr) *BarRepo {
+	return &BarRepo{db: db}
 }
 
 func (r *BarRepo) Bar() {
 	fmt.Println("=== BarRepo.Bar ===")
-	fmt.Println(*r)
+	fmt.Println(r.db)
 }
 
 func (r *BarRepo) Add(str *string) (*string, error) {

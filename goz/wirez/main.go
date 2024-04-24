@@ -16,4 +16,5 @@ func main() {
 
 	injector.S.FooService.HelloFoo()
 	injector.S.FooService.HelloBar()
+	injector.S.FooService.HelloBar2()
 }

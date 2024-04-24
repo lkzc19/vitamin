@@ -10,27 +10,28 @@ import (
 	"context"
 	"wirez/repo"
 	"wirez/service"
+	"wirez/wirex/initialize"
 )
 
 // Injectors from wire.go:
 
 func BuildInjector(ctx context.Context) (*Injector, func(), error) {
-	pgsqlStr, cleanup, err := initPgsql(ctx)
+	pgsqlStr, cleanup, err := initialize.InitPgsql(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
-	mongoStr, cleanup2, err := initMongo(ctx)
+	mongoStr, cleanup2, err := initialize.InitMongo(ctx)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStr, cleanup3, err := initDB(pgsqlStr, mongoStr)
+	dbStr, cleanup3, err := initialize.InitDB(pgsqlStr, mongoStr)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	sussurro, err := initSussurro()
+	sussurro, err := initialize.InitSussurro()
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -38,10 +39,12 @@ func BuildInjector(ctx context.Context) (*Injector, func(), error) {
 		return nil, nil, err
 	}
 	fooRepo := repo.ProvideFooRepo(pgsqlStr)
-	barRepo := repo.ProvideBarRepo()
+	barRepo := repo.ProvideBarRepo(pgsqlStr)
+	bar2Repo := repo.ProvideBar2Repo(pgsqlStr)
 	helloService := service.HelloService{
-		FooRepo: fooRepo,
-		BarRepo: barRepo,
+		FooRepo:  fooRepo,
+		BarRepo:  barRepo,
+		Bar2Repo: bar2Repo,
 	}
 	s := S{
 		FooService: helloService,

@@ -10,14 +10,14 @@ type IFooRepo interface {
 }
 
 type FooRepo struct {
-	DB common.PgsqlStr
+	db common.PgsqlStr
 }
 
 func ProvideFooRepo(db common.PgsqlStr) *FooRepo {
-	return &FooRepo{DB: db}
+	return &FooRepo{db: db}
 }
 
 func (foo FooRepo) Foo() {
 	fmt.Println("=== FooBar.Foo ===")
-	fmt.Println(foo.DB)
+	fmt.Println(foo.db)
 }
