@@ -1,5 +1,13 @@
 # wirez
 
+[wire官网](https://github.com/google/wire)
+
+安装命令
+
+```bash
+go install github.com/google/wire/cmd/wire@latest
+```
+
 ## wirez使用注意
 
 ### 1. inject BuildInjector: unused provider set "Set"
