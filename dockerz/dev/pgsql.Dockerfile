@@ -1,0 +1,9 @@
+FROM postgres:14
+
+LABEL describe="平时写demo使用的PostgreSQL"
+
+ENV POSTGRES_DB=demo
+ENV POSTGRES_USER=demo
+ENV POSTGRES_PASSWORD=demo
+
+EXPOSE 5432
