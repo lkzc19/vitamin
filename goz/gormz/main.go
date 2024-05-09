@@ -4,20 +4,24 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gormz/internal"
 	"gormz/internal/model"
 )
 
-func main() {
-	dsn := "host=localhost user=postgres password=123456789 dbname=demo port=5432 sslmode=disable TimeZone=Asia/Shanghai"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
+var db *gorm.DB
+
+func init() {
+	dsn := "host=localhost user=demo password=demo dbname=demo port=3432 sslmode=disable TimeZone=Asia/Shanghai"
+	gormConfig := &gorm.Config{
+		TranslateError: true,
 	}
+	db, err := gorm.Open(postgres.Open(dsn), gormConfig)
+	internal.CheckErr(err)
 	// 迁移 schema
-	err = db.AutoMigrate(&model.Product{}, &model.Foo{}, &model.Bar{})
-	if err != nil {
-		return
-	}
+	model.AutoMigrate(db)
+}
+
+func main() {
 	//// Create
 	//db.Create(&model.Product{Code: "D42", Price: 100})
 	//// Delete - 删除 product
