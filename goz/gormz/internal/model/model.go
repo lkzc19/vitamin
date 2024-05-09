@@ -6,6 +6,10 @@ import (
 )
 
 func AutoMigrate(db *gorm.DB) {
-	err := db.AutoMigrate(Product{}, Foo{}, Bar{})
+	err := db.AutoMigrate(
+		Product{},
+		Foo{},
+		Bar{},
+	)
 	internal.CheckErr(err)
 }
