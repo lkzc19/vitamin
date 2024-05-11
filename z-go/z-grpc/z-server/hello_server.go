@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	hello "z-proto"
+	"log"
+	pb "z-proto"
 )
 
 type HelloServer struct {
+	pb.UnimplementedGreeterServer
 }
 
-func (HelloServer) SayHello(context.Context, *hello.HelloRequest) (*hello.HelloReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (HelloServer) SayHello(_ context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	log.Printf("Received: %v", in.GetName())
+	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
 }
