@@ -6,7 +6,7 @@ i:
 
 .PHONY: g
 g:
-	protoc --go_out=./z-proto --go_opt=paths=source_relative --go-grpc_out=./z-proto --go-grpc_opt=paths=source_relative ./z-proto/*.proto
-	cd z-proto && rm -f go.mod go.sum
-	cd z-proto && go mod init z-proto
-	cd z-proto && go mod tidy
+	protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./v-proto/*.proto
+	cd v-proto && rm -f go.mod go.sum
+	cd v-proto && go mod init v-proto
+	cd v-proto && go mod tidy

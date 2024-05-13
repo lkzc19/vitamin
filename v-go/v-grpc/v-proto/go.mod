@@ -1,4 +1,4 @@
-module z-proto
+module v-proto
 
 go 1.22.3
 

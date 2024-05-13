@@ -1,12 +1,12 @@
-module z-server
+module v-server
 
 go 1.22.3
 
-replace z-proto => ../z-proto
+replace v-proto => ../v-proto
 
 require (
 	google.golang.org/grpc v1.63.2
-	z-proto v0.0.0-00010101000000-000000000000
+	v-proto v0.0.0-00010101000000-000000000000
 )
 
 require (
