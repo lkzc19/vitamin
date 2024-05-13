@@ -12,7 +12,7 @@ import (
 var e *casbin.Enforcer
 
 func init() {
-	dsn := "host=localhost user=postgres password=123456789 dbname=demo port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=localhost user=demo password=demo dbname=demo port=3432 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
@@ -21,27 +21,31 @@ func init() {
 	adapter, err := gormadapter.NewAdapterByDB(db)
 	checkErr(err)
 
-	e, err = casbin.NewEnforcer("model.conf", adapter)
+	e, err = casbin.NewEnforcer("model_func.conf", adapter)
 	checkErr(err)
+	e.AddFunction("pathMatcher", pathMatchFunc)
 }
 
 func main() {
 	err := e.LoadPolicy()
 	checkErr(err)
-	ok, err := e.Enforce("nahida", "data1", "read")
+
+	add()
+
+	ok, err := e.Enforce("nahida", "/foo/1")
 	checkErr(err)
 	fmt.Println(ok)
 
-	ok, err = e.Enforce("nahida", "data3", "read")
+	ok, err = e.Enforce("nahida", "/bar")
 	checkErr(err)
 	fmt.Println(ok)
 }
 
 func add() {
-	_, err := e.AddPolicy("nahida", "data1", "read", "allow", "allow")
+	_, err := e.AddPolicy("nahida", "/foo/:id")
 	checkErr(err)
-	_, err = e.AddPolicy("nahida", "data2", "read", "allow", "allow")
+	_, err = e.AddPolicy("nahida", "/bar")
 	checkErr(err)
-	_, err = e.AddPolicy("nahida", "data3", "read", "allow", "deny")
+	_, err = e.AddPolicy("hutao", "/bar")
 	checkErr(err)
 }

@@ -1,4 +1,4 @@
-module casbinz
+module v-casbin
 
 go 1.22
 

@@ -6,7 +6,7 @@ func test() {
 	err := e.LoadPolicy()
 	checkErr(err)
 	f := func() {
-		testBigData2()
+		testAddPolicies()
 	}
 	err = e.SavePolicy()
 	checkErr(err)
@@ -14,18 +14,18 @@ func test() {
 	t(f)
 }
 
-// testBigData 测试 casbin gorm 插入大量数据
+// testAddPolicy 测试 casbin gorm 插入大量数据
 // 使用 AddPolicy
-func testBigData() {
+func testAddPolicy() {
 	for i := 0; i < 200000; i++ {
 		_, err := e.AddPolicy("million"+strconv.Itoa(i), "data1", "read")
 		checkErr(err)
 	}
 }
 
-// testBigData 测试 casbin gorm 插入大量数据
-// 使用 AddPolicy
-func testBigData2() {
+// testAddPolicies 测试 casbin gorm 插入大量数据
+// 使用 AddPolicies
+func testAddPolicies() {
 	pSet := make([][][]string, 0)
 
 	p := make([][]string, 0)
