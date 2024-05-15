@@ -1,21 +1,15 @@
-import com.mongodb.ConnectionString
-import com.mongodb.MongoClientSettings
-import com.mongodb.ServerApi
-import com.mongodb.ServerApiVersion
-import com.mongodb.kotlin.client.MongoClient
+import com.mongodb.kotlin.client.coroutine.MongoClient
+import dao.AlbumDao
 
 fun main() {
-  // Replace the placeholder with your MongoDB deployment's connection string
-  val uri = "<connection string>"
-  // Set the Stable API version on the client
-  val serverApi = ServerApi.builder()
-    .version(ServerApiVersion.V1)
-    .build()
-  val settings = MongoClientSettings.builder()
-    .applyConnectionString(ConnectionString(uri))
-    .serverApi(serverApi)
-    .build()
-  // Create a new client and connect to the server
-  val mongoClient = MongoClient.create(settings)
-  val database = mongoClient.getDatabase("test")
+  val uri = "mongodb://vitamin:vitamin@127.0.0.1:23017/"
+  val mongoClient = MongoClient.create(uri)
+  val database = mongoClient.getDatabase("vitamin")
+  
+  val albumDao = AlbumDao(database)
+//  albumDao.create()
+  
+  albumDao.find()
+  
+  mongoClient.close()
 }
