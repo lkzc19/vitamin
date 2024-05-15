@@ -1,17 +1,21 @@
 package dao
 
 import com.mongodb.MongoException
+import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Projections
+import com.mongodb.client.model.UnwindOptions
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import model.Album
 import model.Music
 import org.bson.types.ObjectId
 
 class AlbumDao(database: MongoDatabase) {
-  // Get a collection of documents of type Movie
-  private val collection = database.getCollection<Album>("movie")
+  private val collection = database.getCollection<Album>("album")
   
   private val album1 = Album(
     ObjectId(),
@@ -36,7 +40,7 @@ class AlbumDao(database: MongoDatabase) {
   
   fun create() = runBlocking {
     try {
-      val result = collection.insertOne(album2)
+      val result = collection.insertOne(album1)
       println("Success! Inserted document id: " + result.insertedId)
     } catch (e: MongoException) {
       System.err.println("Unable to insert due to an error: $e")
@@ -49,6 +53,21 @@ class AlbumDao(database: MongoDatabase) {
       println(doc)
     } else {
       println("No matching documents found.")
+    }
+  }
+  
+  fun page() = runBlocking {
+    val results = collection.aggregate(
+      listOf(
+        Aggregates.unwind(
+          "\$${"musicList"}",
+          UnwindOptions().preserveNullAndEmptyArrays(true)
+        ),
+      ),
+      Music::class.java
+    ).toList()
+    for (result in results) {
+      println(result)
     }
   }
 }
