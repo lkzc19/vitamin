@@ -1,4 +1,6 @@
 # 平时写demo使用的MongoDB
+# 官方文档: https://hub.docker.com/_/mongo
+
 version: '3.1'
 
 services:
