@@ -10,3 +10,5 @@ services:
       POSTGRES_DB: vitamin
       POSTGRES_USER: vitamin
       POSTGRES_PASSWORD: vitamin
+    port:
+      - 3432:5432
