@@ -1,4 +1,12 @@
 
+.PHONY: mongo-up
+mongo-up:
+	docker-compose -f mongo.compose.yml up -d
+
+.PHONY: mongo-down
+mongo-down:
+	docker-compose -f mongo.compose.yml down
+
 .PHONY: pgsql
 pgsql:
 	docker build -t demo-pgsql -f pgsql.Dockerfile .

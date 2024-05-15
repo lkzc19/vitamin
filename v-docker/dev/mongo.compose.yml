@@ -1,0 +1,22 @@
+# 平时写demo使用的MongoDB
+version: '3.1'
+
+services:
+  # MongoDB 本体
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: vitamin
+      MONGO_INITDB_ROOT_PASSWORD: vitamin
+  # MongoDB GUI
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: vitamin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: vitamin
+      ME_CONFIG_MONGODB_URL: mongodb://vitamin:vitamin@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
