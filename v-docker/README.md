@@ -1,3 +1,4 @@
-# dockerz
+# v-docker
 
-1. mac https://github.com/sickcodes/Docker-OSX/tree/master
+- 存放开发时使用到的一些组件，使用docker快速部署进行测试。
+- 存放平时工作中使用到的组件，做一个存档，方便使用。
