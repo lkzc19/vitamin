@@ -1,0 +1,12 @@
+# 平时写demo使用的MongoDB
+version: '3.1'
+
+services:
+  # MongoDB 本体
+  pgsql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: vitamin
+      POSTGRES_USER: vitamin
+      POSTGRES_PASSWORD: vitamin
