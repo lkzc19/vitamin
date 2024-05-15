@@ -57,15 +57,19 @@ class AlbumDao(database: MongoDatabase) {
   }
   
   fun page() = runBlocking {
-    val results = collection.aggregate(
-      listOf(
-        Aggregates.unwind(
-          "\$${"musicList"}",
-          UnwindOptions().preserveNullAndEmptyArrays(true)
-        ),
+    val pipeline = listOf(
+      Aggregates.unwind(
+        "\$${"musicList"}",
       ),
-      Music::class.java
-    ).toList()
+      Aggregates.project(
+        Projections.fields(
+          Projections.excludeId(),
+          Projections.computed("title", "\$musicList.title")
+        )
+      )
+    )
+    println(pipeline)
+    val results = collection.aggregate(pipeline, Music::class.java).toList()
     for (result in results) {
       println(result)
     }

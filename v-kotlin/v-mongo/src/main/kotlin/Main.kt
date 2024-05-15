@@ -7,7 +7,7 @@ fun main() {
   val database = mongoClient.getDatabase("vitamin")
   
   val albumDao = AlbumDao(database)
-  albumDao.create()
+//  albumDao.create()
   
 //  albumDao.find()
   
