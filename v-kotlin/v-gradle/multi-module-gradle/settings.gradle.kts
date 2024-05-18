@@ -10,3 +10,7 @@ plugins {
 }
 
 rootProject.name = "multi-module-gradle"
+include("mmg-foo")
+include("mmg-bar")
+include("mmg-common")
+include("mmg-app")
