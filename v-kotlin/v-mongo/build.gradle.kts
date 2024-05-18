@@ -11,10 +11,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:5.1.0")
-    implementation("org.mongodb:bson-kotlinx:5.1.0")
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("ch.qos.logback:logback-classic:1.2.11")
+    implementation(mongo.driver)
+    implementation(mongo.bson)
+    implementation(log.slf4j)
+    implementation(log.logback)
     testImplementation(kotlin("test"))
 }
 
