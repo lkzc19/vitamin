@@ -1,4 +1,4 @@
-# 平时写demo使用的MongoDB
+# 平时写demo使用的Redis
 version: '3.1'
 
 services:
@@ -6,5 +6,5 @@ services:
   redis:
     image: redis
     restart: always
-    port:
+    ports:
       - 3379:6379

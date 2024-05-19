@@ -1,4 +1,4 @@
-# 平时写demo使用的MongoDB
+# 平时写demo使用的PostgreSQL
 version: '3.1'
 
 services:
@@ -10,5 +10,5 @@ services:
       POSTGRES_DB: vitamin
       POSTGRES_USER: vitamin
       POSTGRES_PASSWORD: vitamin
-    port:
+    ports:
       - 3432:5432
