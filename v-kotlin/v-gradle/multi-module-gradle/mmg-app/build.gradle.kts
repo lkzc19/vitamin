@@ -11,7 +11,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    implementation(project(":mmg-foo"))
+    implementation(project(":mmg-bar"))
+    testImplementation(libs.kotlin.test)
+
 }
 
 tasks.test {

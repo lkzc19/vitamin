@@ -10,7 +10,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    implementation(project(":mmg-common"))
+    testImplementation(libs.kotlin.test)
 }
 
 tasks.test {
