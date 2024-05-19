@@ -14,3 +14,11 @@ pgsql-up:
 .PHONY: pgsql-down
 pgsql-down:
 	docker-compose -f pgsql.compose.yml down
+
+.PHONY: redis-up
+redis-up:
+	docker-compose --project-name v-redis -f redis.compose.yml up -d
+
+.PHONY: redis-down
+redis-down:
+	docker-compose -f redis.compose.yml down

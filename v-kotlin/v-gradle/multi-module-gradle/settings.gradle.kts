@@ -24,3 +24,5 @@ include("mmg-foo")
 include("mmg-bar")
 include("mmg-common")
 include("mmg-app")
+
+includeBuild("gradle/license-plugin")

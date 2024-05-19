@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.22"
     application
+    id("org.example.greeting")
 }
 
 group = "org.example"
