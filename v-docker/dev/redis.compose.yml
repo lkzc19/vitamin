@@ -1,0 +1,10 @@
+# 平时写demo使用的MongoDB
+version: '3.1'
+
+services:
+  # MongoDB 本体
+  redis:
+    image: redis
+    restart: always
+    port:
+      - 3379:6379
