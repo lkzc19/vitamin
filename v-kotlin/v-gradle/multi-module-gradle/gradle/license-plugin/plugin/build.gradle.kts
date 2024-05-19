@@ -59,6 +59,11 @@ gradlePlugin {
         id = "org.example.greeting"
         implementationClass = "org.example.LicensePlugin"
     }
+    
+    val license by plugins.creating {
+        id = "org.example.license"
+        implementationClass = "org.example.LicensePlugin"
+    }
 }
 
 gradlePlugin.testSourceSets.add(sourceSets["functionalTest"])
