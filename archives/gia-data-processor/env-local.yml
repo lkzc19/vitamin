@@ -1,0 +1,34 @@
+
+pg:
+  host: 192.168.0.40
+  port: 5432
+  database: giakt
+  user: giakt
+  password: giakt
+
+rc:
+  baseUrl: http://192.168.0.40:3000
+  bot:
+    user: CKMRO.Bot
+    password: 111111
+  white:
+    - laidingqing
+    - chenqiong
+    - huangxm
+    - limin
+    - linhong
+    - liwz
+    - wulf
+    - zhuangfy
+    - luoyu
+    - huangsy
+    - lifu
+    - wangzb
+    - linhh
+    - zhucheng
+    - longxt
+    - daizj
+    - yejh
+    - rocket.cat
+    - bot
+    - CKMRO.Bo

@@ -1,0 +1,1 @@
+python .\main.py --env dev user_info --aid 5ffeb6af60c9930001a87851 
