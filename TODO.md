@@ -4,3 +4,5 @@
 - [] ktor plugin Demo - 参考JWT
 - [] exposed Demo
 - [] ElasticSearch Demo
+- [] nats
+- [] Rocket.Chat
