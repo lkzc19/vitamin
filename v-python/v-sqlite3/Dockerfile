@@ -6,5 +6,7 @@ WORKDIR /app
 # 复制 Python 程序文件到镜像中
 COPY . .
 
+VOLUME /app/db
+
 # 指定程序入口点
 CMD ["python", "main.py"]
