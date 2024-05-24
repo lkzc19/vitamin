@@ -1,11 +1,11 @@
-module gormz
+module v-gorm
 
-go 1.22
+go 1.22.3
 
 require (
 	github.com/shopspring/decimal v1.4.0
 	gorm.io/driver/postgres v1.5.7
-	gorm.io/gorm v1.25.9
+	gorm.io/gorm v1.25.10
 )
 
 require (

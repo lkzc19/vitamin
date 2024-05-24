@@ -2,12 +2,11 @@ package model
 
 import (
 	"gorm.io/gorm"
-	"gormz/internal"
+	"v-gorm/internal"
 )
 
 func AutoMigrate(db *gorm.DB) {
 	err := db.AutoMigrate(
-		Product{},
 		Foo{},
 		Bar{},
 	)

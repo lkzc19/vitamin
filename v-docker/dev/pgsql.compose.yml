@@ -2,7 +2,7 @@
 version: '3.1'
 
 services:
-  # MongoDB 本体
+  # pgsql 本体
   pgsql:
     image: postgres
     restart: always

@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"gormz/internal"
-	"gormz/internal/model"
+	"v-gorm/internal"
+	"v-gorm/internal/model"
 )
 
 var DB *gorm.DB
 var err error
 
 func init() {
-	dsn := "host=localhost user=demo password=demo dbname=demo port=3432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=localhost user=vitamin password=vitamin dbname=vitamin port=3432 sslmode=disable TimeZone=Asia/Shanghai"
 	gormConfig := &gorm.Config{
 		TranslateError: true,
 	}
@@ -23,7 +23,7 @@ func init() {
 }
 
 func main() {
-	//InsertTestData()
-	FindMax()
-	fmt.Println("=== End ===")
+	fmt.Println("hello gorm")
+	var transactionRepo = TransactionRepo{DB: DB}
+	transactionRepo.T2()
 }
