@@ -8,7 +8,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -d --name v-flask -p 3000:3000 v-flask:latest
+	docker run -d --name v-flask -p 4000:4000 v-flask:latest
 
 .PHONY: all
 all: build run
