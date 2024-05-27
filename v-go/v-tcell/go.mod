@@ -1,4 +1,4 @@
-module tcellz
+module v-tcell
 
 go 1.21
 
