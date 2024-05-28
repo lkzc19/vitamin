@@ -1,1 +1,1 @@
-rootProject.name = "upload-spring"
+rootProject.name = "upload"

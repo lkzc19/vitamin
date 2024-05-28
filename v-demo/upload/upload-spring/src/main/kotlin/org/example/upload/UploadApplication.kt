@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UploadSpringApplication
+class UploadApplication
 
 fun main(args: Array<String>) {
-	runApplication<UploadSpringApplication>(*args)
+	runApplication<UploadApplication>(*args)
 }
