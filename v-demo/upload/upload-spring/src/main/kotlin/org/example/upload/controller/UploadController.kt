@@ -4,4 +4,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class UploadController {
+
+    val uploadDir = "../../tmp/upload"
+
+
 }
