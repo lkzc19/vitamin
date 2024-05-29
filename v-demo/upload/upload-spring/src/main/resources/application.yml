@@ -1,0 +1,16 @@
+server:
+  port: 3000
+
+vitamin:
+  upload-path: C:/tmp/
+
+spring:
+  application:
+    name: upload
+  mvc:
+    static-path-pattern: /file/**
+  web:
+    resources:
+      static-locations: file:${vitamin.upload-path}
+
+
