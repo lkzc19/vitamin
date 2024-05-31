@@ -1,28 +1,8 @@
 
-.PHONY: mongo-up
-mongo-up:
-	docker-compose --project-name v-mongo -f mongo.compose.yml up -d
+.PHONY: up
+up:
+	docker-compose --project-name v-${name} -f v-${name}.yml up -d
 
-.PHONY: mongo-down
-mongo-down:
-	docker-compose -f mongo.compose.yml down
-
-.PHONY: pgsql-up
-pgsql-up:
-	docker-compose --project-name v-pgsql -f pgsql.compose.yml up -d
-
-.PHONY: pgsql-down
-pgsql-down:
-	docker-compose -f pgsql.compose.yml down
-
-.PHONY: redis-up
-redis-up:
-	docker-compose --project-name v-redis -f redis.compose.yml up -d
-
-.PHONY: redis-down
-redis-down:
-	docker-compose -f redis.compose.yml down
-
-.PHONY: nats-up
-nats-up:
-	docker-compose --project-name v-nats -f v-nats.yml up -d
+.PHONY: down
+down:
+	docker-compose -f v-${name}.yml down
