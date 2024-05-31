@@ -22,3 +22,7 @@ redis-up:
 .PHONY: redis-down
 redis-down:
 	docker-compose -f redis.compose.yml down
+
+.PHONY: nats-up
+nats-up:
+	docker-compose --project-name v-nats -f v-nats.yml up -d
