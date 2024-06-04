@@ -34,14 +34,17 @@ class FileServiceImpl : FileService {
         return "todo"
     }
 
-    private fun saveFileByRandomAccessFile(fullFilename: String, param: FileChunkParam) {
+    private fun saveFileByRandomAccessFile(fullFilename: String, param: FileChunkParam): Boolean {
         RandomAccessFile(fullFilename, "rw").use {
-            val chunksize = if (param.chunkSize == 0L) {
+            val chunkSize = if (param.chunkSize == 0L) {
                 defaultChunkSize
             } else {
                 param.chunkSize
             }
+            val offset = chunkSize * (param.chunkSize - 1)
+            it.seek(offset)
+            it.write(param.file.bytes)
         }
-
+        return true
     }
 }
