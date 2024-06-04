@@ -6,7 +6,7 @@ data class FileChunkParam(
     val chunkNumber: Int,
     val totalChunks: Int,
     val chunkSize: Long,
-    val currentChunkSize: Int,
+    val currentChunkSize: Long,
     val totalSize: Int,
     val identifier: String,
     val relativePath: String,
