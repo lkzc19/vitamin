@@ -24,7 +24,7 @@ class FileServiceImpl : FileService {
         val fullFilename = uploadDir + File.separator + param.filename
 
         if (param.totalChunks == 1) {
-            this.save(param.file)
+            this.save(fullFilename, param.file)
         }
         
         val flag = saveFileByRandomAccessFile(fullFilename, param)
@@ -32,9 +32,9 @@ class FileServiceImpl : FileService {
         return "todo"
     }
     
-    override fun save(file: MultipartFile): String {
+    override fun save(finalFilename: String, file: MultipartFile): String {
         // 可以加一些如 目录是否存在的判断 | 文件是否已存在 | 文件名md5&映射
-        file.transferTo(File(uploadDir + File.separator + file.originalFilename)) // 将文件保存到指定路径
+        file.transferTo(File(finalFilename)) // 将文件保存到指定路径
         return prefix + file.originalFilename
     }
     

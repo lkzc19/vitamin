@@ -7,5 +7,5 @@ interface FileService {
 
     fun save(param: FileChunkParam): String
     
-    fun save(file: MultipartFile): String
+    fun save(finalFilename: String, file: MultipartFile): String
 }

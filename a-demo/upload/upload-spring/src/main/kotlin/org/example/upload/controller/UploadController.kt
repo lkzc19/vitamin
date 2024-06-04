@@ -50,7 +50,8 @@ class UploadController {
                 return "目录创建失败"
             }
         }
-        return fileService.save(file)
+        val fullFilename = uploadDir + File.separator + file.originalFilename
+        return fileService.save(fullFilename, file)
     }
 
     @GetMapping("/download/{filename}")
