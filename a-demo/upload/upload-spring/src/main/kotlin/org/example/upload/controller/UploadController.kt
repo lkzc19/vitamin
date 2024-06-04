@@ -2,6 +2,9 @@ package org.example.upload.controller
 
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.commons.io.FileUtils
+import org.example.upload.param.FileChunkParam
+import org.example.upload.service.FileService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -17,6 +20,20 @@ class UploadController {
     lateinit var uploadDir: String
 
     val prefix = "localhost:3000/file/"
+
+    @Autowired
+    lateinit var fileService: FileService
+
+    /**
+     * 分片上传
+     */
+    @PostMapping("/upload")
+    fun handlePartUpload(@ModelAttribute param: FileChunkParam): String {
+
+        fileService.save(param)
+        println(param.identifier)
+        return "foo"
+    }
 
     /**
      * 简单文件上传
@@ -36,12 +53,6 @@ class UploadController {
         // 可以加一些如 目录是否存在的判断 | 文件是否已存在 | 文件名md5&映射
         file.transferTo(File(uploadDir + file.originalFilename)) // 将文件保存到指定路径
         return prefix + file.originalFilename
-    }
-
-    @PostMapping("/upload.part")
-    fun handlePartUpload(@RequestParam("file") file: MultipartFile): String {
-
-        TODO()
     }
 
     @GetMapping("/download/{filename}")

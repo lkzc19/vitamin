@@ -1,4 +1,8 @@
 package org.example.upload.service
 
-class FileService {
+import org.example.upload.param.FileChunkParam
+
+interface FileService {
+
+    fun save(param: FileChunkParam): String
 }
