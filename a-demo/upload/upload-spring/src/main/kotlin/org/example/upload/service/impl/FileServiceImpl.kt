@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.RandomAccessFile
+import java.nio.channels.FileChannel
+
 
 @Service
 class FileServiceImpl : FileService {
@@ -21,11 +23,12 @@ class FileServiceImpl : FileService {
     override fun save(param: FileChunkParam): String {
         val fullFilename = uploadDir + File.separator + param.filename
 
-//        if (param.totalChunks == 1) {
-//            TODO()
-//        }
-
-
+        if (param.totalChunks == 1) {
+            this.save(param.file)
+        }
+        
+        val flag = saveFileByRandomAccessFile(fullFilename, param)
+        
         return "todo"
     }
     
@@ -35,17 +38,38 @@ class FileServiceImpl : FileService {
         return prefix + file.originalFilename
     }
     
-    private fun saveFileByRandomAccessFile(fullFilename: String, param: FileChunkParam): Boolean {
-        RandomAccessFile(fullFilename, "rw").use {
+    private fun saveFileByRandomAccessFile(finalFilename: String, param: FileChunkParam): Boolean {
+        RandomAccessFile(finalFilename, "rw").use {
             val chunkSize = if (param.chunkSize == 0L) {
                 defaultChunkSize
             } else {
                 param.chunkSize
             }
-            val offset = chunkSize * (param.chunkSize - 1)
+            val offset = chunkSize * (param.chunkNumber - 1)
             it.seek(offset)
             it.write(param.file.bytes)
         }
         return true
     }
+    
+    private fun saveFileByMappedByteBuffer(finalFilename: String, param: FileChunkParam): Boolean {
+        RandomAccessFile(finalFilename, "rw").use { raf ->
+            raf.channel.use {
+                val chunkSize = if (param.chunkSize == 0L) {
+                    defaultChunkSize
+                } else {
+                    param.chunkSize
+                }
+                val offset = chunkSize * (param.chunkNumber - 1)
+                val fileBytes = param.file.bytes
+                val mappedByteBuffer = it.map(FileChannel.MapMode.READ_WRITE, offset, fileBytes.size.toLong())
+                mappedByteBuffer.put(fileBytes)
+                mappedByteBuffer.force()
+                // TODO 即使清除mappedByteBuffer中的数据
+            }
+        }
+        return true
+    }
+    
+    
 }
