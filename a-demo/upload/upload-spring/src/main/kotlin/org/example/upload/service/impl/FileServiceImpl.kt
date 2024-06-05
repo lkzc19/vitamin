@@ -25,6 +25,7 @@ class FileServiceImpl : FileService {
 
         if (param.totalChunks == 1) {
             this.save(fullFilename, param.file)
+            return true
         }
         
         return saveFileByRandomAccessFile(fullFilename, param)

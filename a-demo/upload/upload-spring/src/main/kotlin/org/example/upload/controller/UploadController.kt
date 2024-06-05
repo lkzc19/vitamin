@@ -26,7 +26,7 @@ class UploadController {
     lateinit var fileService: FileService
 
     /**
-     * 分片上传
+     * 分块上传
      */
     @PostMapping("/upload")
     fun handlePostUpload(@ModelAttribute param: FileChunkParam): String {
@@ -40,15 +40,6 @@ class UploadController {
         }
         
         fileService.save(param)
-        return param.identifier
-    }
-
-    /**
-     * 分片上传
-     */
-    @GetMapping("/upload")
-    fun handleGetUpload(@ModelAttribute param: FileChunkParam): String {
-        logger.info("handleGetUpload: ${param.identifier}")
         return param.identifier
     }
 
