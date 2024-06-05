@@ -2,6 +2,7 @@ package org.example.upload.controller
 
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.commons.io.FileUtils
+import org.apache.juli.logging.LogFactory
 import org.example.upload.param.FileChunkParam
 import org.example.upload.service.FileService
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,6 +17,8 @@ import java.net.URLEncoder
 @RestController
 class UploadController {
 
+    private val logger = LogFactory.getLog(UploadController::class.java)
+
     @Value("\${vitamin.upload-path}")
     lateinit var uploadDir: String
 
@@ -26,7 +29,9 @@ class UploadController {
      * 分片上传
      */
     @PostMapping("/upload")
-    fun handleUpload(@ModelAttribute param: FileChunkParam): String {
+    fun handlePostUpload(@ModelAttribute param: FileChunkParam): String {
+        logger.info("handlePostUpload: ${param.identifier}")
+
         val dir = File(uploadDir)
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
@@ -35,8 +40,16 @@ class UploadController {
         }
         
         fileService.save(param)
-        println(param.identifier)
-        return "foo"
+        return param.identifier
+    }
+
+    /**
+     * 分片上传
+     */
+    @GetMapping("/upload")
+    fun handleGetUpload(@ModelAttribute param: FileChunkParam): String {
+        logger.info("handleGetUpload: ${param.identifier}")
+        return param.identifier
     }
 
     /**

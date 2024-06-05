@@ -20,16 +20,14 @@ class FileServiceImpl : FileService {
     @Value("\${vitamin.upload-path}")
     lateinit var uploadDir: String
 
-    override fun save(param: FileChunkParam): String {
+    override fun save(param: FileChunkParam): Boolean {
         val fullFilename = uploadDir + File.separator + param.filename
 
         if (param.totalChunks == 1) {
             this.save(fullFilename, param.file)
         }
         
-        val flag = saveFileByRandomAccessFile(fullFilename, param)
-        
-        return "todo"
+        return saveFileByRandomAccessFile(fullFilename, param)
     }
     
     override fun save(finalFilename: String, file: MultipartFile): String {

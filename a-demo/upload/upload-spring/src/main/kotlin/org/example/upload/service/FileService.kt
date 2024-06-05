@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile
 
 interface FileService {
 
-    fun save(param: FileChunkParam): String
+    fun save(param: FileChunkParam): Boolean
     
     fun save(finalFilename: String, file: MultipartFile): String
 }
