@@ -1,11 +1,11 @@
 # v-kotlin/java
 
-- [] nio
+- [ ] nio
 
 # v-go
 
-- [] lib - tcell
-- [] lib - gonum
+- [ ] lib - tcell
+- [ ] lib - gonum
 
 # p-gof
 
