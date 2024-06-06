@@ -12,8 +12,9 @@ fun main() {
         .server("nats://0.0.0.0:3224")
         .maxReconnects(-1)
         .build()
-    val nc: Connection = Nats.connect(o)
+    val nc = Nats.connect(o)
 
+    val js = nc.jetStream()
     nc.publish("vitamin.nahida", "hello world".toByteArray(StandardCharsets.UTF_8))
 
     Thread.sleep(5000)

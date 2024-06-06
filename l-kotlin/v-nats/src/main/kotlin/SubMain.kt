@@ -1,7 +1,5 @@
 
-import io.nats.client.Connection
-import io.nats.client.Nats
-import io.nats.client.Options
+import io.nats.client.*
 import java.nio.charset.StandardCharsets
 
 fun main() {
@@ -11,23 +9,24 @@ fun main() {
         .server("nats://0.0.0.0:3224")
         .maxReconnects(-1)
         .build()
-    val nc: Connection = Nats.connect(o)
+    val nc = Nats.connect(o)
 
-    println("=== nats info ===")
-    println(nc.statistics)
-    println(nc.clientInetAddress)
-    println(nc.status)
-    println("=== nats info ===")
+//    val d = nc.createDispatcher {  }
+//
+//    val s = d.subscribe("vitamin.nahida") { msg ->
+//        val response = String(msg.data, StandardCharsets.UTF_8)
+//        println("Message received (up to 100 times): $response")
+//    }
+//
+//    d.unsubscribe(s, 100);
 
+    val d: Dispatcher = nc.createDispatcher { msg: Message? -> }
 
-    val d = nc.createDispatcher {  }
-
-    val s = d.subscribe("vitamin.nahida") { msg ->
+    val s: Subscription = d.subscribe("vitamin.nahida") { msg ->
         val response = String(msg.data, StandardCharsets.UTF_8)
         println("Message received (up to 100 times): $response")
     }
-
-    d.unsubscribe(s, 100);
+    d.unsubscribe(s, 100)
 
     println("+++")
 }
