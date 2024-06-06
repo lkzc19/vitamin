@@ -1,3 +1,4 @@
+
 import io.nats.client.Connection
 import io.nats.client.Nats
 import io.nats.client.Options
@@ -6,27 +7,27 @@ import java.nio.charset.StandardCharsets
 fun main() {
     println("---")
 
-    val o: Options = Options.Builder()
-        .server("nats://0.0.0.0:4222")
+    val o = Options.Builder()
+        .server("nats://0.0.0.0:3224")
         .maxReconnects(-1)
         .build()
     val nc: Connection = Nats.connect(o)
 
-    println("=====")
+    println("=== nats info ===")
     println(nc.statistics)
-    println("=====")
     println(nc.clientInetAddress)
-    println("=====")
     println(nc.status)
+    println("=== nats info ===")
 
 
-//    val d = nc.createDispatcher {
-//        val response = it.data.toString(StandardCharsets.UTF_8)
-//        println(response)
-//    }
-//
-//    d.subscribe("Test")
+    val d = nc.createDispatcher {  }
 
-    Thread.sleep(5000)
+    val s = d.subscribe("vitamin.nahida") { msg ->
+        val response = String(msg.data, StandardCharsets.UTF_8)
+        println("Message received (up to 100 times): $response")
+    }
+
+    d.unsubscribe(s, 100);
+
     println("+++")
 }
