@@ -11,22 +11,15 @@ fun main() {
         .build()
     val nc = Nats.connect(o)
 
-//    val d = nc.createDispatcher {  }
-//
-//    val s = d.subscribe("vitamin.nahida") { msg ->
-//        val response = String(msg.data, StandardCharsets.UTF_8)
-//        println("Message received (up to 100 times): $response")
-//    }
-//
-//    d.unsubscribe(s, 100);
+    val d = nc.createDispatcher {  }
 
-    val d: Dispatcher = nc.createDispatcher { msg: Message? -> }
-
-    val s: Subscription = d.subscribe("vitamin.nahida") { msg ->
+    val s = d.subscribe("vitamin.nahida") { msg ->
         val response = String(msg.data, StandardCharsets.UTF_8)
         println("Message received (up to 100 times): $response")
     }
-    d.unsubscribe(s, 100)
+
+    d.unsubscribe(s, 100);
 
     println("+++")
+    nc.close()
 }

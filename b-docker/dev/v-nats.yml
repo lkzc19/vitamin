@@ -1,4 +1,7 @@
 # https://docs.nats.io/running-a-nats-service/nats_docker
+
+# docker run --network nats --rm -it natsio/nats-box
+# nats sub -s nats://nats-0:4222 vitamin.nahida
 version: "3.5"
 
 services:
@@ -8,18 +11,31 @@ services:
       - "3228:8222"
       - "3226:6222"
       - "3224:4222"
-    command: "--cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222"
+    command: >
+      --cluster_name NATS 
+      --server_name nats-0 
+      --cluster nats://0.0.0.0:6222 
+      --http_port 8222 
+      --js 
+      -sd /jetstream
+      --routes nats://ruser:T0pS3cr3t@nats-1:6222,nats://ruser:T0pS3cr3t@nats-2:6222
     networks: ["nats"]
+    volumes:
+      - ../../tmp/jetstream:/jetstream
   nats-1:
     image: nats
-    command: "--cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222"
+    command: "--cluster_name NATS --server_name nats-1 --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222 --js -sd /jetstream"
     networks: ["nats"]
     depends_on: ["nats-0"]
+    volumes:
+      - ../../tmp/jetstream:/jetstream
   nats-2:
     image: nats
-    command: "--cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222"
+    command: "--cluster_name NATS --server_name nats-2 --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222 --js -sd /jetstream"
     networks: ["nats"]
     depends_on: ["nats-0"]
+    volumes:
+      - ../../tmp/jetstream:/jetstream
 
 networks:
   nats:

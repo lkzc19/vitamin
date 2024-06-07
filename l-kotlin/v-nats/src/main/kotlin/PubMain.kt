@@ -14,9 +14,10 @@ fun main() {
         .build()
     val nc = Nats.connect(o)
 
-    val js = nc.jetStream()
     nc.publish("vitamin.nahida", "hello world".toByteArray(StandardCharsets.UTF_8))
 
     Thread.sleep(5000)
     println("+++")
+
+    nc.close()
 }
