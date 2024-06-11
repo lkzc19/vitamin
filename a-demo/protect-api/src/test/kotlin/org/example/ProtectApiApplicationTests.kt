@@ -8,6 +8,8 @@ class ProtectApiApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		println(System.currentTimeMillis())
+		println(System.currentTimeMillis() - 60000)
 	}
 
 }
