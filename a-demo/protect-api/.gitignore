@@ -17,7 +17,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-
+.idea
 !.idea/gradle.xml
 !.idea/kotlinc.xml
 !.idea/misc.xml
