@@ -1,4 +1,4 @@
-package org.example.protectapi
+package org.example
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
