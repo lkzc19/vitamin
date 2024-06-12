@@ -76,7 +76,9 @@ class SignInterceptor : HandlerInterceptor {
     
     private fun verifySign(params: SortedMap<String, String>, signHeader: SignHeader): Boolean {
         val tmp = signHeader.nonce + signHeader.timestamp + JsonUtils.object2Json(params)
+        println(tmp)
         val sign = DigestUtils.md5DigestAsHex(tmp.toByteArray()).uppercase(Locale.getDefault())
+        println(sign)
         return sign == signHeader.sign
     }
 }
@@ -120,13 +122,19 @@ class SignRequestWrapper(request: HttpServletRequest) : HttpServletRequestWrappe
     override fun getReader(): BufferedReader {
         return BufferedReader(InputStreamReader(getInputStream()))
     }
-    
+
+    /**
+     * 简单demo body没有嵌套处理
+     */
     fun getParams(): SortedMap<String, String> {
         val result = TreeMap<String, String>()
         
         // body
         val body = String(requestBody!!)
-        result.putAll(JsonUtils.json2Object(body, Map::class.java) as Map<String, String>)
+        JsonUtils.json2Object(body, Map::class.java)
+            .mapKeys { (key, _) -> key.toString() }
+            .mapValues { (_, value) -> value.toString() }
+            .let { result.putAll(it) }
         if (this.queryString == null) {
             return result
         }

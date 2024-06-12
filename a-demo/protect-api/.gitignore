@@ -21,6 +21,7 @@ bin/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/git_toolbox_prj.xml
 *.iws
 *.iml
 *.ipr
