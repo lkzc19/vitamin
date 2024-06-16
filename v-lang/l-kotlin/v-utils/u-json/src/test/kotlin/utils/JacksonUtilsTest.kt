@@ -3,7 +3,6 @@ package utils
 import com.fasterxml.jackson.core.type.TypeReference
 import org.example.model.Foo4Jackson
 import org.example.utils.JacksonUtils
-import kotlin.reflect.typeOf
 import kotlin.test.Test
 
 class JacksonUtilsTest {
