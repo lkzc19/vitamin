@@ -1,5 +1,6 @@
 package org.example.controller.interceptor
 
+import com.fasterxml.jackson.core.type.TypeReference
 import jakarta.servlet.ReadListener
 import jakarta.servlet.ServletInputStream
 import jakarta.servlet.http.HttpServletRequest
@@ -131,10 +132,8 @@ class SignRequestWrapper(request: HttpServletRequest) : HttpServletRequestWrappe
         
         // body
         val body = String(requestBody!!)
-        JsonUtils.json2Object(body, Map::class.java)
-            .mapKeys { (key, _) -> key.toString() }
-            .mapValues { (_, value) -> value.toString() }
-            .let { result.putAll(it) }
+        val map = JsonUtils.json2Object(body, object : TypeReference<Map<String, String>>() {})
+        result.putAll(map)
         if (this.queryString == null) {
             return result
         }
