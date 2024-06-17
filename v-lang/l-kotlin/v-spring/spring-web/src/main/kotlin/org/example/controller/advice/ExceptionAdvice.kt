@@ -25,6 +25,7 @@ class ExceptionAdvice {
         logger.error("ExceptionAdvice ${bizErrorResult.error}", e)
         return ResponseEntity(bizErrorResult, HttpStatus.INTERNAL_SERVER_ERROR)
     }
+
 }
 
 data class BizErrorResult(
