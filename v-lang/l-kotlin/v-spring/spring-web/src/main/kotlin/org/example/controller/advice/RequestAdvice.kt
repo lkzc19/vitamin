@@ -1,5 +1,6 @@
 package org.example.controller.advice
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.slf4j.LoggerFactory
 import org.springframework.core.MethodParameter
 import org.springframework.http.HttpInputMessage
@@ -11,14 +12,14 @@ import java.lang.reflect.Type
 @RestControllerAdvice
 class RequestAdvice : RequestBodyAdviceAdapter() {
 
-    private val logger = LoggerFactory.getLogger(RequestAdvice::class.java)
+    private val logger = KotlinLogging.logger {}
 
     override fun supports(
         methodParameter: MethodParameter,
         targetType: Type,
         converterType: Class<out HttpMessageConverter<*>>
     ): Boolean {
-        logger.info("RequestAdvice supports...")
+        logger.info { "RequestAdvice supports..." }
         return true
     }
 
@@ -28,7 +29,7 @@ class RequestAdvice : RequestBodyAdviceAdapter() {
         targetType: Type,
         converterType: Class<out HttpMessageConverter<*>>
     ): HttpInputMessage {
-        logger.info("RequestAdvice beforeBodyRead...")
+        logger.info { "RequestAdvice beforeBodyRead..." }
         return super.beforeBodyRead(inputMessage, parameter, targetType, converterType)
     }
 
