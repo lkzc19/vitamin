@@ -15,5 +15,6 @@ fun main() {
 }
 
 fun Application.module() {
-    configureRouting()
+    routerModule()
+    headerModule()
 }

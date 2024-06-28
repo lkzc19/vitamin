@@ -1,6 +1,5 @@
 package com.example.client
 
-import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 
@@ -26,5 +25,15 @@ class VitaminClientTest {
     @Test
     fun retry401() = runBlocking {
         client.retry401()
+    }
+
+    @Test
+    fun timeout() = runBlocking {
+        client.timeout()
+    }
+
+    @Test
+    fun fake() = runBlocking {
+        client.fake()
     }
 }
