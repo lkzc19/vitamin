@@ -1,0 +1,31 @@
+# https://hub.docker.com/r/bitnami/prometheus
+version: "3.5"
+
+services:
+  # docker 日志收集
+  cadvisor:
+    image: google/cadvisor
+    container_name: cadvisor
+    restart: always
+    ports:
+      - "3080:8080"
+    networks: ["prometheus"]
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
+  prometheus:
+    image: bitnami/prometheus
+    container_name: prometheus
+    ports:
+      - 3090:9090
+    networks: ["prometheus"]
+    volumes:
+      - ../../tmp/prometheus:/opt/bitnami/prometheus/data
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+
+networks:
+  prometheus:
+    name: prometheus

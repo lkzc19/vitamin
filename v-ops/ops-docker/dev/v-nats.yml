@@ -7,6 +7,7 @@ version: "3.5"
 services:
   nats-0:
     image: nats
+    container_name: nats-0
     ports:
       - "3228:8222"
       - "3226:6222"
@@ -24,6 +25,7 @@ services:
       - ../../tmp/jetstream:/jetstream
   nats-1:
     image: nats
+    container_name: nats-1
     command: "--cluster_name NATS --server_name nats-1 --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222 --js -sd /jetstream"
     networks: ["nats"]
     depends_on: ["nats-0"]
@@ -31,6 +33,7 @@ services:
       - ../../tmp/jetstream:/jetstream
   nats-2:
     image: nats
+    container_name: nats-2
     command: "--cluster_name NATS --server_name nats-2 --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats-0:6222 --js -sd /jetstream"
     networks: ["nats"]
     depends_on: ["nats-0"]
