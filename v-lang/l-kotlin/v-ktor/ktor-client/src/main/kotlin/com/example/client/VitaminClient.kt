@@ -44,7 +44,7 @@ class VitaminClient {
                 when {
                     cause.isTimeoutException() -> false
                     cause is CancellationException -> false
-                    cause.cause is IOException -> {
+                    cause is IOException -> {
                         logger.error { "服务 ${request.host} 未开启" }
                         false
                     }
@@ -99,6 +99,12 @@ suspend fun VitaminClient.timeout() {
 }
 
 suspend fun VitaminClient.fake() {
+    // 本来随便写的域名 没想到会被转发||-_-
     val response = client.get("https://vitamin.xyz/")
+    logger.info { response }
+}
+
+suspend fun VitaminClient.fakeIP() {
+    val response = client.get("http://127.0.0.1:3333/")
     logger.info { response }
 }

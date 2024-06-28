@@ -36,4 +36,9 @@ class VitaminClientTest {
     fun fake() = runBlocking {
         client.fake()
     }
+
+    @Test
+    fun fakeIP() = runBlocking {
+        client.fakeIP()
+    }
 }
