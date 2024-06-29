@@ -1,4 +1,4 @@
-package adapter
+package structural.adapter
 
 fun main() {
     val hole = RoundHole(5)

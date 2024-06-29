@@ -1,4 +1,4 @@
-package strategy
+package behavioral.strategy
 
 class Context(private val strategy: Strategy) {
     fun executeStrategy(userId: String, message: String) {
