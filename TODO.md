@@ -21,3 +21,4 @@ mysqld-exporter 用于MySQL数据库数据收集
 Cadvisor 用于收集宿主机上的docker容器数据
 Grafana是一个开源的功能丰富的数据可视化平台，通常用于时序数据的可视化。
 
+微软免费的埋点工具【clarity】
