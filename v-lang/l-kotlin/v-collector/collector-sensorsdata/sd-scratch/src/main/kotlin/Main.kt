@@ -6,7 +6,7 @@ import com.sensorsdata.analytics.javasdk.consumer.BatchConsumer
 
 
 fun main() {
-    val batchConsumer = BatchConsumer("http://127.0.0.1:3333")
+    val batchConsumer = BatchConsumer("http://127.0.0.1:3000")
     val sa = SensorsAnalytics(batchConsumer)
 
     // 用户的 Distinct ID
