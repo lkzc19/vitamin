@@ -10,7 +10,7 @@ fun main() {
     val sa = SensorsAnalytics(batchConsumer)
 
     // 用户的 Distinct ID
-    val distinctId = "ABCDEF123456789"
+    val distinctId = "nahida"
 
     // 记录用户登录事件
     val loginRecord = EventRecord.builder()
@@ -18,6 +18,5 @@ fun main() {
         .isLoginId(true)
         .setEventName("UserLogin")
         .build()
-
     sa.track(loginRecord)
 }
