@@ -1,31 +1,49 @@
 package org.example
 
-import java.math.BigInteger
-import java.security.MessageDigest
+import com.goncalossilva.murmurhash.MurmurHash3
 import kotlin.test.Test
 
 class Test {
 
     @Test
     fun hash() {
-        val inputString = "Hello, World!"
-        val hashCode = MessageDigest.getInstance("MD5")
-            .digest(inputString.toByteArray())
-            .let { BigInteger(1, it) }
+        val hash32x86 = MurmurHash3().hash32x86("hello, world!".encodeToByteArray())
+        println(hash32x86)
+    }
 
-        println("$inputString ===> $hashCode")
+    @Test
+    fun `10 to 62`() {
+        var hash32x86 = MurmurHash3().hash32x86("https://flowus.cn/veal/share/3306b991-e1e3-4c92-9105-95abf086ae4e".encodeToByteArray())
 
-        val characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        val base = characters.length
-        val stack = mutableListOf<Char>()
+        var remainder = hash32x86 % 62u
+        hash32x86 /= 62u
+        var str = "${base62Map[remainder]}"
+        while (hash32x86 != 0u) {
+            remainder = hash32x86 % 62u
+            hash32x86 /= 62u
+            str += base62Map[remainder]
+        }
+        println(str.reversed())
+    }
 
-        var quotient = hashCode
-        while (quotient > BigInteger.ZERO) {
-            val remainder = (quotient % base.toBigInteger()).toInt()
-            stack.add(characters[remainder])
-            quotient /= base.toBigInteger()
+    /**
+     * 计算还有问题
+     */
+    @Test
+    fun `pref 10 to 62`() {
+        val hash = MurmurHash3().hash32x86("https://flowus.cn/veal/share/3306b991-e1e3-4c92-9105-95abf086ae4e".encodeToByteArray())
+        var remainder = hash
+        var hashValue = hash / 62u
+        val stringBuilder = StringBuilder()
+
+        while (hashValue != 0u) {
+            remainder = hashValue and 61u
+            hashValue = hashValue shr 6 // 使用位运算代替除法操作
+            stringBuilder.append(base62Map[remainder])
         }
 
-        println(stack.reversed().joinToString(""))
+        stringBuilder.append(base62Map[remainder])
+
+        println(stringBuilder.reverse().toString())
     }
 }
