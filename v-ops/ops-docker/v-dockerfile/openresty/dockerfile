@@ -1,0 +1,7 @@
+FROM bitnami/openresty:latest
+
+ENV TZ=Asia/Shanghai
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
