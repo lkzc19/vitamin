@@ -27,3 +27,5 @@ val base62Map = mapOf(
 )
 
 val linkMap = mutableMapOf<String, String>()
+
+val salt = listOf("nahida", "hutao")

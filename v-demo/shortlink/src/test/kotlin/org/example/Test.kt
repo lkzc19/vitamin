@@ -30,7 +30,7 @@ class Test {
      * 计算还有问题
      */
     @Test
-    fun `pref 10 to 62`() {
+    fun `perf 10 to 62`() {
         val hash = MurmurHash3().hash32x86("https://flowus.cn/veal/share/3306b991-e1e3-4c92-9105-95abf086ae4e".encodeToByteArray())
         var remainder = hash
         var hashValue = hash / 62u
