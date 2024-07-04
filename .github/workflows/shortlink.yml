@@ -16,9 +16,10 @@ jobs:
           distribution: 'temurin'
       - name: Compile project
         run: |
-          cd v-demo/shortlink
-          ./gradlew bootJar
-          cd build
-          cd libs
           ls
+          # cd v-demo/shortlink
+          # ./gradlew bootJar
+          # cd build
+          # cd libs
+          # ls
     
