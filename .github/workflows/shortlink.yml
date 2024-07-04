@@ -15,12 +15,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Compile project
+      - name: package project
         run: |
-          ls
           cd v-demo/shortlink
           ./gradlew bootJar
-          cd build
-          cd libs
-          ls
+
     
