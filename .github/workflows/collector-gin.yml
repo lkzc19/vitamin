@@ -6,7 +6,7 @@ on:
       - 'v-demo/collector/collector-gin/**'
 
 jobs:
-  shortlink:
+  collector-gin:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
