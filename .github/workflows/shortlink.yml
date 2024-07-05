@@ -37,5 +37,5 @@ jobs:
             linux/arm64
           push: true
           tags: |
-            ghcr.io/lkzc19/vitamin.shortlink:latest
+            ghcr.io/${{ github.actor }}/vitamin.shortlink:latest
   
