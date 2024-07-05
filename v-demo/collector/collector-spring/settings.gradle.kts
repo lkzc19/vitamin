@@ -1,1 +1,1 @@
-rootProject.name = "collector-server"
+rootProject.name = "collector-spring"
