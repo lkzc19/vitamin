@@ -21,8 +21,8 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: v-demo/shortlink
-          file: v-demo/shortlink/Dockerfile
+          context: v-demo/collector/collector-gin
+          file: v-demo/collector/collector-gin/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
