@@ -1,0 +1,10 @@
+FROM nginx:stable-alpine3.19-slim
+
+ENV TZ=Asia/Shanghai
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY file /var/vitamin/file
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
