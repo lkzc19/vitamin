@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -36,6 +37,19 @@ func main() {
 		data, err := decompressData(decodedData)
 		checkErr(err)
 		fmt.Println("解码后: " + data)
+
+		var jsonData []map[string]interface{}
+		err = json.Unmarshal([]byte(data), &jsonData)
+		fmt.Println("json后: ======")
+		var tmp []byte
+		for _, it := range jsonData {
+			tmp, err = json.Marshal(it)
+			jsonStr := string(tmp)
+			fmt.Println(jsonStr)
+		}
+		checkErr(err)
+		fmt.Println()
+
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
