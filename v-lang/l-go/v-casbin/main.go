@@ -12,7 +12,7 @@ import (
 var e *casbin.Enforcer
 
 func init() {
-	dsn := "host=localhost user=demo password=demo dbname=demo port=3432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=localhost user=vitamin password=vitamin dbname=vitamin port=3432 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
@@ -21,9 +21,10 @@ func init() {
 	adapter, err := gormadapter.NewAdapterByDB(db)
 	checkErr(err)
 
-	e, err = casbin.NewEnforcer("model_func.conf", adapter)
+	e, err = casbin.NewEnforcer("model_builtin_func.conf", adapter)
 	checkErr(err)
-	e.AddFunction("pathMatcher", pathMatchFunc)
+	// 注意配置文件
+	e.AddFunction("pingMatcher", pingMatchFunc)
 }
 
 func main() {
