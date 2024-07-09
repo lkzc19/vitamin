@@ -1,7 +1,9 @@
-FROM bitnami/openresty:latest
+FROM bitnami/openresty:1.25-debian-12
 
 ENV TZ=Asia/Shanghai
 
-EXPOSE 80
+COPY default.conf /opt/bitnami/openresty/nginx/conf/server_blocks/default.conf
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+
+ENTRYPOINT ["/opt/bitnami/scripts/openresty/run.sh"]
