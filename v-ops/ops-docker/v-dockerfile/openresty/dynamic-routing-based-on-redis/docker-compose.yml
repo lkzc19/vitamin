@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  openresty:
+    image: drbor-openresty:latest
+    container_name: openresty
+    restart: always
+    ports:
+      - "3000:3000"
+    networks: ["openresty-redis"]
+  redis:
+    image: redis
+    container_name: redis
+    restart: always
+    ports:
+      - 3379:6379
+    networks: ["openresty-redis"]
+
+networks:
+  openresty-redis:
