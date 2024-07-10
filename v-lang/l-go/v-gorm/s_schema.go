@@ -23,8 +23,7 @@ func (s SchemaService) AddColumn(field string) {
 func (s SchemaService) AddColumnBySql(field string, fieldType FieldType) {
 	if !s.db.Migrator().HasColumn(model.Event{}, field) {
 		tn := model.Event{}.TableName()
-		// 执行原生SQL语句新增表字段
-		sql := fmt.Sprintf("ALTER TABLE %s ADD COLUMN %s %s", tn, field, fieldType)
+		sql := fmt.Sprintf(`ALTER TABLE %s ADD COLUMN %s %s`, tn, field, fieldType)
 		err = s.db.Exec(sql).Error
 		internal.CheckErr(err)
 	}
@@ -34,9 +33,20 @@ func (s SchemaService) HasColumn(field string) bool {
 	return s.db.Migrator().HasColumn(model.Event{}, field)
 }
 
+func (s SchemaService) TableColumn() {
+	var columns []string
+	tn := model.Event{}.TableName()
+	sql := fmt.Sprintf(`SELECT column_name FROM information_schema.columns WHERE table_name = '%s'`, tn)
+	s.db.Raw(sql).Scan(&columns)
+	for _, col := range columns {
+		fmt.Println(col)
+	}
+}
+
 type FieldType string
 
 const (
 	Text      FieldType = "text"
 	Timestamp FieldType = "timestamp with time zone"
+	Numeric   FieldType = "numeric(10, 3)"
 )
