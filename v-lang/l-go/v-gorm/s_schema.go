@@ -20,7 +20,7 @@ func (s SchemaService) AddColumn(field string) {
 }
 
 // AddColumnBySql 使用SQL添加字段
-func (s SchemaService) AddColumnBySql(field string, fieldType string) {
+func (s SchemaService) AddColumnBySql(field string, fieldType FieldType) {
 	if !s.db.Migrator().HasColumn(model.Event{}, field) {
 		tn := model.Event{}.TableName()
 		// 执行原生SQL语句新增表字段
@@ -33,3 +33,10 @@ func (s SchemaService) AddColumnBySql(field string, fieldType string) {
 func (s SchemaService) HasColumn(field string) bool {
 	return s.db.Migrator().HasColumn(model.Event{}, field)
 }
+
+type FieldType string
+
+const (
+	Text      FieldType = "text"
+	Timestamp FieldType = "timestamp with time zone"
+)

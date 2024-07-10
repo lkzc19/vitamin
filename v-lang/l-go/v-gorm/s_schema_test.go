@@ -12,7 +12,7 @@ func TestAddColumn(t *testing.T) {
 
 func TestAddColumnBySql(t *testing.T) {
 	var schemaService = SchemaService{db: DB}
-	schemaService.AddColumnBySql("prop_sd_manufacturer", "text")
+	schemaService.AddColumnBySql("prop_order_time", Timestamp)
 }
 
 func TestHasColumn(t *testing.T) {
