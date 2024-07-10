@@ -9,3 +9,7 @@ type Bar struct {
 	Name string `json:"name"`
 	Num  int64  `json:"num"`
 }
+
+func (Bar) TableName() string {
+	return "v_bar"
+}

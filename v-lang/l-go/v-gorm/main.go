@@ -24,6 +24,6 @@ func init() {
 
 func main() {
 	fmt.Println("hello gorm")
-	var transactionRepo = TransactionRepo{DB: DB}
-	transactionRepo.T2()
+	//var transactionRepo = TransactionRepo{DB: DB}
+	//transactionRepo.T2()
 }
