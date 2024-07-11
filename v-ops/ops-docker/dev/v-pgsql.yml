@@ -1,5 +1,5 @@
 # 平时写demo使用的PostgreSQL
-version: '3.1'
+version: '3'
 
 services:
   # pgsql 本体
