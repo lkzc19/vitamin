@@ -1,0 +1,14 @@
+# 平时写demo使用的PostgreSQL
+version: '3.1'
+
+services:
+  # pgsql 本体
+  pgsql:
+    image: postgres:9.2.10
+    restart: always
+    environment:
+      POSTGRES_DB: vitamin
+      POSTGRES_USER: vitamin
+      POSTGRES_PASSWORD: vitamin
+    ports:
+      - 3432:5432
