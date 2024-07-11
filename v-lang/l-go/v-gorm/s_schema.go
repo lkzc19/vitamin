@@ -49,4 +49,5 @@ const (
 	Text      FieldType = "text"
 	Timestamp FieldType = "timestamp with time zone"
 	Numeric   FieldType = "numeric(10, 3)"
+	Bool      FieldType = "bool"
 )
