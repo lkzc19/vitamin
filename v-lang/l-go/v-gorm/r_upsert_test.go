@@ -7,7 +7,7 @@ import (
 )
 
 func TestUpsertRepo_Upsert(t *testing.T) {
-	var upsertRepo = UpsertRepo{db: DB}
+	var upsertRepo = UpsertRepo{db: db}
 	foo := model.Foo{
 		Model: gorm.Model{ID: 1},
 		Name:  "foo",
@@ -18,7 +18,7 @@ func TestUpsertRepo_Upsert(t *testing.T) {
 }
 
 func TestUpsertRepo_InsertIfAbsent(t *testing.T) {
-	var upsertRepo = UpsertRepo{db: DB}
+	var upsertRepo = UpsertRepo{db: db}
 	foo := model.Foo{
 		Name: "hutao",
 	}

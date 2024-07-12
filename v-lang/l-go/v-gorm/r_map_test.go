@@ -7,7 +7,7 @@ import (
 )
 
 func TestMapInsert(t *testing.T) {
-	var mapRepo = MapRepo{db: DB}
+	var mapRepo = MapRepo{db: db}
 	item := map[string]any{
 		"name": "$AppViewScreen",
 		//"prop_sd_os":      "30",
@@ -18,7 +18,7 @@ func TestMapInsert(t *testing.T) {
 }
 
 func TestMapBatchInsert(t *testing.T) {
-	var mapRepo = MapRepo{db: DB}
+	var mapRepo = MapRepo{db: db}
 	os := []string{"iOS", "Android", "Windows", "Mac"}
 	var list []map[string]any
 	for i := 0; i < 100; i++ {
@@ -35,7 +35,7 @@ func TestMapBatchInsert(t *testing.T) {
 }
 
 func TestBatchInsertBySql(t *testing.T) {
-	var mapRepo = MapRepo{db: DB}
+	var mapRepo = MapRepo{db: db}
 	os := []string{"iOS", "Android", "Windows", "Mac"}
 	var list []map[string]any
 	for i := 0; i < 100; i++ {
@@ -52,7 +52,7 @@ func TestBatchInsertBySql(t *testing.T) {
 }
 
 func TestMapList(t *testing.T) {
-	var mapRepo = MapRepo{db: DB}
+	var mapRepo = MapRepo{db: db}
 	list := mapRepo.List1()
 
 	for _, it := range list {
@@ -61,7 +61,7 @@ func TestMapList(t *testing.T) {
 }
 
 func TestMapList1(t *testing.T) {
-	var mapRepo = MapRepo{db: DB}
+	var mapRepo = MapRepo{db: db}
 	list := mapRepo.List1()
 
 	count := 0.0

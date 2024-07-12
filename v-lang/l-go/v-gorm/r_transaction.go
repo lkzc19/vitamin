@@ -8,7 +8,7 @@ import (
 )
 
 type TransactionRepo struct {
-	DB *gorm.DB
+	db *gorm.DB
 }
 
 func (r TransactionRepo) initData() {
@@ -16,7 +16,7 @@ func (r TransactionRepo) initData() {
 		{Name: "foo1", Num: 18},
 		{Name: "foo2", Num: 19},
 	}
-	result := r.DB.Create(fooList)
+	result := r.db.Create(fooList)
 	internal.CheckErr(result.Error)
 	fmt.Println("foo 插入数量: $d", result.RowsAffected)
 
@@ -24,21 +24,21 @@ func (r TransactionRepo) initData() {
 		{Name: "bar1", Num: 99},
 		{Name: "bar2", Num: 87},
 	}
-	result = r.DB.Create(barList)
+	result = r.db.Create(barList)
 	internal.CheckErr(result.Error)
 	fmt.Println("bar 插入数量: $d", result.RowsAffected)
 }
 
 func (r TransactionRepo) List() {
 	var fooList []model.Foo
-	result := r.DB.Find(&fooList)
+	result := r.db.Find(&fooList)
 	internal.CheckErr(result.Error)
 	for _, it := range fooList {
 		fmt.Println(it)
 	}
 
 	var barList []model.Bar
-	result = r.DB.Find(&barList)
+	result = r.db.Find(&barList)
 	internal.CheckErr(result.Error)
 	for _, it := range barList {
 		fmt.Println(it)
@@ -47,7 +47,7 @@ func (r TransactionRepo) List() {
 
 // T1 测试事务
 func (r TransactionRepo) T1() {
-	err = r.DB.Transaction(func(tx *gorm.DB) error {
+	err = r.db.Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
 		if err = tx.Create(&model.Foo{Name: "foo", Num: 42}).Error; err != nil {
 			// 返回任何错误都会回滚事务
@@ -65,7 +65,7 @@ func (r TransactionRepo) T1() {
 
 // T2 测试事务 回滚
 func (r TransactionRepo) T2() {
-	err = r.DB.Transaction(func(tx *gorm.DB) error {
+	err = r.db.Transaction(func(tx *gorm.DB) error {
 		// 在事务中执行一些 db 操作（从这里开始，您应该使用 'tx' 而不是 'db'）
 		if err = tx.Create(&model.Foo{Name: "foo", Num: 42}).Error; err != nil {
 			// 返回任何错误都会回滚事务
@@ -79,7 +79,7 @@ func (r TransactionRepo) T2() {
 
 // T3 测试事务 嵌套事务
 func (r TransactionRepo) T3() {
-	err = r.DB.Transaction(func(tx *gorm.DB) error {
+	err = r.db.Transaction(func(tx *gorm.DB) error {
 		tx.Create(&model.Foo{Name: "xxx", Num: 42})
 
 		err = tx.Transaction(func(tx2 *gorm.DB) error {
@@ -101,7 +101,7 @@ func (r TransactionRepo) T3() {
 
 // T4 测试事务 手动事务
 func (r TransactionRepo) T4() {
-	tx := r.DB.Begin()
+	tx := r.db.Begin()
 	tx.Create(&model.Foo{Name: "foo1", Num: 18})
 
 	tx.SavePoint("sp1")

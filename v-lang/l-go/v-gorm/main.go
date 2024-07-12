@@ -9,7 +9,7 @@ import (
 	"v-gorm/internal/model"
 )
 
-var DB *gorm.DB
+var db *gorm.DB
 var err error
 
 func init() {
@@ -18,10 +18,10 @@ func init() {
 		Logger:         logger.Default.LogMode(logger.Info),
 		TranslateError: true,
 	}
-	DB, err = gorm.Open(postgres.Open(dsn), gormConfig)
+	db, err = gorm.Open(postgres.Open(dsn), gormConfig)
 	internal.CheckErr(err)
 	// 迁移 schema
-	model.AutoMigrate(DB)
+	model.AutoMigrate(db)
 }
 
 func main() {
