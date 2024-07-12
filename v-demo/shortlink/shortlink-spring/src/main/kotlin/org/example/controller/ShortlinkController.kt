@@ -51,8 +51,8 @@ class ShortlinkController {
             .build()
     }
 
-    @GetMapping("/nahida")
-    fun nahida(): String {
-        return "nahida"
+    @GetMapping("/ping")
+    fun ping(): String {
+        return "pong..."
     }
 }

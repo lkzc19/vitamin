@@ -1,9 +1,9 @@
 name: shortlink
 
-on:
-  push:
-    paths:
-      - 'v-demo/shortlink/**'
+on: []
+  # push:
+  #   paths:
+  #     - 'v-demo/shortlink/**'
 
 jobs:
   shortlink:
