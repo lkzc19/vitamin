@@ -26,4 +26,9 @@ func init() {
 
 func main() {
 	fmt.Println("hello gorm")
+	sqlDB, err := db.DB()
+	internal.CheckErr(err)
+	// Ping
+	err = sqlDB.Ping()
+	internal.CheckErr(err)
 }
