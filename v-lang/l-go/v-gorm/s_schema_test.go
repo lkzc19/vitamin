@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -16,6 +17,19 @@ func TestAddColumnBySql(t *testing.T) {
 	schemaService.AddColumnBySql("prop_product_timestamp", Timestamp)
 	schemaService.AddColumnBySql("prop_product_numeric", Numeric)
 	schemaService.AddColumnBySql("prop_product_bool", Bool)
+}
+
+func TestAddColumnBySql_case(t *testing.T) {
+	var schemaService = SchemaService{db: DB}
+	schemaService.AddColumnBySql("prop_product_case", Text)
+	fmt.Println("=== vitamin ok 1 ===")
+	schemaService.AddColumnBySql("prop_product_case", Text)
+	fmt.Println("=== vitamin ok 2 ===")
+	schemaService.AddColumnBySql("prop_product_Case", Text)
+}
+
+func TestToLower(t *testing.T) {
+	fmt.Println(strings.ToLower("ABCdefg!@#456"))
 }
 
 func TestTableColumn(t *testing.T) {

@@ -9,7 +9,7 @@ class Idm3Test {
 
     @Test
     fun idm3Test() {
-        val batchConsumer = BatchConsumer("http://127.0.0.1:3000")
+        val batchConsumer = BatchConsumer("http://127.0.0.1:8000/api/v1/data")
         val sa = SensorsAnalytics(batchConsumer)
 
         //设置公共属性,以后上传的每一个事件都附带该属性

@@ -21,6 +21,8 @@ func (s SchemaService) AddColumn(field string) {
 
 // AddColumnBySql 使用SQL添加字段
 func (s SchemaService) AddColumnBySql(field string, fieldType FieldType) {
+	// 大小写有问题 如下:
+	// 新增一个字段 foo 再新增一个字段 Foo, HasColumn 方法检查不出来, 但是新增字段的时候会出现这个问题
 	if !s.db.Migrator().HasColumn(model.Event{}, field) {
 		tn := model.Event{}.TableName()
 		sql := fmt.Sprintf(`ALTER TABLE %s ADD COLUMN %s %s`, tn, field, fieldType)
