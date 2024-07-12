@@ -23,13 +23,32 @@ func TestMapBatchInsert(t *testing.T) {
 	var list []map[string]any
 	for i := 0; i < 100; i++ {
 		item := map[string]any{
-			"name":               "Buy",
-			"prop_sd_os":         os[i%len(os)],
-			"prop_product_count": i,
+			"name":                   "Buy",
+			"prop_product_text":      os[i%len(os)],
+			"prop_product_timestamp": time.Now(),
+			"prop_product_numeric":   i,
+			"prop_product_bool":      i%3 == 0,
 		}
 		list = append(list, item)
 	}
 	mapRepo.BatchInsert(list)
+}
+
+func TestBatchInsertBySql(t *testing.T) {
+	var mapRepo = MapRepo{db: DB}
+	os := []string{"iOS", "Android", "Windows", "Mac"}
+	var list []map[string]any
+	for i := 0; i < 100; i++ {
+		item := map[string]any{
+			"name":                   "Buy",
+			"prop_product_text":      os[i%len(os)],
+			"prop_product_timestamp": time.Now(),
+			"prop_product_numeric":   i,
+			"prop_product_bool":      i%3 == 0,
+		}
+		list = append(list, item)
+	}
+	mapRepo.BatchInsertBySql(list)
 }
 
 func TestMapList(t *testing.T) {
@@ -47,7 +66,7 @@ func TestMapList1(t *testing.T) {
 
 	count := 0.0
 	for _, it := range list {
-		count += it["prop_product_count"].(float64)
+		count += it["prop_product_numeric"].(float64)
 	}
 	fmt.Println("商品总数: ", count)
 }

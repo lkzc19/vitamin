@@ -17,6 +17,13 @@ func Println(str ...string) {
 }
 
 func Test2(t *testing.T) {
+	um := time.UnixMilli(1720688720863)
+	fmt.Println(um)
+	f := um.Year() >= 1970 && um.Year() <= 9999
+	fmt.Println(f)
 
-	fmt.Println(time.UnixMilli(1720688720863))
+	um = time.UnixMilli(1)
+	fmt.Println(um)
+	f = um.Year() >= 1970 && um.Year() <= 9999
+	fmt.Println(f)
 }
