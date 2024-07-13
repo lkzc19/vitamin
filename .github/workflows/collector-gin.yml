@@ -1,4 +1,4 @@
-name: collector-gin
+name: collection-gin
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
 
 env:
   COLLECTOR_GIN_PATH: 'v-poc/collection-sdk/s-gin'
-  IMAGE_NAME: 'ghcr.io/lkzc19/poc.s-gin'
+  IMAGE_NAME: 'ghcr.io/lkzc19/poc.collection-gin'
 
 jobs:
-  collector-gin:
+  collection-gin:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
