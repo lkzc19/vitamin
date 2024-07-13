@@ -6,13 +6,12 @@ on:
     paths:
       - 'v-poc/collection-sdk/s-gin/**'
 
-env:
-  PATH: 'v-poc/collection-sdk/s-gin'
-  IMAGE_NAME: 'ghcr.io/lkzc19/poc.collection-gin'
-
 jobs:
   collection-gin:
     runs-on: ubuntu-latest
+    env:
+      PATH: 'v-poc/collection-sdk/s-gin'
+      IMAGE_NAME: 'ghcr.io/lkzc19/poc.collection-gin'
     steps:
       - uses: actions/checkout@v3
       - name: 'Set up Docker Buildx'

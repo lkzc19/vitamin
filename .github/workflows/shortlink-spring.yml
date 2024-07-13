@@ -6,13 +6,12 @@ on:
     paths:
       - 'v-demo/shortlink/shortlink-spring/**'
 
-env:
-  PATH: 'v-demo/shortlink/shortlink-spring'
-  IMAGE_NAME: 'ghcr.io/lkzc19/demo.shortlink-spring'
-
 jobs:
   shortlink-spring:
     runs-on: ubuntu-latest
+    env:
+      PATH: 'v-demo/shortlink/shortlink-spring'
+      IMAGE_NAME: 'ghcr.io/lkzc19/demo.shortlink-spring'
     steps:
       - uses: actions/checkout@v3
       - name: 'Set up JDK 17'
