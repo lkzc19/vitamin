@@ -3,7 +3,11 @@ name: collector-gin
 on:
   push:
     paths:
-      - 'v-demo/collector/collector-gin/**'
+      - 'v-poc/collection-sdk/s-gin/**'
+
+env:
+  COLLECTOR_GIN_PATH: 'v-poc/collection-sdk/s-gin'
+  IMAGE_NAME: 'ghcr.io/lkzc19/poc.s-gin'
 
 jobs:
   collector-gin:
@@ -21,12 +25,12 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: v-demo/collector/collector-gin
-          file: v-demo/collector/collector-gin/Dockerfile
+          context: ${{ env.COLLECTOR_GIN_PATH }}
+          file: ${{ env.COLLECTOR_GIN_PATH }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/vitamin.collector-gin:latest
+            ${{ env.IMAGE_NAME }}:latest
   

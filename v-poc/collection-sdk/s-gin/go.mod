@@ -1,4 +1,4 @@
-module gin-rest
+module s-gin
 
 go 1.22
 
