@@ -3,7 +3,7 @@ package org.example
 import com.goncalossilva.murmurhash.MurmurHash3
 import kotlin.test.Test
 
-class Test {
+class HashTests {
 
     @Test
     fun hash() {

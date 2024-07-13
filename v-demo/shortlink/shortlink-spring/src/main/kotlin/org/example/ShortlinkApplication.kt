@@ -1,7 +1,9 @@
 package org.example
 
+import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.util.concurrent.TimeUnit
 
 @SpringBootApplication
 class ShortlinkApplication
@@ -26,6 +28,27 @@ val base62Map = mapOf(
     60u to 'Y', 61u to 'Z'
 )
 
-val linkMap = mutableMapOf<String, String>()
+object LinkMap {
 
-val salt = listOf("nahida", "hutao")
+    private val cache = Caffeine.newBuilder()
+        .initialCapacity(10)
+        .maximumSize(1000)
+        .expireAfterWrite(30, TimeUnit.MINUTES)
+        .build<String, String>()
+
+    private val reverse = Caffeine.newBuilder()
+        .initialCapacity(10)
+        .maximumSize(1000)
+        .expireAfterWrite(30, TimeUnit.MINUTES)
+        .build<String, String>()
+
+    operator fun get(k: String): String? = cache.getIfPresent(k)
+
+    operator fun set(k: String, v: String) {
+        cache.put(k, v)
+        reverse.put(v, k)
+    }
+
+    // Reverse get
+    fun ret(k: String): String? = reverse.getIfPresent(k)
+}

@@ -1,9 +1,8 @@
 package org.example.controller
 
 import com.goncalossilva.murmurhash.MurmurHash3
+import org.example.LinkMap
 import org.example.base62Map
-import org.example.linkMap
-import org.example.salt
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,15 +14,18 @@ import org.springframework.web.bind.annotation.RestController
 class ShortlinkController {
 
     val hashUtils = MurmurHash3()
+    val prefix = "http://localhost:3000/"
 
     @GetMapping("/")
-    fun generate(@RequestParam link: String): String {
+    fun generate(@RequestParam link: String): ResponseEntity<Map<String, String>> {
         // 先判断是否存在映射
-        linkMap[link]?.let {
-            return "http://127.0.0.1:3000/$it"
+        LinkMap.ret(link)?.let { code ->
+            return mapOf(
+                "origURL" to link,
+                "shortURL" to "$prefix$code"
+            ).let { ResponseEntity.ok(it) }
         }
 
-        var count = 0
         var str = link
         var code: String
         do { // hash碰撞后加一些字符串继续hash
@@ -35,20 +37,23 @@ class ShortlinkController {
                 sb.append("${base62Map[remainder]}")
             }
             code = sb.reversed().toString()
-            str += salt[count % salt.size]
-            count++
-        } while (linkMap[code] != null) // 此处可以使用布隆过滤器来判断hash是否冲突 来提高性能
-        linkMap[code] = link
-        return "http://127.0.0.1:3000/$code"
+            str += System.currentTimeMillis()
+        } while (LinkMap[code] != null) // 此处可以使用布隆过滤器来判断hash是否冲突 来提高性能
+        LinkMap[code] = link
+
+        return mapOf(
+            "origURL" to link,
+            "shortURL" to "$prefix$code"
+        ).let { ResponseEntity.ok(it) }
     }
 
     @GetMapping("/{code}")
     fun redirect302(@PathVariable code: String): ResponseEntity<Void> {
-        val url = linkMap[code]
-
-        return ResponseEntity.status(HttpStatus.FOUND)
-            .header("Location", url)
-            .build()
+        return LinkMap[code]?.let {
+            ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location", it)
+                .build()
+        }?: ResponseEntity.notFound().build()
     }
 
     @GetMapping("/ping")

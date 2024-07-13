@@ -1,9 +1,9 @@
-name: shortlink
+name: shortlink-spring
 
 on: []
   # push:
   #   paths:
-  #     - 'v-demo/shortlink/**'
+  #     - 'v-demo/shortlink/shortlink-spring/**'
 
 jobs:
   shortlink:
@@ -30,12 +30,12 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: v-demo/shortlink
-          file: v-demo/shortlink/Dockerfile
+          context: v-demo/shortlink/shortlink-spring
+          file: v-demo/shortlink/shortlink-spring/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/vitamin.shortlink:latest
+            ghcr.io/${{ github.actor }}/vitamin.shortlink.spring:latest
   
