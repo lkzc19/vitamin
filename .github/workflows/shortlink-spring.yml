@@ -1,12 +1,17 @@
 name: shortlink-spring
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'v-demo/shortlink/shortlink-spring/**'
 
+env:
+  PATH: 'v-demo/shortlink/shortlink-spring'
+  IMAGE_NAME: 'ghcr.io/lkzc19/demo.shortlink-spring'
+
 jobs:
-  shortlink:
+  shortlink-spring:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,7 +22,7 @@ jobs:
           distribution: 'temurin'
       - name: 'Package gradle project'
         run: |
-          cd v-demo/shortlink/shortlink-spring
+          cd ${{ env.PATH }}
           ./gradlew bootJar
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2
@@ -30,12 +35,12 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: v-demo/shortlink/shortlink-spring
-          file: v-demo/shortlink/shortlink-spring/Dockerfile
+          context: ${{ env.PATH }}
+          file: ${{ env.PATH }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/vitamin.shortlink.spring:latest
+            ${{ env.IMAGE_NAME }}:latest
   

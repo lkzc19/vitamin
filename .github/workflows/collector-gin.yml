@@ -7,7 +7,7 @@ on:
       - 'v-poc/collection-sdk/s-gin/**'
 
 env:
-  COLLECTOR_GIN_PATH: 'v-poc/collection-sdk/s-gin'
+  PATH: 'v-poc/collection-sdk/s-gin'
   IMAGE_NAME: 'ghcr.io/lkzc19/poc.collection-gin'
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: ${{ env.COLLECTOR_GIN_PATH }}
-          file: ${{ env.COLLECTOR_GIN_PATH }}/Dockerfile
+          context: ${{ env.PATH }}
+          file: ${{ env.PATH }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
