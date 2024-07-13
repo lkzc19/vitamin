@@ -1,9 +1,9 @@
 name: shortlink-spring
 
-on: []
-  # push:
-  #   paths:
-  #     - 'v-demo/shortlink/shortlink-spring/**'
+on:
+  push:
+    paths:
+      - 'v-demo/shortlink/shortlink-spring/**'
 
 jobs:
   shortlink:
