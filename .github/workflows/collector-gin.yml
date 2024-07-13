@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'v-poc/collection-sdk/s-gin/**'
+    workflow_dispatch:
 
 env:
   COLLECTOR_GIN_PATH: 'v-poc/collection-sdk/s-gin'
