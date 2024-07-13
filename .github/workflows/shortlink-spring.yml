@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
       - name: 'Package gradle project'
         run: |
-          cd v-demo/shortlink
+          cd v-demo/shortlink/shortlink-spring
           ./gradlew bootJar
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2
