@@ -24,3 +24,5 @@ Grafana是一个开源的功能丰富的数据可视化平台，通常用于时�
 https://www.ipaddress.com/website/raw.githubusercontent.com
 
 go env -w GOPROXY=https://goproxy.cn,direct
+
+https://deno.com/

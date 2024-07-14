@@ -48,7 +48,7 @@ class ShortlinkController {
         // 生成短链二维码
         val shortURL = "$prefix$code"
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(link, BarcodeFormat.QR_CODE, 200, 200)
+        val bitMatrix = qrCodeWriter.encode(shortURL, BarcodeFormat.QR_CODE, 100, 100)
         val qrcode = ByteArrayOutputStream().use {
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", it)
             // 返回Base64编码的PNG数据
