@@ -6,6 +6,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter
 import com.google.zxing.qrcode.QRCodeWriter
 import org.example.LinkMap
 import org.example.base62Map
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,7 +22,8 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 class ShortlinkController {
 
     val hashUtils = MurmurHash3()
-    val prefix = "http://localhost:3000/"
+    @Value("\${vitamin.prefix}")
+    lateinit var prefix: String
 
     @OptIn(ExperimentalEncodingApi::class)
     @GetMapping("/")
@@ -74,6 +76,6 @@ class ShortlinkController {
 
     @GetMapping("/ping")
     fun ping(): String {
-        return "pong..."
+        return "pong...$prefix"
     }
 }
