@@ -8,8 +8,8 @@ let copyIcon = ref('i-heroicons-square-2-stack')
 const toast = useToast()
 
 const getLink = async () => {
-  if (!origURL.value) {
-    console.error('Link value is empty');
+  if (!origURL.value.startsWith('http://') && !origURL.value.startsWith('https://')) {
+    toast.add({ title: '请输入 http:// 或 https:// 开头的网址', color: 'red' })
     return;
   }
 
