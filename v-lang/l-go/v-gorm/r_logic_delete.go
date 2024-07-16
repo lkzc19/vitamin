@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"v-gorm/internal"
@@ -31,16 +32,24 @@ func (r LogicDeleteRepo) HardDelete(name string) {
 	internal.CheckErr(err)
 }
 
-func (r LogicDeleteRepo) Select(name string) model.Foo {
-	var foo model.Foo
-	err = db.Where("Name = ?", name).Find(&foo).Error
-	internal.CheckErr(err)
+func (r LogicDeleteRepo) Select(name string) *model.Foo {
+	var foo *model.Foo
+	err = db.Where("Name = ?", name).First(&foo).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil
+	} else {
+		internal.CheckErr(err)
+	}
 	return foo
 }
 
-func (r LogicDeleteRepo) SelectSoftDelete(name string) model.Foo {
-	var foo model.Foo
-	err = db.Unscoped().Where("Name = ?", name).Find(&foo).Error
-	internal.CheckErr(err)
+func (r LogicDeleteRepo) SelectSoftDelete(name string) *model.Foo {
+	var foo *model.Foo
+	err = db.Unscoped().Where("Name = ?", name).First(&foo).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil
+	} else {
+		internal.CheckErr(err)
+	}
 	return foo
 }
