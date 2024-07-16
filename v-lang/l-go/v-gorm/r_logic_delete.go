@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"v-gorm/internal"
@@ -18,7 +19,7 @@ func (r LogicDeleteRepo) InitData() {
 	}
 	result := r.db.Create(fooList)
 	internal.CheckErr(result.Error)
-	fmt.Println("foo 插入数量: $d", result.RowsAffected)
+	fmt.Printf("foo 插入数量: %d", result.RowsAffected)
 }
 
 func (r LogicDeleteRepo) SoftDelete(name string) {
@@ -29,4 +30,26 @@ func (r LogicDeleteRepo) SoftDelete(name string) {
 func (r LogicDeleteRepo) HardDelete(name string) {
 	err = r.db.Unscoped().Where("Name = ?", name).Delete(&model.Foo{}).Error
 	internal.CheckErr(err)
+}
+
+func (r LogicDeleteRepo) Select(name string) *model.Foo {
+	var foo *model.Foo
+	err = db.Where("Name = ?", name).First(&foo).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil
+	} else {
+		internal.CheckErr(err)
+	}
+	return foo
+}
+
+func (r LogicDeleteRepo) SelectSoftDelete(name string) *model.Foo {
+	var foo *model.Foo
+	err = db.Unscoped().Where("Name = ?", name).First(&foo).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil
+	} else {
+		internal.CheckErr(err)
+	}
+	return foo
 }
