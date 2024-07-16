@@ -1,22 +1,29 @@
 <script setup lang="ts">
 import type {Link} from "~/types";
 
-const origURL = ref('http://www.baidu.com')
+// https://www.baidu.com
+const origURL = ref('')
 let link = ref<Link | null>(null)
 let qrCode = ref('')
 let copyIcon = ref('i-heroicons-square-2-stack')
 const toast = useToast()
 
 const getLink = async () => {
-  if (!origURL.value.startsWith('http://') && !origURL.value.startsWith('https://')) {
-    toast.add({ title: '请输入 http:// 或 https:// 开头的网址', color: 'red' })
-    return;
-  }
+  // if (!origURL.value.startsWith('http://') && !origURL.value.startsWith('https://')) {
+  //   toast.add({ title: '请输入 http:// 或 https:// 开头的网址', color: 'red' })
+  //   return;
+  // }
 
-  const { data } = await useFetch(useRuntimeConfig().public.baseURL, {
+  const { data, status, error } = await useFetch(useRuntimeConfig().public.baseURL, {
     method: 'GET',
     query: { link: origURL.value },
   })
+  console.log(status.value === 'error')
+  const message = error.value?.data.message
+  if (status.value === 'error' && message != null) {
+    toast.add({ title: message, color: 'blue' })
+    return
+  }
   link.value = data.value as Link
   qrCode.value = "data:image/jpeg;base64," + link.value.QRCode
   copyIcon.value = "i-heroicons-square-2-stack"

@@ -28,6 +28,10 @@ class ShortlinkController {
     @OptIn(ExperimentalEncodingApi::class)
     @GetMapping("/")
     fun generate(@RequestParam link: String): ResponseEntity<Map<String, String>> {
+        if (!link.startsWith("http://") && !link.startsWith("https://")) {
+            return ResponseEntity.badRequest().body(mapOf("message" to "请输入 http:// 或 https:// 开头的网址"))
+        }
+
         // 先判断是否存在映射
         val code = LinkMap.ret(link) ?: run {
             var str = link
