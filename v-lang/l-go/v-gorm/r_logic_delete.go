@@ -18,7 +18,7 @@ func (r LogicDeleteRepo) InitData() {
 	}
 	result := r.db.Create(fooList)
 	internal.CheckErr(result.Error)
-	fmt.Println("foo 插入数量: $d", result.RowsAffected)
+	fmt.Printf("foo 插入数量: %d", result.RowsAffected)
 }
 
 func (r LogicDeleteRepo) SoftDelete(name string) {
@@ -29,4 +29,18 @@ func (r LogicDeleteRepo) SoftDelete(name string) {
 func (r LogicDeleteRepo) HardDelete(name string) {
 	err = r.db.Unscoped().Where("Name = ?", name).Delete(&model.Foo{}).Error
 	internal.CheckErr(err)
+}
+
+func (r LogicDeleteRepo) Select(name string) model.Foo {
+	var foo model.Foo
+	err = db.Where("Name = ?", name).Find(&foo).Error
+	internal.CheckErr(err)
+	return foo
+}
+
+func (r LogicDeleteRepo) SelectSoftDelete(name string) model.Foo {
+	var foo model.Foo
+	err = db.Unscoped().Where("Name = ?", name).Find(&foo).Error
+	internal.CheckErr(err)
+	return foo
 }
