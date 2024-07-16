@@ -44,7 +44,7 @@ const copyText = async () => {
       <UButton icon="i-heroicons-paper-airplane" color="gray" @click="getLink"/>
     </UButtonGroup>
 
-    <div class="mt-5 p-5 border border-gray-700 rounded-sm bg-gray-800" v-if="link != null">
+    <div class="mt-5 p-5 border border-slate-100 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800 rounded-sm" v-if="link != null">
       <div class="flex">
         <div class="mr-2">
           <img :src="qrCode" alt="qrcode"/>
@@ -60,7 +60,7 @@ const copyText = async () => {
             <UButton :icon="copyIcon" color="gray" variant="link" class="ml-3 pt-1 cursor-pointer align-middle" @click="copyText" />
 <!--            <span class="text-gray-400"> | </span>-->
           </div>
-          <div class="text-gray-400 text-sm mt-2">
+          <div class="text-gray-500 dark:text-gray-400 text-sm mt-2">
             <span>原始链接: </span>
             <span>{{ link?.origURL }}</span>
           </div>
