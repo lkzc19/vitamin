@@ -27,3 +27,14 @@ func Test2(t *testing.T) {
 	f = um.Year() >= 1970 && um.Year() <= 9999
 	fmt.Println(f)
 }
+
+func Test3(t *testing.T) {
+	// 获取当前时间
+	now := time.Now()
+
+	// 生成近 30 天的日期
+	for i := 0; i < 30; i++ {
+		date := now.AddDate(0, 0, -i)
+		fmt.Println(date.Format("2006-01-02"))
+	}
+}

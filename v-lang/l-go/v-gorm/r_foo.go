@@ -31,7 +31,7 @@ func (r FooRepo) Count() int64 {
 func (r FooRepo) CountByMonth() []map[string]any {
 	var result []map[string]any
 	err := r.db.Table(model.Foo{}.TableName()).
-		Select("to_char(created_at, 'YYYY-MM') as month, COUNT(*) as count").
+		Select("to_char(created_at, 'YYYY-MM') as month, COUNT(DISTINCT name) as count").
 		Group("month").
 		Order("month desc").
 		Find(&result).Error
@@ -42,7 +42,7 @@ func (r FooRepo) CountByMonth() []map[string]any {
 func (r FooRepo) CountByDay() []map[string]any {
 	var result []map[string]any
 	err := r.db.Table(model.Foo{}.TableName()).
-		Select("to_char(created_at, 'YYYY-MM-DD') as day, COUNT(*) as count").
+		Select("to_char(created_at, 'YYYY-MM-DD') as day, COUNT(DISTINCT name) as count").
 		Group("day").
 		Order("day desc").
 		Find(&result).Error
