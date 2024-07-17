@@ -9,10 +9,10 @@ let copyIcon = ref('i-heroicons-square-2-stack')
 const toast = useToast()
 
 const getLink = async () => {
-  // if (!origURL.value.startsWith('http://') && !origURL.value.startsWith('https://')) {
-  //   toast.add({ title: '请输入 http:// 或 https:// 开头的网址', color: 'red' })
-  //   return;
-  // }
+  if (!origURL.value.startsWith('http://') && !origURL.value.startsWith('https://')) {
+    toast.add({ title: '请输入 http:// 或 https:// 开头的网址', color: 'red' })
+    return;
+  }
 
   const { data, status, error } = await useFetch(useRuntimeConfig().public.baseURL, {
     method: 'GET',
