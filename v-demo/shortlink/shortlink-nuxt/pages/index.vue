@@ -18,7 +18,6 @@ const getLink = async () => {
     method: 'GET',
     query: { link: origURL.value },
   })
-  console.log(status.value === 'error')
   const message = error.value?.data.message
   if (status.value === 'error' && message != null) {
     toast.add({ title: message, color: 'blue' })
