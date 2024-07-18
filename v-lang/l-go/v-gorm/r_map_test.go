@@ -8,12 +8,8 @@ import (
 
 func TestMapInsert(t *testing.T) {
 	var mapRepo = MapRepo{db: db}
-	item := map[string]any{
-		"name": "$AppViewScreen",
-		//"prop_sd_os":      "30",
-		"prop_order_time": time.Now(),
-		//"prop_stock_time": time.Now(),
-	}
+	item := map[string]any{}
+	item["name"] = map[string]any{}["name"]
 	mapRepo.Insert(item)
 }
 

@@ -24,3 +24,10 @@ func TestFooRepo_CountByDay(t *testing.T) {
 		fmt.Println(k, v)
 	}
 }
+
+func TestFooRepo_Where(t *testing.T) {
+	var fooRepo = FooRepo{db: db}
+	for k, v := range fooRepo.Where() {
+		fmt.Println(k, v)
+	}
+}
