@@ -15,7 +15,7 @@ npm run preview
 
 # TODO
 
-- [] 响应式
+- [ ] 响应式
 
 
 
