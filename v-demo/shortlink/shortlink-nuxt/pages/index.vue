@@ -36,17 +36,30 @@ const copyText = async () => {
 </script>
 
 <template>
-  <UContainer class="min-h-screen flex-col place-content-center font-mono">
+  <UContainer class="min-h-screen flex-col place-content-center font-mono min-w-72">
 
-    <UButtonGroup size="xl" orientation="horizontal" class="flex">
-      <UInput color="gray" variant="outline" placeholder="请输入 http:// 或 https:// 开头的网址" class="grow" v-model="origURL"/>
-      <UButton icon="i-heroicons-paper-airplane" color="gray" @click="getLink"/>
-    </UButtonGroup>
+    <h1 class="text-gray-900 dark:text-gray-100 text-center text-5xl">
+      一 个 短 链 demo
+    </h1>
+
+    <div class="flex mt-10 px-5 py-3 border border-slate-100 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800 rounded-sm">
+      <input type="text"
+             placeholder="请输入 http:// 或 https:// 开头的网址"
+             class="grow focus:border-transparent bg-neutral-50 dark:bg-gray-800 focus:outline-none pr-5 text-lg"
+             v-model="origURL"
+      />
+      <UButton color="gray" @click="getLink" class="text-lg">
+        生成短链
+        <template #trailing>
+          <UIcon name="i-heroicons-paper-airplane" class="w-5 h-5" />
+        </template>
+      </UButton>
+    </div>
 
     <div class="mt-5 p-5 border border-slate-100 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800 rounded-sm" v-if="link != null">
       <div class="flex">
         <div class="mr-2">
-          <img :src="qrCode" alt="qrcode"/>
+          <img :src="qrCode" alt="qrcode" class="size-28" />
         </div>
         <div class="flex-col ml-5 mt-3">
           <div class="align-baseline text-lg">
@@ -56,12 +69,11 @@ const copyText = async () => {
                 active-class="text-primary"
                 inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
             > {{ link?.shortURL }} </ULink>
-            <UButton :icon="copyIcon" color="gray" variant="link" class="ml-3 pt-1 cursor-pointer align-middle" @click="copyText" />
+            <UButton :icon="copyIcon" color="gray" variant="link" class="ml-2 pt-1 cursor-pointer align-middle" @click="copyText" />
 <!--            <span class="text-gray-400"> | </span>-->
           </div>
-          <div class="text-gray-500 dark:text-gray-400 text-sm mt-2">
-            <span>原始链接: </span>
-            <span>{{ link?.origURL }}</span>
+          <div class="text-gray-500 dark:text-gray-400 text-sm mt-2 w-96 text-nowrap text-ellipsis overflow-hidden">
+            原始链接: {{ link?.origURL }}
           </div>
         </div>
       </div>
