@@ -30,7 +30,7 @@ func (r FooRepo) Count() int64 {
 
 func (r FooRepo) CountByMonth() []map[string]any {
 	var result []map[string]any
-	err := r.db.Table(model.Foo{}.TableName()).
+	err = r.db.Table(model.Foo{}.TableName()).
 		Select("to_char(created_at, 'YYYY-MM') as month, COUNT(DISTINCT name) as count").
 		Group("month").
 		Order("month desc").
@@ -41,11 +41,26 @@ func (r FooRepo) CountByMonth() []map[string]any {
 
 func (r FooRepo) CountByDay() []map[string]any {
 	var result []map[string]any
-	err := r.db.Table(model.Foo{}.TableName()).
+	err = r.db.Table(model.Foo{}.TableName()).
 		Select("to_char(created_at, 'YYYY-MM-DD') as day, COUNT(DISTINCT name) as count").
 		Group("day").
 		Order("day desc").
 		Find(&result).Error
+	internal.CheckErr(err)
+	return result
+}
+
+// Where 测试中途加入条件
+func (r FooRepo) Where() []map[string]any {
+	var result []map[string]any
+
+	tx := r.db.Table(model.Foo{}.TableName()).
+		Select("to_char(created_at, 'YYYY-MM-DD') as day, COUNT(DISTINCT name) as count").
+		Group("day").
+		Order("day desc")
+
+	err = tx.Where("name = ?", "foo1").Find(&result).Error
+
 	internal.CheckErr(err)
 	return result
 }
