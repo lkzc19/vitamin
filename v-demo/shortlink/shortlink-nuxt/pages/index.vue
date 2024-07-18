@@ -42,10 +42,10 @@ const copyText = async () => {
       一 个 短 链 demo
     </h1>
 
-    <div class="flex mt-10 px-5 py-3 border border-slate-100 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800 rounded-sm">
+    <div class="flex mt-10 px-5 py-3 border border-zinc-200 dark:border-gray-700 bg-zinc-100 dark:bg-gray-800 rounded-sm">
       <input type="text"
              placeholder="请输入 http:// 或 https:// 开头的网址"
-             class="grow focus:border-transparent bg-neutral-50 dark:bg-gray-800 focus:outline-none pr-5 text-lg"
+             class="grow focus:border-transparent bg-zinc-100 dark:bg-gray-800 focus:outline-none pr-5 text-lg"
              v-model="origURL"
       />
       <UButton color="gray" @click="getLink" class="text-lg">
@@ -56,7 +56,7 @@ const copyText = async () => {
       </UButton>
     </div>
 
-    <div class="mt-5 p-5 border border-slate-100 dark:border-gray-700 bg-neutral-50 dark:bg-gray-800 rounded-sm" v-if="link != null">
+    <div class="mt-5 p-5 border border-zinc-200 dark:border-gray-700 bg-zinc-100 dark:bg-gray-800 rounded-sm" v-if="link != null">
       <div class="flex">
         <div class="mr-2">
           <img :src="qrCode" alt="qrcode" class="size-28" />
