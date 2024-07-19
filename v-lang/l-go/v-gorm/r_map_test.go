@@ -49,20 +49,9 @@ func TestBatchInsertBySql(t *testing.T) {
 
 func TestMapList(t *testing.T) {
 	var mapRepo = MapRepo{db: db}
-	list := mapRepo.List1()
+	list := mapRepo.List()
 
 	for _, it := range list {
 		fmt.Println(it)
 	}
-}
-
-func TestMapList1(t *testing.T) {
-	var mapRepo = MapRepo{db: db}
-	list := mapRepo.List1()
-
-	count := 0.0
-	for _, it := range list {
-		count += it["prop_product_numeric"].(float64)
-	}
-	fmt.Println("商品总数: ", count)
 }

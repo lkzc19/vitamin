@@ -59,11 +59,3 @@ func (r MapRepo) List() []map[string]any {
 	internal.CheckErr(err)
 	return list
 }
-
-func (r MapRepo) List1() []map[string]any {
-	// 查询数据
-	var list []map[string]any
-	err = r.db.Table(model.Event{}.TableName()).Where("name = ?", "Buy").Find(&list).Error
-	internal.CheckErr(err)
-	return list
-}

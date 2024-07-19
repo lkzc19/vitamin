@@ -50,6 +50,17 @@ func (r FooRepo) CountByDay() []map[string]any {
 	return result
 }
 
+func (r FooRepo) SumByDay() []map[string]any {
+	var result []map[string]any
+	err = r.db.Table(model.Foo{}.TableName()).
+		Select("to_char(created_at, 'YYYY-MM-DD') as day, SUM(num) as sum").
+		Group("day").
+		Order("day desc").
+		Find(&result).Error
+	internal.CheckErr(err)
+	return result
+}
+
 // Where 测试中途加入条件
 func (r FooRepo) Where() []map[string]any {
 	var result []map[string]any
