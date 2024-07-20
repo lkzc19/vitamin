@@ -25,6 +25,13 @@ func TestFooRepo_CountByDay(t *testing.T) {
 	}
 }
 
+func TestFooRepo_SumByDay(t *testing.T) {
+	var fooRepo = FooRepo{db: db}
+	for k, v := range fooRepo.SumByDay() {
+		fmt.Println(k, v)
+	}
+}
+
 func TestFooRepo_Where(t *testing.T) {
 	var fooRepo = FooRepo{db: db}
 	for k, v := range fooRepo.Where() {
