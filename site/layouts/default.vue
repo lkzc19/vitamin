@@ -23,7 +23,7 @@
 
 <style scoped>
 .layout {
-  @apply max-w-screen-xl mx-auto font-mono px-2
+  @apply max-w-screen-xl mx-auto font-mono
 }
 
 main {
