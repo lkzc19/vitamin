@@ -38,3 +38,10 @@ func TestFooRepo_Where(t *testing.T) {
 		fmt.Println(k, v)
 	}
 }
+
+func TestFooRepo_ListByTime(t *testing.T) {
+	var fooRepo = FooRepo{db: db}
+	for k, v := range fooRepo.ListByTime(-15) {
+		fmt.Println(k, v)
+	}
+}
