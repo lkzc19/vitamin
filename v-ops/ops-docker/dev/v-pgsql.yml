@@ -5,6 +5,7 @@ services:
   # pgsql 本体
   pgsql:
     image: postgres
+    container_name: v-pgsql
     restart: always
     environment:
       POSTGRES_DB: vitamin

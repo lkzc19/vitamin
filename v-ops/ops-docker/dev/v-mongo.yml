@@ -7,6 +7,7 @@ services:
   # MongoDB 本体
   mongo:
     image: mongo
+    container_name: v-mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: vitamin
@@ -16,6 +17,7 @@ services:
   # MongoDB GUI
   mongo-express:
     image: mongo-express
+    container_name: v-mongo-express
     restart: always
     ports:
       - 3081:8081

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"gorm.io/gorm"
+	"time"
 	"v-gorm/internal"
 	"v-gorm/internal/model"
 )
@@ -72,6 +73,16 @@ func (r FooRepo) Where() []map[string]any {
 
 	err = tx.Where("name = ?", "foo1").Find(&result).Error
 
+	internal.CheckErr(err)
+	return result
+}
+
+func (r FooRepo) ListByTime(days int) []map[string]any {
+	startDate := time.Now().AddDate(0, 0, days)
+	var result []map[string]any
+	err = r.db.Table(model.Foo{}.TableName()).
+		Where("created_at >= ?", startDate).
+		Find(&result).Error
 	internal.CheckErr(err)
 	return result
 }
