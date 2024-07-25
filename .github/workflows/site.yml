@@ -29,8 +29,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            .output
-            .nuxt
+            ${{ env.PROJECT_PATH }}/.output
+            ${{ env.PROJECT_PATH }}/.nuxt
           key: ${{ runner.os }}-nuxt-build-${{ hashFiles('.output') }}
           restore-keys: |
             ${{ runner.os }}-nuxt-build-
