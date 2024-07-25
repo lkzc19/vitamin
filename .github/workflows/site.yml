@@ -7,7 +7,7 @@ on:
       - 'site/**'
 
 env:
-  WORKING_DIRECTORY: 'site'
+  WORKSPACE: 'site'
   IMAGE_NAME: 'drinkice-site'
 
 jobs:
@@ -16,17 +16,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: LS
-        run: ls
-        working-directory: ${{ env.WORKING_DIRECTORY }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: NPM Install
-        run: npm install
-      - name: NPM Run Build
-        run: npm run build
+        run: |
+          cd ${{ env.WORKSPACE }}
+          npm install
+          npm run build
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2
       - name: 'Login to GitHub Container Registry'
@@ -38,6 +36,7 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
+          context: ${{ env.WORKSPACE }}
           platforms: |
             linux/amd64
             linux/arm64
