@@ -7,7 +7,7 @@ on:
       - 'site/**'
 
 env:
-  WORKING_DIRECTORY: './site'
+  WORKING_DIRECTORY: 'site'
   IMAGE_NAME: 'drinkice-site'
 
 jobs:
@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: ./site
       - name: LS
         run: ls
         working-directory: ${{ env.WORKING_DIRECTORY }}
