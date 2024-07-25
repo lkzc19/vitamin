@@ -19,14 +19,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Cache node_modules
+      - name: Restore
         uses: actions/cache@v4
         with:
           path: |
             node_modules
           key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
-      - name: NPM
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           cd ${{ env.WORKSPACE }}
           npm install
+      - name: Build
+        run: |
+          cd ${{ env.WORKSPACE }}
           npm run build
+      - name: Cache
+        if: success()
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
