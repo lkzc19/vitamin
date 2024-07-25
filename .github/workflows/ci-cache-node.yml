@@ -25,6 +25,7 @@ jobs:
         with:
           path: |
             ${{ env.WORKSPACE }}/node_modules
+            ${{ env.WORKSPACE }}/.nuxt
           key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -41,4 +42,5 @@ jobs:
         with:
           path: |
             ${{ env.WORKSPACE }}/node_modules
+            ${{ env.WORKSPACE }}/.nuxt
           key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
