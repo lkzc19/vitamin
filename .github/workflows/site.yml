@@ -7,7 +7,7 @@ on:
       - 'site/**'
 
 env:
-  PROJECT_PATH: 'site'
+  WORKING_DIRECTORY: './site'
   IMAGE_NAME: 'drinkice-site'
 
 jobs:
@@ -18,11 +18,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: ./site
-      - name: Set working directory
-        run: |
-          echo "WORKING_DIRECTORY=subdirectory" >> $GITHUB_ENV
       - name: LS
         run: ls
+        working-directory: ${{ env.WORKING_DIRECTORY }}
       # - name: Setup Node
       #   uses: actions/setup-node@v4
       #   with:
