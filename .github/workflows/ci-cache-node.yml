@@ -1,0 +1,32 @@
+name: ci-cache-node
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'v-poc/ci/cache-node/**'
+
+env:
+  WORKSPACE: 'v-poc/ci/cache-node'
+
+jobs:
+  drinkice-site-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: ci-cache-node-${{ hashFiles('${{env.WORKSPACE}}/package-lock.json') }}
+      - name: NPM
+        run: |
+          cd ${{ env.WORKSPACE }}
+          npm install
+          npm run build
