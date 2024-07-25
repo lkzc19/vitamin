@@ -8,7 +8,7 @@ on:
 
 env:
   WORKSPACE: 'site'
-  IMAGE_NAME: 'drinkice-site'
+  IMAGE_NAME: 'ghcr.io/lkzc19/drinkice-site'
 
 jobs:
   drinkice-site-build:
@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: NPM Install
+      - name: NPM
         run: |
           cd ${{ env.WORKSPACE }}
           npm install
