@@ -10,7 +10,7 @@ env:
   WORKSPACE: 'v-poc/ci/cache-node'
 
 jobs:
-  drinkice-site-build:
+  ci-cache-node:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ci-cache-node-${{ hashFiles('${{env.WORKSPACE}}/package-lock.json') }}
+          key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
       - name: NPM
         run: |
           cd ${{ env.WORKSPACE }}
