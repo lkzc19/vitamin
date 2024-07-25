@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: |
-            node_modules
+            ${{ env.WORKSPACE }}/node_modules
           key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -39,5 +39,6 @@ jobs:
         if: success()
         uses: actions/cache/save@v4
         with:
-          path: node_modules
+          path: |
+            ${{ env.WORKSPACE }}/node_modules
           key: ci-cache-node-${{ hashFiles('v-poc/ci/cache-node/package-lock.json') }}
