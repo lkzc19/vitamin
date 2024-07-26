@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'v-demo/shortlink/shortlink-spring/**'
+      - 'v-demo/demo-sl/sl-spring/**'
 
 env:
   WORKSPACE: 'v-demo/demo-sl/sl-spring'
