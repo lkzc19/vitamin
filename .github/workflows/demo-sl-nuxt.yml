@@ -1,29 +1,30 @@
-name: shortlink-spring
+name: demo-sl-nuxt
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'v-demo/shortlink/shortlink-spring/**'
+      - 'v-demo/demo-sl/sl-nuxt/**'
 
 env:
-  PROJECT_PATH: 'v-demo/shortlink/shortlink-spring'
-  IMAGE_NAME: 'ghcr.io/lkzc19/demo.shortlink-spring'
+  WORKSPACE: 'v-demo/demo-sl/sl-nuxt'
+  IMAGE_NAME: 'ghcr.io/lkzc19/demo-sl-nuxt'
 
 jobs:
-  shortlink-spring:
+  sl-nuxt-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: 'Set up JDK 17'
-        uses: actions/setup-java@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: 'Package gradle project'
+          node-version: "20"
+      - name: NPM
         run: |
-          cd ${{ env.PROJECT_PATH }}
-          ./gradlew bootJar
+          cd ${{ env.WORKSPACE }}
+          npm install
+          npm run build
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2
       - name: 'Login to GitHub Container Registry'
@@ -35,12 +36,10 @@ jobs:
       - name: 'Build and push docker image'
         uses: docker/build-push-action@v5
         with:
-          context: ${{ env.PROJECT_PATH }}
-          file: ${{ env.PROJECT_PATH }}/Dockerfile
+          context: ${{ env.WORKSPACE }}
           platforms: |
             linux/amd64
             linux/arm64
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  

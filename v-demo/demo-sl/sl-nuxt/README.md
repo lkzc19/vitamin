@@ -1,4 +1,4 @@
-# shortlink-nuxt3
+# sl-nuxt
 
 # 项目所需的一些命令
 
@@ -12,6 +12,12 @@ npm run build
 # 打包后预览
 npm run preview
 ```
+
+# 文档
+
+- [nuxt3](https://nuxt.com/)
+- [nuxtui](https://ui.nuxt.com/)
+- [tailwind](https://tailwind.nodejs.cn/)
 
 # TODO
 

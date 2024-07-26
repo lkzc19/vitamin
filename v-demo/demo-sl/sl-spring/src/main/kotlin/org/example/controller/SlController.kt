@@ -19,7 +19,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 
 
 @RestController
-class ShortlinkController {
+class SlController {
 
     val hashUtils = MurmurHash3()
     @Value("\${vitamin.prefix}")

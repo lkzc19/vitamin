@@ -6,10 +6,10 @@ import org.springframework.boot.runApplication
 import java.util.concurrent.TimeUnit
 
 @SpringBootApplication
-class ShortlinkApplication
+class SlApplication
 
 fun main(args: Array<String>) {
-    runApplication<ShortlinkApplication>(*args)
+    runApplication<SlApplication>(*args)
 }
 
 val base62Map = mapOf(
