@@ -2,7 +2,7 @@ FROM bitnami/java:17
 
 WORKDIR /app
 
-COPY ./build/libs/shortlink-0.0.1-SNAPSHOT.jar app.jar
+COPY ./build/libs/app.jar app.jar
 
 EXPOSE 3000
 

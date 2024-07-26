@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: isDev ? 'http://localhost:3000' : 'https://drinkice.xyz',
+      baseURL: isDev ? 'http://localhost:3000' : 'https://drinkice.xyz/',
     },
   },
 

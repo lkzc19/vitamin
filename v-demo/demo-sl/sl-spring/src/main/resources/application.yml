@@ -1,6 +1,6 @@
 spring:
     application:
-        name: shortlink
+        name: sl-spring
     profiles:
         active: dev
 
