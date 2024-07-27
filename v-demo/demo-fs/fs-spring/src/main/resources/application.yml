@@ -5,7 +5,7 @@ spring:
   application:
     name: fs-spring
   profiles:
-    active: win
+    active: dev
   servlet:
     multipart:
       max-file-size: 50MB # 设置单个文件的最大大小。如果上传的文件超过这个大小，将会抛出异常。
@@ -16,4 +16,4 @@ spring:
     static-path-pattern: /file/**
   web:
     resources:
-      static-locations: file:${vitamin.upload-path}
+      static-locations: file:${vitamin.fs-dir}
