@@ -5,7 +5,7 @@ import org.example.vo.FileVo
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 
-interface FileService {
+interface FsService {
 
     fun save(param: FileChunkParam): Boolean
 

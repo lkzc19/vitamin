@@ -3,7 +3,7 @@ package org.example.controller
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.juli.logging.LogFactory
 import org.example.param.FileChunkParam
-import org.example.service.FileService
+import org.example.service.FsService
 import org.example.vo.FileVo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -24,15 +24,15 @@ class FsController {
     lateinit var fsDir: String
 
     @Autowired
-    lateinit var fileService: FileService
+    lateinit var fsService: FsService
 
     /**
      * Directory Structure
      */
     @GetMapping("/ds")
-    fun getDS(): ResponseEntity<List<FileVo>> {
+    fun getDS(@RequestParam path: String): ResponseEntity<List<FileVo>> {
         val result = mutableListOf<FileVo>()
-        fileService.getDS(File(fsDir), result)
+        fsService.getDS(File(fsDir + path), result)
         return ResponseEntity.ok(result.first().items)
     }
 
@@ -50,7 +50,7 @@ class FsController {
             }
         }
         
-        fileService.save(param)
+        fsService.save(param)
         return param.identifier
     }
 
@@ -66,7 +66,7 @@ class FsController {
             }
         }
         val fullFilename = fsDir + File.separator + file.originalFilename
-        return fileService.save(fullFilename, file)
+        return fsService.save(fullFilename, file)
     }
 
     @GetMapping("/download/{filename}")

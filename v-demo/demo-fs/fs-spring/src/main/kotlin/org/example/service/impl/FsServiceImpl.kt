@@ -1,7 +1,7 @@
 package org.example.service.impl
 
 import org.example.param.FileChunkParam
-import org.example.service.FileService
+import org.example.service.FsService
 import org.example.vo.FileVo
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ import java.nio.channels.FileChannel
 
 
 @Service
-class FileServiceImpl : FileService {
+class FsServiceImpl : FsService {
 
     private val prefix = "localhost:3000/file/"
 

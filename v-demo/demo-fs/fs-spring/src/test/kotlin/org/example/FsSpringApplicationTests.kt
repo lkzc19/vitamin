@@ -1,6 +1,6 @@
 package org.example
 
-import org.example.service.FileService
+import org.example.service.FsService
 import org.example.vo.FileVo
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +15,7 @@ class FsSpringApplicationTests {
     lateinit var fsDir: String
 
     @Autowired
-    lateinit var fileService: FileService
+    lateinit var fsService: FsService
 
     @Test
     fun contextLoads() {
@@ -27,7 +27,7 @@ class FsSpringApplicationTests {
         val items = mutableListOf<FileVo>()
 
         if (directory.exists() && directory.isDirectory) {
-            fileService.getDS(directory, items)
+            fsService.getDS(directory, items)
         } else {
             println("Directory not found.")
         }
