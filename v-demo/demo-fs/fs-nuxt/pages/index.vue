@@ -5,28 +5,12 @@ const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseURL
 const ds = ref<FileMeta[] | null>(null)
 
-onMounted(async () => {
-  const {data, status, error} = await useFetch(baseURL + "/ds", {
-    method: 'GET',
-  })
-
-  ds.value = data.value as FileMeta[]
-  console.log(data)
-  console.log(status)
-  console.log(error)
+const {data, status, error} = await useFetch(baseURL + "/ds", {
+  method: 'GET',
+  params: { 'path': route.path }
 })
 
-const getDS = async () => {
-  const {data, status, error} = await useFetch(baseURL + "/ds", {
-    method: 'GET',
-  })
-
-  ds.value = data.value as FileMeta[]
-  console.log(data)
-  console.log(status)
-  console.log(error)
-}
-// console.log(ds.value)
+ds.value = data.value as FileMeta[]
 </script>
 
 <template>
@@ -42,7 +26,7 @@ const getDS = async () => {
           <div></div>
         </div>
         <div class="basis-1/4">
-          <div @click="getDS">
+          <div>
             搜索框
           </div>
           <div>
