@@ -21,4 +21,4 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl \
     git-core \
-    openjdk-11-jdk
+    openjdk-17-jdk
