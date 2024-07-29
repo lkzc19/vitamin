@@ -3,6 +3,3 @@ spring:
         name: sl-spring
     profiles:
         active: dev
-
-vitamin:
-    perfix: http://localhost:3000/

@@ -2,4 +2,4 @@ server:
     port: 3000
 
 vitamin:
-    prefix: https://drinkice.xyz/
+    prefix: https://sl.drinkice.xyz/
