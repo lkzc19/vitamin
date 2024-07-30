@@ -24,6 +24,19 @@ npm run preview
 
 后续移动到服务器上 使用docker部署。
 
+## 文档
+
+- [nuxt3](https://nuxt.com/)
+- [nuxtui](https://ui.nuxt.com/)
+- [tailwind](https://tailwind.nodejs.cn/)
+
+
 ## 使用到的素材
 
 [Cyberpunk 2077 font](https://freefontsfamily.net/cyberpunk-font-free-download/)
+
+## TODO
+
+- [ ] about
+  - 大致介绍
+  - 时间线
