@@ -9,3 +9,5 @@ class FsSpringApplication
 fun main(args: Array<String>) {
     runApplication<FsSpringApplication>(*args)
 }
+
+val IGNORE = setOf(".DS_Store")

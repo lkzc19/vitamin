@@ -3,8 +3,11 @@ package org.example.controller
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.juli.logging.LogFactory
 import org.example.param.FileChunkParam
+import org.example.param.PageParam
 import org.example.service.FsService
 import org.example.vo.FileVo
+import org.example.vo.GetInfoVo
+import org.example.vo.PageVo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
@@ -27,13 +30,25 @@ class FsController {
     lateinit var fsService: FsService
 
     /**
+     * 获取基本信息
+     */
+    @GetMapping("/info")
+    fun getInfo(): ResponseEntity<GetInfoVo> {
+        val vo = fsService.getInfo()
+        return ResponseEntity.ok(vo)
+    }
+
+    /**
      * Directory Structure
      */
-    @GetMapping("/ds")
-    fun getDS(@RequestParam path: String): ResponseEntity<List<FileVo>> {
-        val result = mutableListOf<FileVo>()
-        fsService.getDS(File(fsDir + path), result)
-        return ResponseEntity.ok(result.first().items)
+    @GetMapping("/file.list")
+    fun listFile(
+        @RequestParam path: String,
+        @RequestParam(defaultValue = "1") pageC: Int,   // current 当前页
+        @RequestParam(defaultValue = "10") pageS: Int,   // size 每页条数
+    ): ResponseEntity<PageVo<FileVo>> {
+        val vo = fsService.listFile(path, PageParam(pageC, pageS))
+        return ResponseEntity.ok(vo)
     }
 
     /**

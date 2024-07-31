@@ -22,17 +22,10 @@ class FsSpringApplicationTests {
     }
 
     @Test
-    fun testListFiles() {
-        val directory = File(fsDir)
-        val items = mutableListOf<FileVo>()
-
-        if (directory.exists() && directory.isDirectory) {
-            fsService.getDS(directory, items)
-        } else {
-            println("Directory not found.")
-        }
-
-        items.forEach { println(it) }
+    fun test() {
+        val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        val subList = list.subList(1, 5)
+        println(subList)
     }
 
 }

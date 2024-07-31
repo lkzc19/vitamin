@@ -1,14 +1,21 @@
 package org.example.service.impl
 
+import org.example.BizException
+import org.example.IGNORE
 import org.example.param.FileChunkParam
+import org.example.param.PageParam
 import org.example.service.FsService
 import org.example.vo.FileVo
+import org.example.vo.GetInfoVo
+import org.example.vo.PageVo
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.RandomAccessFile
 import java.nio.channels.FileChannel
+import java.util.*
 
 
 @Service
@@ -20,6 +27,59 @@ class FsServiceImpl : FsService {
 
     @Value("\${vitamin.fs-dir}")
     lateinit var fsDir: String
+
+    override fun getInfo(): GetInfoVo {
+        var fileCount = 0
+        val queue = LinkedList<File>()
+        queue.add(File(fsDir))
+        while (queue.isNotEmpty()) {
+            queue.remove().listFiles()?.forEach {
+                if (it.isDirectory) {
+                    queue.add(it)
+                } else {
+                    // 忽略文件不计
+                    if (!IGNORE.contains(it.name)) {
+                        fileCount++
+                    }
+                }
+            }
+        }
+        return GetInfoVo(fileCount = fileCount)
+    }
+
+    override fun listFile(path: String, pageParam: PageParam): PageVo<FileVo> {
+        val file = File(fsDir + path)
+        if (file.isFile) {
+            throw BizException(message = "[path]不是目录", httpStatus = HttpStatus.BAD_REQUEST)
+        }
+        val items = mutableListOf<FileVo>()
+        file.listFiles()?.forEach {
+            if (IGNORE.contains(it.name)) {
+                return@forEach
+            }
+            FileVo(
+                name = it.name,
+                ext = it.extension,
+                isDir = it.isDirectory,
+            ).let { vo -> items.add(vo) }
+        }
+        // 排序 先目录 在文件名
+        val itemsBySort = items.sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
+
+        val subList = if (pageParam.offset >= itemsBySort.size) {
+            emptyList()
+        } else if (pageParam.offset + pageParam.limit > itemsBySort.size) {
+            itemsBySort.subList(pageParam.offset, itemsBySort.size)
+        } else {
+            itemsBySort.subList(pageParam.offset, pageParam.offset + pageParam.limit)
+        }
+        return PageVo(
+            pageC = pageParam.pageC,
+            pageS = pageParam.pageS,
+            pageT = pageParam.pageT(itemsBySort.size),
+            items = subList
+        )
+    }
 
     override fun save(param: FileChunkParam): Boolean {
         val fullFilename = fsDir + File.separator + param.filename
@@ -71,14 +131,14 @@ class FsServiceImpl : FsService {
         return true
     }
 
-    override fun getDS(file: File, items: MutableList<FileVo>) {
-        if (file.isDirectory) {
-            val children = mutableListOf<FileVo>()
-            file.listFiles()?.forEach { getDS(it, children) }
-            items.add(FileVo(name = file.name, isDir = true, items = children))
-        } else {
-            items.add(FileVo(name = file.name, ext = file.extension))
-        }
-    }
+//    override fun getDS(file: File, items: MutableList<FileVo>) {
+//        if (file.isDirectory) {
+//            val children = mutableListOf<FileVo>()
+//            file.listFile()?.forEach { getDS(it, children) }
+//            items.add(FileVo(name = file.name, isDir = true, items = children))
+//        } else {
+//            items.add(FileVo(name = file.name, ext = file.extension))
+//        }
+//    }
 
 }
