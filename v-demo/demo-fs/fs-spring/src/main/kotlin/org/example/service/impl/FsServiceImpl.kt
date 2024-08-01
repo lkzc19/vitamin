@@ -21,12 +21,13 @@ import java.util.*
 @Service
 class FsServiceImpl : FsService {
 
-    private val prefix = "localhost:3000/file/"
-
     private val defaultChunkSize = 1024 * 1024 * 2L
 
     @Value("\${vitamin.fs-dir}")
     lateinit var fsDir: String
+
+    @Value("\${vitamin.prefix}")
+    lateinit var prefix: String
 
     override fun getInfo(): GetInfoVo {
         var fileCount = 0
@@ -81,6 +82,26 @@ class FsServiceImpl : FsService {
         )
     }
 
+    override fun mkdir(path: String, name: String): String {
+        if (!File(fsDir + path).exists()) {
+            throw BizException(message = "[path: ${path}]目录不存在", httpStatus = HttpStatus.BAD_REQUEST)
+        }
+        val dir = File(fsDir + path + name)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+        return path + name
+    }
+
+    override fun upload(path: String, file: MultipartFile): String {
+        if (!File(fsDir + path).exists()) {
+            throw BizException(message = "[$path]目录不存在", httpStatus = HttpStatus.BAD_REQUEST)
+        }
+        val dest = File(fsDir + path + file.originalFilename)
+        file.transferTo(dest)
+        return prefix + path + file.originalFilename
+    }
+
     override fun save(param: FileChunkParam): Boolean {
         val fullFilename = fsDir + File.separator + param.filename
 
@@ -95,7 +116,7 @@ class FsServiceImpl : FsService {
     override fun save(finalFilename: String, file: MultipartFile): String {
         // 可以加一些如 目录是否存在的判断 | 文件是否已存在 | 文件名md5&映射
         file.transferTo(File(finalFilename)) // 将文件保存到指定路径
-        return prefix + file.originalFilename
+        return file.originalFilename ?: ""
     }
 
     private fun saveFileByRandomAccessFile(finalFilename: String, param: FileChunkParam): Boolean {

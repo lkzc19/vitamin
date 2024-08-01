@@ -13,6 +13,10 @@ interface FsService {
 
     fun listFile(path: String, pageParam: PageParam): PageVo<FileVo>
 
+    fun mkdir(path: String, name: String): String
+
+    fun upload(path: String, file: MultipartFile): String
+
     fun save(param: FileChunkParam): Boolean
 
     fun save(finalFilename: String, file: MultipartFile): String

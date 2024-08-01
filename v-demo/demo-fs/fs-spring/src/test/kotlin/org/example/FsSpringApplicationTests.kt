@@ -28,4 +28,20 @@ class FsSpringApplicationTests {
         println(subList)
     }
 
+    @Test
+    fun mkdir() {
+        println(File("$fsDir/bar").exists())
+        println(File("$fsDir/bar/").exists())
+        println(File("$fsDir/bar").isDirectory)
+        println(File("$fsDir/bar/").isDirectory)
+        println(File("$fsDir/bar").absolutePath)
+        println(File("$fsDir/bar/").absolutePath)
+    }
+
+    @Test
+    fun file() {
+        println(File("$fsDir/site.yml").name)
+        println(File("$fsDir/site.yml").path)
+    }
+
 }
