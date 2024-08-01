@@ -1,4 +1,4 @@
-module z-lang
+module v-lang
 
 go 1.22
 
