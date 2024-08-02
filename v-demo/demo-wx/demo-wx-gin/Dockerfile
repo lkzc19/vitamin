@@ -3,7 +3,7 @@ LABEL authors="lkzc19"
 
 WORKDIR /app
 
-COPY app app
+COPY ./app app
 
 EXPOSE 3000
 
