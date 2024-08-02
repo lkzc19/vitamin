@@ -3,8 +3,8 @@ LABEL authors="lkzc19"
 
 WORKDIR /app
 
-COPY ./app /app
+COPY app .
 
 EXPOSE 3000
 
-ENTRYPOINT ["sh", "/app/app"]
+ENTRYPOINT ["/app/app"]
