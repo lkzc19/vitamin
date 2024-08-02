@@ -7,4 +7,4 @@ COPY ./app app
 
 EXPOSE 3000
 
-ENTRYPOINT ["./app"]
+ENTRYPOINT ["app"]
