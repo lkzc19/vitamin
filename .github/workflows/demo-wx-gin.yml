@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: 'ghcr.io/lkzc19/demo-wx-gin'
 
 jobs:
-  sl-spring-bulid:
+  wx-gin-bulid:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
