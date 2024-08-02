@@ -1,0 +1,5 @@
+
+build:
+	go mod tidy
+	go build -o app main.go
+	go build -o app.exe main.go
