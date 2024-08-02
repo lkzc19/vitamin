@@ -1,10 +1,10 @@
-name: demo-sl-spring
+name: demo-wx-gin
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'v-demo/demo-sl/sl-spring/**'
+      - 'v-demo/demo-wx/demo-wx-gin/**'
 
 env:
   WORKSPACE: 'v-demo/demo-wx/demo-wx-gin'
