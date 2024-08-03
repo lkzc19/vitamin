@@ -1,11 +1,14 @@
-FROM alpine:latest
+FROM golang:latest
 LABEL authors="lkzc19"
 
 ENV TZ=Asia/Shanghai
 
 WORKDIR /app
 
-COPY app app
+COPY . .
+
+RUN go mod tidy && \
+    go build -o app main.go
 
 EXPOSE 3000
 
