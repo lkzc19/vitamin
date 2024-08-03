@@ -24,8 +24,7 @@ jobs:
           cd ${{ env.WORKSPACE }}
           go mod tidy
           go build -o app main.go
-          chmod +x ./app
-          ls
+          uname -m
       - name: 'Set up Docker Buildx'
         uses: docker/setup-buildx-action@v2
       - name: 'Login to GitHub Container Registry'
