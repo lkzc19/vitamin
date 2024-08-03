@@ -5,8 +5,8 @@ ENV TZ=Asia/Shanghai
 
 WORKDIR /app
 
-COPY ./app /app/app
-
-CMD ["./app"]
+COPY app app
 
 EXPOSE 3000
+
+ENTRYPOINT ["./app"]
