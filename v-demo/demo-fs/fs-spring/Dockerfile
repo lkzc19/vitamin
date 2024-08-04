@@ -2,7 +2,7 @@ FROM bitnami/java:17
 
 WORKDIR /app
 
-RUN mkdir /var/vitamin/file
+COPY file /var/vitamin/file
 COPY ./build/libs/app.jar app.jar
 
 EXPOSE 3000
