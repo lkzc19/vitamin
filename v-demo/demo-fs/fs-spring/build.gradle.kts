@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
@@ -37,4 +39,9 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// 如果是 Spring Boot 项目，可能需要配置 bootJar 而不是 jar
+tasks.getByName<BootJar>("bootJar") {
+    archiveFileName.set("app.jar")
 }
