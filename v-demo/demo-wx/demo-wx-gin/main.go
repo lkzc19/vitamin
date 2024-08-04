@@ -23,10 +23,12 @@ func init() {
 	}
 	appid := os.Getenv("WX_APPID")
 	secret := os.Getenv("WX_SECRET")
+	token := os.Getenv("WX_TOKEN")
 	aeskey := os.Getenv("WX_AESKEY")
 	OfficialAccountApp, err = officialAccount.NewOfficialAccount(&officialAccount.UserConfig{
 		AppID:  appid,
 		Secret: secret,
+		Token:  token,
 		AESKey: aeskey,
 
 		Log: officialAccount.Log{
