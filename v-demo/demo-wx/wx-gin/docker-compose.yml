@@ -1,7 +1,7 @@
 version: '3'
 services:
   demo-wx-gin:
-    image: registry.cn-beijing.aliyuncs.com/drinkice/demo-wx-gin:latest
+    image: ghcr.io/lkzc19/demo-wx-gin:latest
     container_name: demo-wx-gin
     restart: always
     ports:
