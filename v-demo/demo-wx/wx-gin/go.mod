@@ -1,4 +1,4 @@
-module demo-wx-gin
+module wx-gin
 
 go 1.22
 

@@ -8,7 +8,7 @@ go-build:
 	go mod tidy
 	$(GO_BUILD_FLAGS) GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(OUTPUT_NAME) main.go
 
-docker-build: clean
+docker-build:
 	CGO_ENABLED=0 GOOS=linux go build -o app main.go
 	docker build -t demo-wx:latest .
 
