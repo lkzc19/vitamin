@@ -7,7 +7,7 @@ on:
       - 'v-demo/demo-wx/demo-wx-gin/**'
 
 env:
-  WORKSPACE: 'v-demo/demo-wx/demo-wx-gin'
+  WORKSPACE: 'v-demo/demo-wx/wx-gin'
   IMAGE_NAME: 'ghcr.io/lkzc19/demo-wx-gin'
 
 jobs:
