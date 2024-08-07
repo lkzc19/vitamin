@@ -48,24 +48,8 @@ class FsServiceImpl : FsService {
         return GetInfoVo(fileCount = fileCount)
     }
 
-    override fun listFile(path: String, pageParam: PageParam): PageVo<FileVo> {
-        val file = File(fsDir + path)
-        if (file.isFile) {
-            throw BizException(message = "[path]不是目录", httpStatus = HttpStatus.BAD_REQUEST)
-        }
-        val items = mutableListOf<FileVo>()
-        file.listFiles()?.forEach {
-            if (IGNORE.contains(it.name)) {
-                return@forEach
-            }
-            FileVo(
-                name = it.name,
-                ext = it.extension,
-                isDir = it.isDirectory,
-            ).let { vo -> items.add(vo) }
-        }
-        // 排序 先目录 在文件名
-        val itemsBySort = items.sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
+    override fun pageFile(path: String, pageParam: PageParam): PageVo<FileVo> {
+        val itemsBySort = listFile(path)
 
         val subList = if (pageParam.offset >= itemsBySort.size) {
             emptyList()
@@ -80,6 +64,28 @@ class FsServiceImpl : FsService {
             pageT = pageParam.pageT(itemsBySort.size),
             items = subList
         )
+    }
+
+    override fun listFile(path: String): List<FileVo> {
+        val file = File(fsDir + path)
+        if (file.isFile) {
+            throw BizException(message = "[path]不是目录", httpStatus = HttpStatus.BAD_REQUEST)
+        }
+        val items = file.listFiles()?.mapNotNull {
+            if (IGNORE.contains(it.name)) {
+                return@mapNotNull null
+            }
+            FileVo(
+                name = it.name,
+                ext = it.extension,
+                isDir = it.isDirectory,
+                size = it.length(),
+            )
+        } ?: emptyList()
+        // 排序 先目录 在文件名
+        val itemsBySort = items.sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
+
+        return itemsBySort
     }
 
     override fun mkdir(path: String, name: String): String {

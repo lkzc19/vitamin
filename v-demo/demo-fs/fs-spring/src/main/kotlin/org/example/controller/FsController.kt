@@ -43,13 +43,22 @@ class FsController {
     /**
      * 获取指定目录下的所有目录及文件
      */
-    @GetMapping("/file.list")
-    fun listFile(
+    @GetMapping("/file.page")
+    fun pageFile(
         @RequestParam path: String,
         @RequestParam(defaultValue = "1") pageC: Int,   // current 当前页
         @RequestParam(defaultValue = "10") pageS: Int,   // size 每页条数
     ): ResponseEntity<PageVo<FileVo>> {
-        val vo = fsService.listFile(path, PageParam(pageC, pageS))
+        val vo = fsService.pageFile(path, PageParam(pageC, pageS))
+        return ResponseEntity.ok(vo)
+    }
+
+    /**
+     * 获取指定目录下的所有目录及文件
+     */
+    @GetMapping("/file.list")
+    fun listFile(@RequestParam path: String): ResponseEntity<List<FileVo>> {
+        val vo = fsService.listFile(path)
         return ResponseEntity.ok(vo)
     }
 

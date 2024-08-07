@@ -11,7 +11,9 @@ interface FsService {
 
     fun getInfo(): GetInfoVo
 
-    fun listFile(path: String, pageParam: PageParam): PageVo<FileVo>
+    fun pageFile(path: String, pageParam: PageParam): PageVo<FileVo>
+
+    fun listFile(path: String): List<FileVo>
 
     fun mkdir(path: String, name: String): String
 
