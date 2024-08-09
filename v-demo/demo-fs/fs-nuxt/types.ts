@@ -7,7 +7,9 @@ export interface Page<T> {
 }
 
 export interface FileMeta {
+    id: number,
     name: string,
     ext: string,
-    isDir: boolean
+    isDir: boolean,
+    size: number
 }

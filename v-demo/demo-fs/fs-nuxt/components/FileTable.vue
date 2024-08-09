@@ -1,86 +1,144 @@
 <script setup lang="ts">
-import type {Page, FileMeta} from "~/types";
+import type {FileMeta} from "~/types";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
 
+const pageC = ref(1)
+const pageS = ref(10)
+const pageT = ref(0)
+
 const columns = [{
   key: 'id',
-  label: 'id'
+  label: '#',
+  sortable: true
 }, {
   key: 'name',
   label: '名称'
 }, {
-  key: 'fileSize',
+  key: 'size',
   label: '文件大小'
 }, {
-  key: 'action'
+  key: 'action',
+  label: '操作'
 }]
 
-const data = [{
-  id: 1,
-  name: 'Lindsay Walton',
-  fileSize: 'Front-end Developer',
-}, {
-  id: 2,
-  name: 'Courtney Henry',
-  fileSize: 'Designer',
-}, {
-  id: 3,
-  name: 'Tom Cook',
-  fileSize: 'Director of Product',
-}]
+const fileMetaList = ref<FileMeta[]>(Array())
 
-const items = (row: any) => [
-  [{
-    label: 'Edit',
-    icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row.id)
-  }, {
-    label: 'Duplicate',
-    icon: 'i-heroicons-document-duplicate-20-solid'
-  }], [{
-    label: 'Archive',
-    icon: 'i-heroicons-archive-box-20-solid'
-  }, {
-    label: 'Move',
-    icon: 'i-heroicons-arrow-right-circle-20-solid'
-  }], [{
-    label: 'Delete',
-    icon: 'i-heroicons-trash-20-solid'
-  }]
-]
+const { data } = await useFetch(baseURL + "/file.list", {
+  method: 'GET',
+  params: { 'path': route.path }
+})
 
-// const pageC = ref(1)
-// const pageS = ref(10)
-// const pageT = ref(0)
-// const fileMetaPage = ref<Page<FileMeta> | null>(null)
-// const fileMetaList = ref<FileMeta[]>(Array())
-//
-// const { data } = await useFetch(baseURL + "/file.list", {
-//   method: 'GET',
-//   params: {
-//     'path': route.path,
-//     'pageC': pageC.value,
-//     'pageS': pageS.value
-//   }
-// })
-//
-// fileMetaPage.value = data.value as Page<FileMeta>
-// pageC.value = fileMetaPage.value.pageC
-// pageS.value = fileMetaPage.value.pageS
-// pageT.value = fileMetaPage.value.pageT
-// fileMetaList.value = fileMetaPage.value.items
+fileMetaList.value = data.value as FileMeta[]
+fileMetaList.value.map((it: FileMeta, index: number) => it.id = index + 1)
+pageT.value = fileMetaList.value.length
+console.log(fileMetaList.value)
+
+const to = (dir: string) => (route.path == '/' ? "" : "/") + dir
+const download = (name: string) => baseURL + "/download?fullFilename=" + route.path + (route.path == '/' ? "" : "/") + name
+const addUnit = (size: number) => {
+  if (size < 1024) {
+    return size + " B"
+  } else if (1024 < size && size < 1024 **2) {
+    return (size / 1024.0).toFixed(2) + " KB"
+  } else if (1024 ** 2 < size && size < 1024 ** 3) {
+    return (size / 1024.0 ** 2).toFixed(2) + " MB"
+  } else {
+    return (size / 1024.0 ** 3).toFixed(2) + " GB"
+  }
+}
 </script>
 
 <template>
-  <UTable :columns="columns" :rows="data">
-    <template #actions-data="{ row }">
-      <UDropdown :items="items(row)">
-        <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-      </UDropdown>
+  <UCard
+      class="w-full"
+      :ui="{
+        base: '',
+        ring: 'ring-1 ring-gray-200 dark:ring-gray-800',
+        rounded: '',
+        divide: 'divide-y divide-gray-200 dark:divide-gray-700',
+        header: { padding: 'px-4 py-5' },
+        body: { padding: '', base: 'divide-y divide-gray-200 dark:divide-gray-700' },
+        footer: { padding: 'p-4' }
+      }"
+  >
+
+    <UTable
+        :columns="columns"
+        :rows="fileMetaList"
+        :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: '此 地 无 银' }"
+    >
+
+      <template #name-data="{ row }">
+        <ULink
+            v-if="row.isDir"
+            :to="to(row.name)"
+            active-class="text-primary"
+            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+        >
+          <UIcon name="heroicons:folder" />
+          {{ row.name }}
+        </ULink>
+        <ULink
+            v-else
+            :to="download(row.name)"
+            active-class="text-primary"
+            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+        >
+          <UIcon name="heroicons:document" />
+          {{ row.name }}
+        </ULink>
+      </template>
+
+      <template #size-data="{ row }">
+        <span>{{row.isDir ? "-" : addUnit(row.size)}}</span>
+      </template>
+
+      <template #action-data="{ row }">
+        <UButton v-if="row.isDir"
+                 icon="heroicons:arrow-right-16-solid"
+                 variant="outline"
+                 :to="to(row.name)"
+        />
+        <UButton v-else
+                 icon="heroicons:arrow-down-16-solid"
+                 variant="outline"
+                 :to="download(row.name)"
+        />
+      </template>
+    </UTable>
+
+    <!-- Number of rows & Pagination -->
+    <template #footer>
+      <div class="flex flex-wrap justify-between items-center">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sm leading-5">每页多少行:</span>
+          <USelect
+              v-model="pageS"
+              :options="[3, 5, 10, 20, 30, 50]"
+              class="me-2 w-20"
+              size="xs"
+          />
+        </div>
+
+        <UPagination
+            v-model="pageC"
+            :page-count="pageS"
+            :total="(pageT / pageS) + ((pageT % pageS) == 0 ? 0 : 1)"
+            :ui="{
+            wrapper: 'flex items-center gap-1',
+            rounded: '!rounded-full min-w-[32px] justify-center',
+            default: {
+              activeButton: {
+                variant: 'outline'
+              }
+            }
+          }"
+        />
+      </div>
     </template>
-  </UTable>
+  </UCard>
 </template>
 
 <style scoped>
