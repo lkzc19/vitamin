@@ -49,6 +49,9 @@ class FsController {
         @RequestParam(defaultValue = "1") pageC: Int,   // current 当前页
         @RequestParam(defaultValue = "10") pageS: Int,   // size 每页条数
     ): ResponseEntity<PageVo<FileVo>> {
+        if (path.endsWith("/")) {
+            throw BizException(message = "[path]需以[/]结尾", httpStatus = HttpStatus.NOT_FOUND)
+        }
         val vo = fsService.pageFile(path, PageParam(pageC, pageS))
         return ResponseEntity.ok(vo)
     }
@@ -58,7 +61,22 @@ class FsController {
      */
     @GetMapping("/file.list")
     fun listFile(@RequestParam path: String): ResponseEntity<List<FileVo>> {
+        if (!path.endsWith("/")) {
+            throw BizException(message = "[path]需以[/]结尾", httpStatus = HttpStatus.NOT_FOUND)
+        }
         val vo = fsService.listFile(path)
+        return ResponseEntity.ok(vo)
+    }
+
+    /**
+     * 获取指定目录下的所有目录及文件
+     */
+    @GetMapping("/file.search")
+    fun searchFile(@RequestParam keyword: String): ResponseEntity<List<FileVo>> {
+        if (keyword.isBlank()) {
+            return ResponseEntity.ok(emptyList())
+        }
+        val vo = fsService.searchFile(keyword)
         return ResponseEntity.ok(vo)
     }
 

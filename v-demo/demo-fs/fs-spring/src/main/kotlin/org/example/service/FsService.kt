@@ -15,6 +15,8 @@ interface FsService {
 
     fun listFile(path: String): List<FileVo>
 
+    fun searchFile(keyword: String): List<FileVo>
+
     fun mkdir(path: String, name: String): String
 
     fun upload(path: String, file: MultipartFile): String

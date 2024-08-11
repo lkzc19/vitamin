@@ -2,6 +2,7 @@ package org.example.service.impl
 
 import org.example.BizException
 import org.example.IGNORE
+import org.example.ext.virtualPath
 import org.example.param.FileChunkParam
 import org.example.param.PageParam
 import org.example.service.FsService
@@ -68,8 +69,8 @@ class FsServiceImpl : FsService {
 
     override fun listFile(path: String): List<FileVo> {
         val file = File(fsDir + path)
-        if (file.isFile) {
-            throw BizException(message = "[path]不是目录", httpStatus = HttpStatus.BAD_REQUEST)
+        if (!file.isDirectory) {
+            throw BizException(message = "[path]不是目录", httpStatus = HttpStatus.NOT_FOUND)
         }
         val items = file.listFiles()?.mapNotNull {
             if (IGNORE.contains(it.name)) {
@@ -80,12 +81,53 @@ class FsServiceImpl : FsService {
                 ext = it.extension,
                 isDir = it.isDirectory,
                 size = it.length(),
+                fullPath = it.virtualPath(fsDir)
             )
         } ?: emptyList()
         // 排序 先目录 在文件名
-        val itemsBySort = items.sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
-
+        val itemsBySort = items
+            .sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
+            .toMutableList()
+        // 手动添加上一级目录
+        itemsBySort.add(0, FileVo(
+            name = "..",
+            ext = "",
+            isDir = true,
+            size = 4096,
+            fullPath = "$path../"
+        ))
         return itemsBySort
+    }
+
+    override fun searchFile(keyword: String): List<FileVo> {
+        return listAll().filter { it.name.contains(keyword, true) }
+    }
+
+    private fun listAll(): List<FileVo> {
+        val items = mutableListOf<FileVo>()
+
+        val queue = ArrayDeque<File>()
+        queue.add(File("$fsDir/"))
+
+        while (queue.isNotEmpty()) {
+            val dir = queue.remove()
+            dir.listFiles()?.forEach {
+                if (IGNORE.contains(it.name)) {
+                    return@forEach
+                }
+                items.add(FileVo(
+                    name = it.name,
+                    ext = it.extension,
+                    isDir = it.isDirectory,
+                    size = it.length(),
+                    fullPath = it.virtualPath(fsDir)
+                ))
+                if (it.isDirectory) {
+                    queue.add(it)
+                }
+            }
+        }
+        return items
     }
 
     override fun mkdir(path: String, name: String): String {
