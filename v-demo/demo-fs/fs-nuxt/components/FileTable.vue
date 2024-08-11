@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {FileMeta} from "~/types";
+import {parentPath} from "~/utils";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
@@ -27,16 +28,23 @@ const fileMetaList = ref<FileMeta[]>(Array())
 
 const { data } = await useFetch(baseURL + "/file.list", {
   method: 'GET',
-  params: { 'path': route.path }
+  params: { 'path': route.path + (route.path.endsWith("/") ? "" : "/") }
 })
 
 fileMetaList.value = data.value as FileMeta[]
 fileMetaList.value.map((it: FileMeta, index: number) => it.id = index + 1)
 pageT.value = fileMetaList.value.length
-console.log(fileMetaList.value)
 
-const to = (dir: string) => (route.path == '/' ? "" : "/") + dir
-const download = (name: string) => baseURL + "/download?fullFilename=" + route.path + (route.path == '/' ? "" : "/") + name
+const path = route.path + (route.path.endsWith("/") ? "" : "/")
+
+const to = (dir: string) => {
+  if (dir == "..") {
+    return parentPath(path)
+  } else {
+    return path + dir
+  }
+}
+const download = (name: string) => baseURL + "/download?fullPath=" + path + name
 const addUnit = (size: number) => {
   if (size < 1024) {
     return size + " B"
