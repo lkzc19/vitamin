@@ -104,7 +104,7 @@ class FsController {
      */
     @GetMapping("/download")
     @Throws(IOException::class)
-    fun download(@RequestParam("fullFilename") fullFilename: String, response: HttpServletResponse) {
+    fun download(@RequestParam("fullPath") fullPath: String, response: HttpServletResponse) {
         // Content-Disposition 是 HTTP 响应头部的一个字段，它定义了获取的资源如何处理。这个字段通常用于下载操作，告诉浏览器如何处理响应的内容。
         // Content-Disposition 主要有两个值:
         //   inline: 这意味着资源应该直接在浏览器中显示，如果可能的话。
@@ -114,14 +114,14 @@ class FsController {
         //   Content-Disposition 还可以包含一个 filename 参数，这个参数可以指定一个默认的文件名，当用户保存资源时，浏览器会使用这个文件名。
         //      例如，Content-Disposition: attachment; filename="filename.jpg" 这个头部会告诉浏览器下载资源并将其保存为 "filename.jpg"。
 
-        val file = File(fsDir + File.separator + fullFilename)
+        val file = File(fsDir + fullPath)
         if (!file.exists()) {
             throw BizException(message = "[${file.name}]不存在", httpStatus = HttpStatus.BAD_REQUEST)
         }
 
         response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(file.name, "UTF-8"))
         val outputStream = response.outputStream
-        outputStream.write(File(fsDir + File.separator + fullFilename).readBytes()) // 数组是一个字节数组，也就是文件的字节流数组
+        outputStream.write(File(fsDir + fullPath).readBytes()) // 数组是一个字节数组，也就是文件的字节流数组
         outputStream.flush()
         outputStream.close()
     }
