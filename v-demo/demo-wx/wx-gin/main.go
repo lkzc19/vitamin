@@ -1,7 +1,6 @@
 package main
 
 import (
-	"demo-wx-gin/utils"
 	"fmt"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel/contract"
@@ -12,6 +11,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"wx-gin/utils"
 )
 
 var OfficialAccountApp *officialAccount.OfficialAccount
