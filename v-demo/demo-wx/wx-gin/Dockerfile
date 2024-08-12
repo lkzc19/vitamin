@@ -10,6 +10,8 @@ RUN go mod tidy && \
 
 FROM alpine
 
+ENV TZ=Asia/Shanghai
+
 WORKDIR /app
 COPY --from=builder /build/app /app/app
 
