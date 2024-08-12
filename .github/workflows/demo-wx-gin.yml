@@ -33,4 +33,10 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  
+  wx-gin-notify:
+    needs: wx-gin-bulid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Notify
+        run: |
+          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/[demo-wx-gin]打包成功

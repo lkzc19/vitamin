@@ -42,4 +42,10 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  
+  fs-spring-notify:
+    needs: fs-spring-bulid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Notify
+        run: |
+          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/[demo-fs-spring]打包成功
