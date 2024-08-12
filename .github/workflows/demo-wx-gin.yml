@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'v-demo/demo-wx/demo-wx-gin/**'
+      - 'v-demo/demo-wx/wx-gin/**'
 
 env:
   WORKSPACE: 'v-demo/demo-wx/wx-gin'
