@@ -48,4 +48,4 @@ jobs:
     steps:
       - name: Build Notify
         run: |
-          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/[demo-fs-spring]打包成功
+          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/%5Bdemo-fs-spring%5D打包成功
