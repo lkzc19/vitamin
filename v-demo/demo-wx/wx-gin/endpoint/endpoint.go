@@ -80,7 +80,7 @@ func Event(c *gin.Context) {
 				fmt.Println("subscribe")
 			} else if strings.EqualFold(event.GetEvent(), "unsubscribe") {
 				fmt.Println("unsubscribe")
-			} else if strings.EqualFold(event.GetEvent(), "PUBLISHJOBFINISH") {
+			} else if strings.EqualFold(event.GetEvent(), "MASSSENDJOBFINISH") {
 				msg := messages.Article{}
 				err := event.ReadMessage(&msg)
 				utils.CheckErr(err)
