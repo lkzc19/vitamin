@@ -6,6 +6,10 @@ export interface Page<T> {
     items: T[],
 }
 
+export interface Info {
+    fileCount: number,
+}
+
 export interface FileMeta {
     id: number,
     name: string,

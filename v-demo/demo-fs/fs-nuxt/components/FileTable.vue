@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type {FileMeta} from "~/types";
-import {parentPath} from "~/utils";
+import type {FileMeta, Info} from "~/types";
+import {parentPath,toNumber} from "~/utils";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
 
-const pageC = ref(1)
-const pageS = ref(10)
-const pageT = ref(0)
+const p = ref(toNumber(route.query.p))
 
 const columns = [{
   key: 'id',
@@ -24,16 +22,27 @@ const columns = [{
   label: '操作'
 }]
 
-const fileMetaList = ref<FileMeta[]>(Array())
+const { data: _info } = await useFetch(baseURL + "/info", {
+  method: 'GET',
+})
+const info = _info.value as Info
 
-const { data } = await useFetch(baseURL + "/file.list", {
+const { data: _allFile } = await useFetch(baseURL + "/file.list", {
   method: 'GET',
   params: { 'path': route.path + (route.path.endsWith("/") ? "" : "/") }
 })
 
-fileMetaList.value = data.value as FileMeta[]
-fileMetaList.value.map((it: FileMeta, index: number) => it.id = index + 1)
-pageT.value = fileMetaList.value.length
+const allFile = (_allFile.value as FileMeta[]).map((it: FileMeta, index: number) => {it.id = index + 1; return it})
+
+const size = 10
+const startIndex = () => (p.value - 1) * size
+const endIndex = () => {
+  const si = startIndex()
+  const ei = si + 10
+  return  ei >= allFile.length ? allFile.length -1 : ei
+}
+
+const fileMetaList = ref<FileMeta[]>(allFile.slice(startIndex(), endIndex()))
 
 const path = route.path + (route.path.endsWith("/") ? "" : "/")
 
@@ -56,6 +65,15 @@ const addUnit = (size: number) => {
     return (size / 1024.0 ** 3).toFixed(2) + " GB"
   }
 }
+
+const pageChange = (page: number) => {
+  fileMetaList.value = allFile.slice(startIndex(), endIndex())
+  return ({
+    query: { page },
+    // Hash is specified here to prevent the page from scrolling to the top
+    hash: route.hash,
+  })
+}
 </script>
 
 <template>
@@ -72,12 +90,26 @@ const addUnit = (size: number) => {
       }"
   >
 
+    <template #header>
+      <div class="flex flex-wrap justify-between items-center">
+        <span>
+          文件总数: {{ info.fileCount }}
+        </span>
+
+        <UPagination
+            v-model="p"
+            :page-count="size"
+            :total="allFile.length"
+            :to="pageChange"
+        />
+      </div>
+    </template>
+
     <UTable
         :columns="columns"
         :rows="fileMetaList"
         :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: '此 地 无 银' }"
     >
-
       <template #name-data="{ row }">
         <ULink
             v-if="row.isDir"
@@ -116,36 +148,6 @@ const addUnit = (size: number) => {
         />
       </template>
     </UTable>
-
-    <!-- Number of rows & Pagination -->
-    <template #footer>
-      <div class="flex flex-wrap justify-between items-center">
-        <div class="flex items-center gap-1.5">
-          <span class="text-sm leading-5">每页多少行:</span>
-          <USelect
-              v-model="pageS"
-              :options="[3, 5, 10, 20, 30, 50]"
-              class="me-2 w-20"
-              size="xs"
-          />
-        </div>
-
-        <UPagination
-            v-model="pageC"
-            :page-count="pageS"
-            :total="(pageT / pageS) + ((pageT % pageS) == 0 ? 0 : 1)"
-            :ui="{
-            wrapper: 'flex items-center gap-1',
-            rounded: '!rounded-full min-w-[32px] justify-center',
-            default: {
-              activeButton: {
-                variant: 'outline'
-              }
-            }
-          }"
-        />
-      </div>
-    </template>
   </UCard>
 </template>
 
