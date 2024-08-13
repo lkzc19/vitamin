@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel/contract"
+	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel/messages"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel/models"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/officialAccount"
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"io"
 	"net/http"
 	"os"
-	"wx-gin/model"
+	"strings"
 	"wx-gin/utils"
 )
 
@@ -40,10 +39,10 @@ func init() {
 	})
 	utils.CheckErr(err)
 
-	db, err := gorm.Open(sqlite.Open("vitamin.db"), &gorm.Config{})
-	utils.CheckErr(err)
-	err = db.AutoMigrate(&model.Article{})
-	utils.CheckErr(err)
+	//db, err := gorm.Open(sqlite.Open("vitamin.db"), &gorm.Config{})
+	//utils.CheckErr(err)
+	//err = db.AutoMigrate(&model.Article{})
+	//utils.CheckErr(err)
 }
 
 func Ping(c *gin.Context) {
@@ -71,13 +70,26 @@ func Event(c *gin.Context) {
 		fmt.Println("GetEvent", event.GetEvent())
 		fmt.Println("GetChangeType", event.GetChangeType())
 		fmt.Println("event", event.GetEvent())
-		fmt.Println("GetContent", event.GetContent())
+		fmt.Println("GetContent", string(event.GetContent()))
 		fmt.Println("=== event end ===")
 
+		fmt.Println("=== msgType start ===")
 		switch event.GetMsgType() {
 		case models.CALLBACK_MSG_TYPE_EVENT:
-			
+			if strings.EqualFold(event.GetEvent(), "subscribe") {
+				fmt.Println("subscribe")
+			} else if strings.EqualFold(event.GetEvent(), "unsubscribe") {
+				fmt.Println("unsubscribe")
+			} else if strings.EqualFold(event.GetEvent(), "MASSSENDJOBFINISH") {
+				msg := messages.Article{}
+				err := event.ReadMessage(&msg)
+				utils.CheckErr(err)
+				fmt.Println(msg)
+			} else {
+				fmt.Println(event.GetEvent())
+			}
 		}
+		fmt.Println("=== msgType end ===")
 
 		// 这里回复success告诉微信我收到了，后续需要回复用户信息可以主动调发消息接口
 		return kernel.SUCCESS_EMPTY_RESPONSE

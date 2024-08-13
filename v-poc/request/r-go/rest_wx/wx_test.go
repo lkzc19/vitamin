@@ -10,10 +10,15 @@ func TestGetAccessToken(t *testing.T) {
 
 func TestGetArticle(t *testing.T) {
 	token := GetAccessToken(appid, secret)
-	GetArticle(token, "oNop06PKCeZZ0D-aYse3MQwAkf04")
+	GetArticle(token, "pLHetLtI4SobYKHF1J6qy-Wsn4PbstLqwxW33O-PhMzO-5jmapUtW6OyComt1p27")
 }
 
 func TestBatchGet(t *testing.T) {
 	token := GetAccessToken(appid, secret)
 	BatchGet(token)
+}
+
+func TestDraftBatchGet(t *testing.T) {
+	token := GetAccessToken(appid, secret)
+	DraftBatchGet(token)
 }
