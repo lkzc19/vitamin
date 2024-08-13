@@ -8,13 +8,10 @@ import (
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/kernel/models"
 	"github.com/ArtisanCloud/PowerWeChat/v3/src/officialAccount"
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"io"
 	"net/http"
 	"os"
 	"strings"
-	"wx-gin/model"
 	"wx-gin/utils"
 )
 
@@ -42,10 +39,10 @@ func init() {
 	})
 	utils.CheckErr(err)
 
-	db, err := gorm.Open(sqlite.Open("vitamin.db"), &gorm.Config{})
-	utils.CheckErr(err)
-	err = db.AutoMigrate(&model.Article{})
-	utils.CheckErr(err)
+	//db, err := gorm.Open(sqlite.Open("vitamin.db"), &gorm.Config{})
+	//utils.CheckErr(err)
+	//err = db.AutoMigrate(&model.Article{})
+	//utils.CheckErr(err)
 }
 
 func Ping(c *gin.Context) {
@@ -79,11 +76,11 @@ func Event(c *gin.Context) {
 		fmt.Println("=== msgType start ===")
 		switch event.GetMsgType() {
 		case models.CALLBACK_MSG_TYPE_EVENT:
-			if strings.ToLower(event.GetEvent()) == "subscribe" {
+			if strings.EqualFold(event.GetEvent(), "subscribe") {
 				fmt.Println("subscribe")
-			} else if strings.ToLower(event.GetEvent()) == "unsubscribe" {
+			} else if strings.EqualFold(event.GetEvent(), "unsubscribe") {
 				fmt.Println("unsubscribe")
-			} else if strings.ToLower(event.GetEvent()) == "publishjobfinish" {
+			} else if strings.EqualFold(event.GetEvent(), "PUBLISHJOBFINISH") {
 				msg := messages.Article{}
 				err := event.ReadMessage(&msg)
 				utils.CheckErr(err)
