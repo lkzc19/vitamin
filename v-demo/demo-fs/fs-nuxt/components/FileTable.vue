@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type {LocationQueryValue} from "vue-router";
 import type {FileMeta, Info} from "~/types";
 import {parentPath,toNumber} from "~/utils";
 
 const route = useRoute()
+const router = useRouter()
 const baseURL = useRuntimeConfig().public.baseUrl
 
 const p = ref(toNumber(route.query.p))
@@ -66,14 +68,14 @@ const addUnit = (size: number) => {
   }
 }
 
-const pageChange = (page: number) => {
+watch(p, (newVal, _) => {
   fileMetaList.value = allFile.slice(startIndex(), endIndex())
-  return ({
-    query: { page },
+  router.replace({
+    query: { p: newVal },
     // Hash is specified here to prevent the page from scrolling to the top
     hash: route.hash,
   })
-}
+})
 </script>
 
 <template>
@@ -92,15 +94,15 @@ const pageChange = (page: number) => {
 
     <template #header>
       <div class="flex flex-wrap justify-between items-center">
-        <span>
-          文件总数: {{ info.fileCount }}
-        </span>
+        <div class="flex items-center">
+          <UButton icon="i-heroicons-arrow-small-up-20-solid" variant="outline" color="black" :to="to('..')">..</UButton>
+          <div class="ml-5">当前路径: [ {{ route.path }} ]</div>
+        </div>
 
         <UPagination
             v-model="p"
             :page-count="size"
             :total="allFile.length"
-            :to="pageChange"
         />
       </div>
     </template>
@@ -148,6 +150,12 @@ const pageChange = (page: number) => {
         />
       </template>
     </UTable>
+
+    <template #footer>
+      <div class="flex flex-wrap justify-between items-center">
+        <span>文件总数: {{ info.fileCount }}</span>
+      </div>
+    </template>
   </UCard>
 </template>
 
