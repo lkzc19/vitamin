@@ -1,3 +1,4 @@
+import type {LocationQueryValue} from "vue-router";
 
 export const parentPath = (path: string) => {
     if (path == "/") {
@@ -10,5 +11,15 @@ export const parentPath = (path: string) => {
         return "/"
     } else {
         return "/" + list.join("/") + "/";
+    }
+}
+
+export const toNumber = (value: LocationQueryValue | LocationQueryValue[], defaultNum: number = 1) => {
+    if (Array.isArray(value)) {
+        return defaultNum
+    } else if (value == null) {
+        return defaultNum
+    } else {
+        return parseFloat(value as string);
     }
 }
