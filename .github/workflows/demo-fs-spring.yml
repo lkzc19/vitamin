@@ -1,4 +1,4 @@
-name: demo-sl-spring
+name: demo-fs-spring
 
 on:
   workflow_dispatch:
