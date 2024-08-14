@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type {LocationQueryValue} from "vue-router";
 import type {FileMeta, Info} from "~/types";
 import {parentPath,toNumber} from "~/utils";
 
 const route = useRoute()
-const router = useRouter()
 const baseURL = useRuntimeConfig().public.baseUrl
 
 const p = ref(toNumber(route.query.p))
@@ -76,6 +74,35 @@ watch(p, (newVal, _) => {
     hash: route.hash,
   })
 })
+
+const newDir = ref("")
+const mkdir = async () => {
+
+
+  // 中文字符不超过8个 英文字符不超过16个
+  if (newDir.value.length > 0 && newDir.value.length < 16) {
+
+  }
+
+  const {data: _dir} = await useFetch(baseURL + "/dir", {
+    method: 'PUT',
+    query: {
+      "path": path,
+      "name": newDir
+    }
+  })
+  const dir = _dir.value as FileMeta
+  updateAllFile(dir)
+  newDir.value = ""
+}
+
+const updateAllFile = (file: FileMeta) => {
+  allFile.push(file)
+  allFile.map((it: FileMeta, index: number) => {it.id = index + 1})
+  fileMetaList.value = allFile.slice(startIndex(), endIndex())
+}
+
+
 </script>
 
 <template>
@@ -154,6 +181,20 @@ watch(p, (newVal, _) => {
     <template #footer>
       <div class="flex flex-wrap justify-between items-center">
         <span>文件总数: {{ info.fileCount }}</span>
+        <div class="flex">
+          <input type="text"
+                 placeholder="请输入 新目录名称"
+                 class="focus:outline-none border border-r-0 border-black rounded-l-md px-2 text-sm"
+                 v-model="newDir"
+          />
+          <UButton icon="heroicons:folder-plus"
+                   variant="outline"
+                   color="black"
+                   :ui="{ rounded: 'rounded-l-sm' }"
+          >
+            创建目录
+          </UButton>
+        </div>
       </div>
     </template>
   </UCard>

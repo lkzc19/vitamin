@@ -22,9 +22,6 @@ const baseURL = useRuntimeConfig().public.baseUrl
         </div>
         <div class="basis-1/4 bg-gray-600">
           <div>
-            创建目录
-          </div>
-          <div>
             上传文件处
           </div>
         </div>
@@ -40,6 +37,6 @@ const baseURL = useRuntimeConfig().public.baseUrl
 }
 
 .file-table-container {
-  @apply basis-3/4 mr-2 bg-gray-800
+  @apply basis-3/4 mr-2
 }
 </style>
