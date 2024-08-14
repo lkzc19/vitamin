@@ -9,11 +9,15 @@ import (
 	"r-go/utils"
 )
 
-// DraftBatchGet https://developers.weixin.qq.com/doc/offiaccount/Draft_Box/Get_draft_list.html
-func DraftBatchGet(token string) {
+type Draft struct {
+	token string
+}
+
+// BatchGet https://developers.weixin.qq.com/doc/offiaccount/Draft_Box/Get_draft_list.html
+func (r Draft) BatchGet() {
 	client := &http.Client{}
 
-	url := "https://api.weixin.qq.com/cgi-bin/draft/batchget?access_token=" + token
+	url := "https://api.weixin.qq.com/cgi-bin/draft/batchget?access_token=" + r.token
 	data := map[string]any{
 		"offset":     0,
 		"count":      10,
