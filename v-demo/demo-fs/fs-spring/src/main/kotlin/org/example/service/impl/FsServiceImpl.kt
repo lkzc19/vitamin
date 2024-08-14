@@ -88,16 +88,6 @@ class FsServiceImpl : FsService {
         val itemsBySort = items
             .sortedWith(compareBy<FileVo> { !it.isDir }.thenBy { it.name })
             .toMutableList()
-        // 手动添加上一级目录
-        if (path != "/") {
-            itemsBySort.add(0, FileVo(
-                name = "..",
-                ext = "",
-                isDir = true,
-                size = 4096,
-                fullPath = "$path../"
-            ))
-        }
         return itemsBySort
     }
 
