@@ -70,7 +70,7 @@ const addUnit = (size: number) => {
 
 watch(p, (newVal, _) => {
   fileMetaList.value = allFile.slice(startIndex(), endIndex())
-  router.replace({
+  navigateTo({
     query: { p: newVal },
     // Hash is specified here to prevent the page from scrolling to the top
     hash: route.hash,
