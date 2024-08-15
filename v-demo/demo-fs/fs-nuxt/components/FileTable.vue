@@ -27,22 +27,28 @@ const { data: _info } = await useFetch(baseURL + "/info", {
 })
 const info = _info.value as Info
 
-const { data: _allFile } = await useFetch(baseURL + "/file.list", {
-  method: 'GET',
-  params: { 'path': route.path + (route.path.endsWith("/") ? "" : "/") }
-})
-
-const allFile = (_allFile.value as FileMeta[]).map((it: FileMeta, index: number) => {it.id = index + 1; return it})
-
+let allFile: FileMeta[] = []
+const fileMetaList = ref<FileMeta[]>()
 const size = 10
 const startIndex = () => (p.value - 1) * size
 const endIndex = () => {
   const si = startIndex()
   const ei = si + 10
-  return  ei >= allFile.length ? allFile.length -1 : ei
+  return  ei >= allFile.length ? allFile.length : ei
+}
+const updateFileList = async () => {
+  const {data: _allFile} = await useFetch(baseURL + "/file.list", {
+    method: 'GET',
+    params: {'path': route.path + (route.path.endsWith("/") ? "" : "/")}
+  })
+  allFile = (_allFile.value as FileMeta[]).map((it: FileMeta, index: number) => {
+    it.id = index + 1;
+    return it
+  })
+  fileMetaList.value = allFile.slice(startIndex(), endIndex())
 }
 
-const fileMetaList = ref<FileMeta[]>(allFile.slice(startIndex(), endIndex()))
+updateFileList()
 
 const path = route.path + (route.path.endsWith("/") ? "" : "/")
 
@@ -77,32 +83,17 @@ watch(p, (newVal, _) => {
 
 const newDir = ref("")
 const mkdir = async () => {
-
-
-  // 中文字符不超过8个 英文字符不超过16个
-  if (newDir.value.length > 0 && newDir.value.length < 16) {
-
-  }
-
-  const {data: _dir} = await useFetch(baseURL + "/dir", {
+  console.log(newDir.value.length)
+  const _dir = await $fetch(baseURL + "/dir", {
     method: 'PUT',
     query: {
       "path": path,
-      "name": newDir
+      "name": newDir.value
     }
   })
-  const dir = _dir.value as FileMeta
-  updateAllFile(dir)
   newDir.value = ""
+  await updateFileList()
 }
-
-const updateAllFile = (file: FileMeta) => {
-  allFile.push(file)
-  allFile.map((it: FileMeta, index: number) => {it.id = index + 1})
-  fileMetaList.value = allFile.slice(startIndex(), endIndex())
-}
-
-
 </script>
 
 <template>
@@ -130,6 +121,7 @@ const updateAllFile = (file: FileMeta) => {
             v-model="p"
             :page-count="size"
             :total="allFile.length"
+            :active-button="{color: 'black'}"
         />
       </div>
     </template>
@@ -168,11 +160,13 @@ const updateAllFile = (file: FileMeta) => {
         <UButton v-if="row.isDir"
                  icon="heroicons:arrow-right-16-solid"
                  variant="outline"
+                 color="black"
                  :to="to(row.name)"
         />
         <UButton v-else
                  icon="heroicons:arrow-down-16-solid"
                  variant="outline"
+                 color="black"
                  :to="download(row.name)"
         />
       </template>
@@ -180,17 +174,18 @@ const updateAllFile = (file: FileMeta) => {
 
     <template #footer>
       <div class="flex flex-wrap justify-between items-center">
-        <span>文件总数: {{ info.fileCount }}</span>
+        <span>文件总数: {{ info.fileCount }} (不包含目录)</span>
         <div class="flex">
           <input type="text"
                  placeholder="请输入 新目录名称"
-                 class="focus:outline-none border border-r-0 border-black rounded-l-md px-2 text-sm"
+                 class="focus:outline-none border border-r-0 border-black dark:border-white dark:bg-gray-900 rounded-l-md px-2 text-sm"
                  v-model="newDir"
           />
           <UButton icon="heroicons:folder-plus"
                    variant="outline"
                    color="black"
                    :ui="{ rounded: 'rounded-l-sm' }"
+                   @click="mkdir"
           >
             创建目录
           </UButton>

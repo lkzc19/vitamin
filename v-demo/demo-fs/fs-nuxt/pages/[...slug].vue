@@ -1,5 +1,8 @@
 <script setup lang="ts">
 
+import Search from "~/components/Search.vue";
+import Upload from "~/components/Upload.vue";
+
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
 
@@ -16,16 +19,9 @@ const baseURL = useRuntimeConfig().public.baseUrl
   </header>
   <main class="mt-5">
     <div class="center">
-      <div class="flex flex-row">
-        <div class="file-table-container">
-          <FileTable />
-        </div>
-        <div class="basis-1/4 bg-gray-600">
-          <div>
-            上传文件处
-          </div>
-        </div>
-      </div>
+      <Upload />
+      <Search />
+      <FileTable />
     </div>
   </main>
 </template>
@@ -37,6 +33,6 @@ const baseURL = useRuntimeConfig().public.baseUrl
 }
 
 .file-table-container {
-  @apply basis-3/4 mr-2
+  @apply flex-auto
 }
 </style>
