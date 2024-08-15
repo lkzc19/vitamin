@@ -83,6 +83,8 @@ watch(p, (newVal, _) => {
 
 const newDir = ref("")
 const mkdir = async () => {
+  // TODO 长度 以及 重复处理 // 删除接口
+  // 通知添加
   console.log(newDir.value.length)
   const _dir = await $fetch(baseURL + "/dir", {
     method: 'PUT',
