@@ -26,23 +26,23 @@ fun Application.configureMonitoring() {
             callId.isNotEmpty()
         }
     }
-    install(DropwizardMetrics) {
-        Slf4jReporter.forRegistry(registry)
-            .outputTo(this@configureMonitoring.log)
-            .convertRatesTo(TimeUnit.SECONDS)
-            .convertDurationsTo(TimeUnit.MILLISECONDS)
-            .build()
-            .start(10, TimeUnit.SECONDS)
-    }
-    val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-
-    install(MicrometerMetrics) {
-        registry = appMicrometerRegistry
-        // ...
-    }
-    routing {
-        get("/metrics-micrometer") {
-            call.respond(appMicrometerRegistry.scrape())
-        }
-    }
+//    install(DropwizardMetrics) {
+//        Slf4jReporter.forRegistry(registry)
+//            .outputTo(this@configureMonitoring.log)
+//            .convertRatesTo(TimeUnit.SECONDS)
+//            .convertDurationsTo(TimeUnit.MILLISECONDS)
+//            .build()
+//            .start(10, TimeUnit.SECONDS)
+//    }
+//    val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+//
+//    install(MicrometerMetrics) {
+//        registry = appMicrometerRegistry
+//        // ...
+//    }
+//    routing {
+//        get("/metrics-micrometer") {
+//            call.respond(appMicrometerRegistry.scrape())
+//        }
+//    }
 }
