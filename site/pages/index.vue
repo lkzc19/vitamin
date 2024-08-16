@@ -12,7 +12,7 @@
     <a href="https://sl.drinkice.xyz/" class="item-container">
       <img src="~/assets/img/pw_02.jpg" alt="pw" class="item-img" />
     </a>
-    <a href="https://sl.drinkice.xyz/" class="item-container">
+    <a href="https://fs.drinkice.xyz/" class="item-container">
       <img src="~/assets/img/pw_02.jpg" alt="pw" class="item-img" />
     </a>
     <a href="https://sl.drinkice.xyz/" class="item-container">
