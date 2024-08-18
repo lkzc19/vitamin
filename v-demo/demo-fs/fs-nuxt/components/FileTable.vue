@@ -4,6 +4,7 @@ import {parentPath,toNumber} from "~/utils";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
+const toast = useToast()
 
 const p = ref(toNumber(route.query.p))
 
@@ -84,8 +85,20 @@ watch(p, (newVal, _) => {
 const newDir = ref("")
 const mkdir = async () => {
   // TODO 长度 以及 重复处理 // 删除接口
-  // 通知添加
-  console.log(newDir.value.length)
+  if (newDir.value.length == 0) {
+    toast.add({
+      title: '创建目录失败',
+      description: '目录名不可为空字符串'
+    })
+    return
+  }
+  if (newDir.value.length > 16) {
+    toast.add({
+      title: '创建目录失败',
+      description: '目录名长度不可超过16'
+    })
+    return
+  }
   const _dir = await $fetch(baseURL + "/dir", {
     method: 'PUT',
     query: {

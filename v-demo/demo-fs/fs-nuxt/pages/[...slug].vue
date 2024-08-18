@@ -19,8 +19,8 @@ const baseURL = useRuntimeConfig().public.baseUrl
   </header>
   <main class="mt-5">
     <div class="center">
-      <Upload />
-      <Search />
+      <Upload class="mb-5" />
+      <Search class="mb-5" />
       <FileTable />
     </div>
   </main>
@@ -30,9 +30,5 @@ const baseURL = useRuntimeConfig().public.baseUrl
 
 .center {
   @apply font-mono w-1/2 mx-auto
-}
-
-.file-table-container {
-  @apply flex-auto
 }
 </style>

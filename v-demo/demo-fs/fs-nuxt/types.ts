@@ -15,5 +15,6 @@ export interface FileMeta {
     name: string,
     ext: string,
     isDir: boolean,
-    size: number
+    size: number,
+    fullPath: string
 }

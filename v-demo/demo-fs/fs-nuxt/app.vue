@@ -8,7 +8,7 @@ useSeoMeta({
 <template>
   <div>
     <NuxtRouteAnnouncer />
-
+    <NuxtPage />
+    <UNotifications />
   </div>
-  <NuxtPage />
 </template>
