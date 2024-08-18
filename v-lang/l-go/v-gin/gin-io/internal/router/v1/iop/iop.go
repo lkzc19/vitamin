@@ -3,7 +3,7 @@
 package iop
 
 import (
-	"ginz/internal/service"
+	"gin-io/internal/service"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,8 +1,8 @@
 package router
 
 import (
-	"ginz/internal/router/v1/iop"
-	"ginz/internal/router/v1/ping"
+	"gin-io/internal/router/v1/iop"
+	"gin-io/internal/router/v1/ping"
 	"github.com/gin-gonic/gin"
 )
 

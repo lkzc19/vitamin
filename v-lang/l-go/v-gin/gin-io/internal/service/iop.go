@@ -1,7 +1,7 @@
 package service
 
 import (
-	"ginz/internal/dto/iop"
+	"gin-io/internal/dto/iop"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
