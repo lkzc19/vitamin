@@ -39,7 +39,7 @@ const handleInput = async () => {
              @input="handleInput"
       />
     </div>
-    <ul class="absolute mt-1 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 px-6 w-1/2 z-50"
+    <ul class="absolute bg-white dark:bg-slate-900 border border-t-0 border-gray-200 dark:border-gray-800 px-6 py-1 w-1/2 z-50"
         v-show=" (isFocused && fileList.length > 0)"
     >
       <li v-for="it in fileList" class="py-1">
