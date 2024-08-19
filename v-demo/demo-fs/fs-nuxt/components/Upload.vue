@@ -12,7 +12,7 @@ const tabs = [{
 }]
 
 const fileInput = ref<HTMLInputElement>()
-const currentIndex = ref(1)
+const currentIndex = ref(0)
 
 const openFileSelector = () => {
   fileInput.value?.click()
@@ -25,13 +25,13 @@ const handleUpload = () => {
 <template>
   <div class="flex flex-row">
     <input type="file" ref="fileInput" class="hidden">
-    <ol class="bg-slate-900 border border-gray-200 dark:border-gray-800 rounded-sm p-1 items-center text-center">
+    <ol class="upload-ol">
       <li
           v-for="(it, index) in tabs"
           :key="index"
           @click="currentIndex = index"
           :class="{ active: index == currentIndex }"
-          class="flex items-center px-10 py-1 rounded-sm"
+          class="upload-li"
       >
         <UIcon name="heroicons:link-16-solid" class="mr-2" v-if="index == currentIndex" />
         <UIcon :name="it.icon" class="mr-2" v-else />
@@ -39,13 +39,13 @@ const handleUpload = () => {
       </li>
     </ol>
 
-    <div class="bg-slate-900 border-2 border-dashed border-gray-200 dark:border-gray-800 grow mx-2 flex justify-center items-center cursor-pointer"
+    <div class="upload-div"
          @click="openFileSelector"
     >
-      <UIcon name="heroicons:plus-16-solid" />
+      <UIcon name="heroicons:plus-16-solid"  />
     </div>
 
-    <div class="bg-slate-900 border border-gray-200 dark:border-gray-800 flex justify-center content-center">
+    <div class="upload-button">
       <UButton icon="heroicons:arrow-up-tray-16-solid" variant="none" color="black" class="px-2" :to="handleUpload" />
     </div>
   </div>
@@ -53,6 +53,35 @@ const handleUpload = () => {
 
 <style scoped>
 .active {
-  @apply bg-slate-800;
+  @apply bg-gray-100 dark:bg-slate-800;
+}
+
+.upload-ol {
+  @apply bg-white dark:bg-slate-900
+  border border-gray-200 dark:border-gray-800 rounded-sm
+  p-1
+  items-center text-center
+}
+
+.upload-li {
+  @apply flex items-center
+  px-10 py-1
+  rounded-sm
+  cursor-pointer
+}
+
+.upload-div {
+  @apply bg-white dark:bg-slate-900
+  border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-sm
+  grow
+  mx-2
+  flex justify-center items-center
+  cursor-pointer
+}
+
+.upload-button {
+  @apply bg-white dark:bg-slate-900
+  border border-gray-200 dark:border-gray-800 rounded-sm
+  flex justify-center content-center
 }
 </style>

@@ -12,3 +12,10 @@ useSeoMeta({
     <UNotifications />
   </div>
 </template>
+
+<style>
+body {
+  @apply h-full
+  bg-gray-100 dark:bg-stone-900
+}
+</style>

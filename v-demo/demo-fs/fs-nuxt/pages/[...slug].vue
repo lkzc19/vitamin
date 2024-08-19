@@ -27,7 +27,6 @@ const baseURL = useRuntimeConfig().public.baseUrl
 </template>
 
 <style scoped>
-
 .center {
   @apply font-mono w-1/2 mx-auto
 }

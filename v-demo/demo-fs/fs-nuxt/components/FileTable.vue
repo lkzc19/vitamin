@@ -119,9 +119,9 @@ const mkdir = async () => {
         ring: 'ring-1 ring-gray-200 dark:ring-gray-800',
         rounded: '',
         divide: 'divide-y divide-gray-200 dark:divide-gray-700',
-        header: { padding: 'px-4 py-5' },
+        header: { padding: 'px-4 py-5', rounded: 'rounded-sm' },
         body: { padding: '', base: 'divide-y divide-gray-200 dark:divide-gray-700' },
-        footer: { padding: 'p-4' }
+        footer: { padding: 'p-4', rounded: 'rounded-sm' }
       }"
   >
 

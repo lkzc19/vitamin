@@ -28,22 +28,18 @@ const handleInput = async () => {
 
 <template>
   <div>
-    <UContainer
-        class="flex items-center relative bg-slate-900 border border-gray-200 dark:border-gray-800 py-3 px-2"
-        :ui="{padding: 'lg:px-6'}"
-    >
+    <div class="search-container">
       <UIcon name="heroicons:magnifying-glass" class="mr-2" />
       <input type="text"
              placeholder="搜索..."
-             class="focus:border-transparent focus:outline-none grow bg-slate-900 py-2"
+             class="search-container-input"
              v-model="v"
              @focus="handleFocus"
              @blur="handleBlur"
              @input="handleInput"
       />
-    </UContainer>
-<!--    border-t-->
-    <ul class="absolute mt-1 border border-gray-200 dark:border-gray-800 px-6 bg-slate-900 w-1/2 z-50"
+    </div>
+    <ul class="absolute mt-1 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 px-6 w-1/2 z-50"
         v-show=" (isFocused && fileList.length > 0)"
     >
       <li v-for="it in fileList" class="py-1">
@@ -69,5 +65,18 @@ const handleInput = async () => {
 </template>
 
 <style scoped>
+.search-container {
+  @apply relative
+  flex items-center
+  bg-white dark:bg-slate-900
+  border border-gray-200 dark:border-gray-800 rounded-sm
+  py-3 px-6
+}
+
+.search-container-input {
+  @apply focus:border-transparent focus:outline-none grow
+  dark:bg-slate-900
+  py-2
+}
 
 </style>
