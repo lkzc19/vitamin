@@ -66,7 +66,7 @@ const handleUpload = () => {
 .upload-li {
   @apply flex items-center
   px-10 py-1
-  rounded-sm
+  rounded-md
   cursor-pointer
 }
 
