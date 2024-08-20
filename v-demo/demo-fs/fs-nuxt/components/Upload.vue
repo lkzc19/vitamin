@@ -39,14 +39,12 @@ const handleUpload = () => {
       </li>
     </ol>
 
-    <div class="upload-div"
-         @click="openFileSelector"
-    >
+    <div class="upload-div" @click="openFileSelector">
       <UIcon name="heroicons:plus-16-solid"  />
     </div>
 
     <div class="upload-button">
-      <UButton icon="heroicons:arrow-up-tray-16-solid" variant="none" color="black" class="px-2" :to="handleUpload" />
+      <UButton icon="heroicons:arrow-up-tray-16-solid" variant="link" color="black" class="px-2" @click="handleUpload" />
     </div>
   </div>
 </template>
