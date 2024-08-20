@@ -31,42 +31,61 @@ const clear = () => {
 </script>
 
 <template>
-  <UModal v-model="searchSwitch">
-    <div class="search-container">
-      <UIcon name="heroicons:magnifying-glass" class="mr-2" />
-      <input type="text"
-             placeholder="搜索..."
-             class="search-container-input"
-             v-model="v"
-             @input="handleInput"
-      />
+  <div :class="{'search-modal-active': !searchSwitch}"
+       class="search-modal"
+       @click.self="searchSwitch = false"
+  >
+    <div class="search-wrapper">
+      <div class="search-container">
+        <UIcon name="heroicons:magnifying-glass" class="mr-2" />
+        <input type="text"
+               placeholder="搜索..."
+               class="search-container-input"
+               v-model="v"
+               @input="handleInput"
+        />
+      </div>
+      <ul class="search-container-ul" v-show="fileList.length > 0">
+        <li v-for="it in fileList" class="search-container-li" @click="clear">
+          <ULink v-if="it.isDir"
+                 :to="it.fullPath"
+                 active-class="text-primary"
+                 inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                 class="flex items-center"
+          >
+            <UIcon name="heroicons:folder" class="mr-3" />
+            {{ it.fullPath }}
+          </ULink>
+          <ULink v-else
+                 :to="baseURL + '/download?fullPath=' + it.fullPath"
+                 active-class="text-primary"
+                 inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                 class="flex items-center"
+          >
+            <UIcon name="heroicons:document" class="mr-3" />
+            {{ it.fullPath }}
+          </ULink>
+        </li>
+      </ul>
     </div>
-    <ul class="search-container-ul" v-show="fileList.length > 0">
-      <li v-for="it in fileList" class="search-container-li" @click="clear">
-        <ULink v-if="it.isDir"
-               :to="it.fullPath"
-               active-class="text-primary"
-               inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-               class="flex items-center"
-        >
-          <UIcon name="heroicons:folder" class="mr-3" />
-          {{ it.fullPath }}
-        </ULink>
-        <ULink v-else
-               :to="baseURL + '/download?fullPath=' + it.fullPath"
-               active-class="text-primary"
-               inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-               class="flex items-center"
-        >
-          <UIcon name="heroicons:document" class="mr-3" />
-          {{ it.fullPath }}
-        </ULink>
-      </li>
-    </ul>
-  </UModal>
+  </div>
 </template>
 
 <style scoped>
+.search-modal {
+  @apply fixed inset-0 z-50
+  w-full h-full
+  bg-gray-100/[.85] dark:bg-gray-800/75
+}
+
+.search-modal-active {
+  @apply hidden
+}
+
+.search-wrapper {
+  @apply w-1/2 mx-auto mt-52
+}
+
 .search-container {
   @apply flex items-center
   bg-white dark:bg-slate-900
@@ -89,6 +108,6 @@ const clear = () => {
 
 .search-container-li {
   @apply py-1 px-4
-  hover:bg-gray-100 rounded-md
+  hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md
 }
 </style>

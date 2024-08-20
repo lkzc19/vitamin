@@ -5,7 +5,7 @@ const searchSwitch = useState('search-switch', () => ref(false))
 <template>
   <div class="search-container" @click="searchSwitch = true">
     <UIcon name="heroicons:magnifying-glass" class="mr-1 text-xl" />
-    <span>搜索目录和文件</span>
+    <span class="select-none">搜索目录和文件</span>
   </div>
 </template>
 
