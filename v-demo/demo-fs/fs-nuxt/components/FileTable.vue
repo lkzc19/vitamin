@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type {FileMeta, Info} from "~/types";
-import {parentPath,toNumber} from "~/utils";
+import {addSlant, parentPath, toNumber} from "~/utils";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl
 const toast = useToast()
+const refreshTable = useState<number>('refresh-table', () => 42)
 
 const p = ref(toNumber(route.query.p))
 
@@ -28,6 +29,7 @@ const { data: _info } = await useFetch(baseURL + "/info", {
 })
 const info = _info.value as Info
 
+const path = addSlant(route.path)
 let allFile: FileMeta[] = []
 const fileMetaList = ref<FileMeta[]>()
 const size = 10
@@ -40,7 +42,7 @@ const endIndex = () => {
 const updateFileList = async () => {
   const {data: _allFile} = await useFetch(baseURL + "/file.list", {
     method: 'GET',
-    params: {'path': route.path + (route.path.endsWith("/") ? "" : "/")}
+    params: {'path': path}
   })
   allFile = (_allFile.value as FileMeta[]).map((it: FileMeta, index: number) => {
     it.id = index + 1;
@@ -50,8 +52,6 @@ const updateFileList = async () => {
 }
 
 updateFileList()
-
-const path = route.path + (route.path.endsWith("/") ? "" : "/")
 
 const to = (dir: string) => {
   if (dir == "..") {
@@ -81,21 +81,25 @@ watch(p, (newVal, _) => {
     hash: route.hash,
   })
 })
+watch(refreshTable, () => {
+  updateFileList()
+})
 
 const newDir = ref("")
 const mkdir = async () => {
-  // TODO 长度 以及 重复处理 // 删除接口
   if (newDir.value.length == 0) {
     toast.add({
       title: '创建目录失败',
-      description: '目录名不可为空字符串'
+      description: '目录名不可为空字符串',
+      color: 'red',
     })
     return
   }
   if (newDir.value.length > 16) {
     toast.add({
       title: '创建目录失败',
-      description: '目录名长度不可超过16'
+      description: '目录名长度不可超过16',
+      color: 'red',
     })
     return
   }
@@ -107,7 +111,7 @@ const mkdir = async () => {
     }
   })
   newDir.value = ""
-  await updateFileList()
+  refreshTable.value++
 }
 </script>
 

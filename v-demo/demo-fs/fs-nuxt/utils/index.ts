@@ -23,3 +23,13 @@ export const toNumber = (value: LocationQueryValue | LocationQueryValue[], defau
         return parseFloat(value as string);
     }
 }
+
+export const getFilename = (fullPath: String | undefined) => {
+    if (fullPath == undefined || fullPath == "") return ""
+    const split = fullPath.split("\\");
+    return split[split.length - 1]
+}
+
+export const addSlant = (path: String) => {
+    return  path + (path.endsWith("/") ? "" : "/")
+}

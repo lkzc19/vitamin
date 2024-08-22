@@ -1,5 +1,13 @@
 <script setup lang="ts">
 
+import {addSlant, getFilename} from "~/utils";
+
+const route = useRoute()
+const refreshTable = useState<number>('refresh-table')
+const toast = useToast()
+
+const baseURL = useRuntimeConfig().public.baseUrl
+
 const tabs = [{
   label: '简单上传',
   icon: 'heroicons:link-slash-16-solid',
@@ -12,19 +20,69 @@ const tabs = [{
 }]
 
 const fileInput = ref<HTMLInputElement>()
+const fileInputKey = ref(1)
+const filename = useState<string>('upload-filename', () => "")
+const file = useState<File>('upload-file')
 const currentIndex = ref(0)
 
 const openFileSelector = () => {
   fileInput.value?.click()
 }
 
-const handleUpload = () => {
+const handleChange = () => {
+  if (fileInput.value) {
+    filename.value = getFilename(fileInput.value.value)
+    if (fileInput.value.files) {
+      file.value = fileInput.value.files[0] as File
+    }
+  }
+}
+
+const handleUpload = async () => {
+  if (filename.value == '') {
+    toast.add({
+      title: '上传文件失败',
+      description: '文件为空',
+      color: 'red',
+    })
+    return
+  }
+
+  if (currentIndex.value == 0) {
+    const formData = new FormData()
+    formData.append("file", file.value)
+    formData.append("path", addSlant(route.path))
+    console.log(formData)
+    const response = await $fetch(baseURL + "/upload.simple", {
+      method: 'POST',
+      body: formData
+    })
+  } else if (currentIndex.value == 1) {
+    toast.add({
+      title: 'TODO',
+      description: '分块上传还未实现',
+      color: 'red',
+    })
+  } else {
+    toast.add({
+      title: 'TODO',
+      description: '断点续传还未实现',
+      color: 'red',
+    })
+  }
+  refreshTable.value++
+  clear()
+}
+
+const clear = () => {
+  filename.value = ''
+  fileInputKey.value++
 }
 </script>
 
 <template>
   <div class="flex flex-row">
-    <input type="file" ref="fileInput" class="hidden">
+    <input type="file" ref="fileInput" @change="handleChange" :key="fileInputKey" class="hidden"/>
     <ol class="upload-ol">
       <li
           v-for="(it, index) in tabs"
@@ -40,7 +98,8 @@ const handleUpload = () => {
     </ol>
 
     <div class="upload-div" @click="openFileSelector">
-      <UIcon name="heroicons:plus-16-solid"  />
+      <UIcon v-if="filename == ''" name="heroicons:plus-16-solid" />
+      <span v-else>{{ filename }}</span>
     </div>
 
     <div class="upload-button">
