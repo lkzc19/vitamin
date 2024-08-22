@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: 'ghcr.io/lkzc19/demo-sl-spring'
 
 jobs:
-  sl-spring-bulid:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,4 +42,10 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Notify
+        run: |
+          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/%5Bdemo-sl-spring%5D打包成功

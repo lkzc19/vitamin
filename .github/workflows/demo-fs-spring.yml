@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: 'ghcr.io/lkzc19/demo-fs-spring'
 
 jobs:
-  fs-spring-bulid:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,8 +42,8 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  fs-spring-notify:
-    needs: fs-spring-bulid
+  notify:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Build Notify

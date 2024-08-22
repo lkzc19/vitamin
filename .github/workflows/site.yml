@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: 'ghcr.io/lkzc19/drinkice-site'
 
 jobs:
-  drinkice-site-build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,3 +43,10 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Notify
+        run: |
+          curl https://api.day.app/${{ secrets.BARK_PUSH_KEY }}/vitamin/%5Bdrinkice-site%5D打包成功

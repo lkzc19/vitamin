@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: 'ghcr.io/lkzc19/demo-fs-nuxt'
 
 jobs:
-  fs-nuxt-build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,8 +43,8 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-  fs-nuxt-notify:
-    needs: fs-nuxt-build
+  notify:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Build Notify
