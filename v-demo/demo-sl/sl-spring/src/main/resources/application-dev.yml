@@ -2,4 +2,4 @@ server:
     port: 3000
 
 vitamin:
-    prefix: http://localhost:3000/
+    prefix: http://localhost:3000/x/
