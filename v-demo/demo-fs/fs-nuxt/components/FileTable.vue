@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {FileMeta, Info} from "~/types";
-import {addSlant, parentPath, toNumber} from "~/utils";
+import {toNumber} from "~/utils";
+import {addSlant, parentPath} from "~/utils/pathUtils";
 
 const route = useRoute()
 const baseURL = useRuntimeConfig().public.baseUrl

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {addSlant, getFilename} from "~/utils";
+import {addSlant, getFilename} from "~/utils/pathUtils";
 
 const route = useRoute()
 const refreshTable = useState<number>('refresh-table')
