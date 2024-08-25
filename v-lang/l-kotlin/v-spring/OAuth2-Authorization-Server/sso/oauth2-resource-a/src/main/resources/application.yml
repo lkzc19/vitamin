@@ -1,0 +1,6 @@
+server:
+  port: 4001
+
+spring:
+  application:
+    name: oauth2-resource-a

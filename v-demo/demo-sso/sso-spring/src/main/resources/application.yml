@@ -1,0 +1,7 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: sso-spring
+
