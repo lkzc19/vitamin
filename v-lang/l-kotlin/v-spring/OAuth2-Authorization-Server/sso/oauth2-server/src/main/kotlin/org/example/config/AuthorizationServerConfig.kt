@@ -50,26 +50,27 @@ class AuthorizationServerConfig {
         registeredClientRepository: RegisteredClientRepository,
         authorizationServerSettings: AuthorizationServerSettings
     ): SecurityFilterChain {
-            OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         val deviceClientAuthenticationConverter = DeviceClientAuthenticationConverter(authorizationServerSettings.deviceAuthorizationEndpoint)
         val deviceClientAuthenticationProvider = DeviceClientAuthenticationProvider(registeredClientRepository)
 
-        http.getConfigurer(OAuth2AuthorizationServerConfigurer::class.java)
+        http
+            .getConfigurer(OAuth2AuthorizationServerConfigurer::class.java)
             .deviceAuthorizationEndpoint {
                 it.verificationUri("/activate")
             }
             .deviceVerificationEndpoint {
                 it.consentPage(CUSTOM_CONSENT_PAGE_URI)
             }
-        .clientAuthentication {
-            it
-                .authenticationConverter(deviceClientAuthenticationConverter)
-                .authenticationProvider(deviceClientAuthenticationProvider)
-        }
-        .authorizationEndpoint {
-            it.consentPage(CUSTOM_CONSENT_PAGE_URI)
-        }
+            .clientAuthentication {
+                it
+                    .authenticationConverter(deviceClientAuthenticationConverter)
+                    .authenticationProvider(deviceClientAuthenticationProvider)
+            }
+            .authorizationEndpoint {
+                it.consentPage(CUSTOM_CONSENT_PAGE_URI)
+            }
 
         http
             .exceptionHandling {
@@ -92,7 +93,7 @@ class AuthorizationServerConfig {
         val registeredClientId = "vitamin-client"
         repo.findByClientId(registeredClientId) ?: run {
             val registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("vitamin-client")
+                .clientId(registeredClientId)
                 .clientSecret("{noop}secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
@@ -110,20 +111,6 @@ class AuthorizationServerConfig {
                 ) //requireAuthorizationConsent(true) 授权页是有的 如果是false是没有的
                 .build()
             repo.save(registeredClient)
-        }
-        val deviceClientId = "device-vitamin-client"
-        repo.findByClientId(registeredClientId) ?: run {
-            val deviceClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId(deviceClientId)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-                .authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .scope("vitamin.read")
-                .scope("vitamin.write")
-                .build()
-            repo.save(deviceClient)
-            repo.save(deviceClient)
-
         }
         return repo
     }

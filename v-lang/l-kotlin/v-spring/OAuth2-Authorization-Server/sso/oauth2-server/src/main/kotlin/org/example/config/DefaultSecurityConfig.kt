@@ -28,13 +28,13 @@ class DefaultSecurityConfig {
         http
             .authorizeHttpRequests { //① 配置鉴权的
                 it
-                    .requestMatchers("/assets/**", "/webjars/**", "/login","/oauth2/**","/oauth2/token").permitAll() //② 忽略鉴权的url
+                    .requestMatchers("/assets/**", "/webjars/**", "/login","/oauth2/**","/oauth/**").permitAll() //② 忽略鉴权的url
                     .anyRequest().authenticated()//③ 排除忽略的其他url就需要鉴权了
             }
 
             .csrf { it.disable() }
             .formLogin{
-                it.loginPage("https://drinkice.xyz") //④ 授权服务认证页面（可以配置相对和绝对地址，前后端分离的情况下填前端的url）
+                it.loginPage("/login") //④ 授权服务认证页面（可以配置相对和绝对地址，前后端分离的情况下填前端的url）
             }
             .oauth2Login {
                 it
@@ -52,7 +52,7 @@ class DefaultSecurityConfig {
     // 初始化了一个用户在内存里面（这样就不会每次启动就再去生成密码了）
     @Bean
     fun users(): UserDetailsService {
-        val user: UserDetails = User.withDefaultPasswordEncoder()
+        val user = User.withDefaultPasswordEncoder()
             .username("user1")
             .password("password")
             .roles("USER")
