@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  pgsql:
+    image: postgres
+    container_name: demo-pgsql
+    restart: always
+    environment:
+      POSTGRES_DB: drinkice
+      POSTGRES_USER: drinkice
+      POSTGRES_PASSWORD: drinkice
+    ports:
+      - 9432:5432

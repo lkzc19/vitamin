@@ -30,7 +30,7 @@ class DeviceClientAuthenticationProvider(private var registeredClientRepository:
             return null
         }
 
-        val clientId: String = deviceClientAuthentication.getPrincipal().toString()
+        val clientId: String = deviceClientAuthentication.principal.toString()
         val registeredClient = registeredClientRepository!!.findByClientId(clientId)
         if (registeredClient == null) {
             throwInvalidClient(OAuth2ParameterNames.CLIENT_ID)
