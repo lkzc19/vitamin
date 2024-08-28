@@ -58,7 +58,8 @@ func PostMessage2NewUser(userId, authToken, username string) {
 	defer usersCreateResp.Body.Close()
 	respBody, err := io.ReadAll(usersCreateResp.Body)
 	utils.CheckErr(err)
-	fmt.Println(string(respBody))
+	//fmt.Println(string(respBody))
+	//fmt.Println(usersCreateResp.StatusCode)
 
 	// 发送消息
 	chatPostMessageURL := baseURL + "/api/v1/chat.postMessage"
@@ -76,8 +77,10 @@ func PostMessage2NewUser(userId, authToken, username string) {
 	chatPostMessageResp, err := client.Do(chatPostMessageReq)
 	utils.CheckErr(err)
 	defer chatPostMessageResp.Body.Close()
+
 	respBody, err = io.ReadAll(chatPostMessageResp.Body)
 	utils.CheckErr(err)
+
 	fmt.Println(string(respBody))
 }
 
