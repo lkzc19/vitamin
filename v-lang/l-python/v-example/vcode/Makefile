@@ -1,6 +1,6 @@
 
 package:
-	pyinstaller --onefile --name=vcode.exe --icon=vcode.ico main.py
+	pyinstaller --onefile --name=vcode --icon=vcode.ico main.py
 
 to-requirements:
 	pip freeze > requirements.txt
