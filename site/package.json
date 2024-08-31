@@ -14,6 +14,7 @@
     "vue": "latest"
   },
   "devDependencies": {
+    "@nuxt/scripts": "^0.7.1",
     "@nuxt/ui": "^2.17.0"
   }
 }
