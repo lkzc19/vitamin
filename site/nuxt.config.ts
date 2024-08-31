@@ -7,10 +7,10 @@ export default defineNuxtConfig({
   scripts: {
     registry: {
       clarity: {
-        id: process.env.CLARITY_TOKEN!
+        id: 'nvwq8t6obm',
       },
       googleAnalytics: {
-        id: process.env.GA_TOKEN!,
+        id: 'G-2M6TMHDTMH',
       }
     }
   }
