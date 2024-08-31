@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  pgsql:
+    image: postgres:11.21-alpine3.18
+    container_name: pgsql-11x
+    restart: always
+    environment:
+      POSTGRES_DB: vitamin
+      POSTGRES_USER: vitamin
+      POSTGRES_PASSWORD: vitamin
+    ports:
+      - 5433:5432
