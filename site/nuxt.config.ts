@@ -6,9 +6,7 @@ export default defineNuxtConfig({
 
   scripts: {
     registry: {
-      clarity: {
-        id: 'nvwq8t6obm',
-      },
+
       googleAnalytics: {
         id: 'G-2M6TMHDTMH',
       }
