@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  mongo:
+    image: eg-env:latest
+    container_name: eg-env
+    restart: always
+    environment:
+      EXAMPLE: vitamin
+    ports:
+      - "3000:3000"
