@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     registry: {
       googleAnalytics: {
         id: 'G-2M6TMHDTMH',
+      },
+      clarity: {
+        id: 'nvwq8t6obm'
       }
     }
   }
