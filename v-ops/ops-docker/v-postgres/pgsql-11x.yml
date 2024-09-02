@@ -6,8 +6,8 @@ services:
     container_name: pgsql-11x
     restart: always
     environment:
-      POSTGRES_DB: vitamin
-      POSTGRES_USER: vitamin
       POSTGRES_PASSWORD: vitamin
+    volumes:
+      - ./data-11x:/var/lib/postgresql/data
     ports:
       - 5433:5432
