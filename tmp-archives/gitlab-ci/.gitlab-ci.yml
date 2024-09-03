@@ -1,0 +1,125 @@
+image: 192.168.0.130:1443/library/java-ci-11:latest
+
+variables:
+  DEV_VERSION: "${CI_COMMIT_SHORT_SHA}"
+  #  RELEASE_VERSION: "$(date +%Y%m%d%H%M%S)}"
+  CONTAINER_IMAGE: "192.168.0.130:1443/ckmro"
+  CONTAINER_IMAGE_RELEASE: "xxx"
+
+  REGISTRY_USER: admin
+  REGISTRY_PASSWORD: xxx
+  KUBERNETES_VERSION: 1.8.3
+  HELM_VERSION: 2.6.1
+
+  JAVA_OPTS: "-Xmx3024m -XX:MetaspaceSize=512m"
+  GRADLE_OPTS: "-Dkotlin:daemon:jvm:options=-Xmx1024m"
+
+services:
+  #- docker:dind
+  - docker:192.168.0.130:1443/library/docker:17.04.0-dind
+
+stages:
+  - test
+  - dev
+  - release
+  - notify
+
+# dev
+
+test-giakt:
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v/'
+      when: on_success
+  stage: test
+  script:
+    - echo "ready to build test gia app"
+    - make docker-test
+  cache:
+    paths:
+      - $GRADLE_USER_HOME/wrapper/
+      - $GRADLE_USER_HOME/caches/
+      - $GRADLE_USER_HOME/build-cache/
+  after_script:
+    - echo "部署测试环境"
+    - expect run-test-cd.expect
+    - echo "部署测试环境完成"
+
+dev-giakt:
+  stage: dev
+  script:
+    - echo "ready to build test gia app"
+    - make docker-dev
+  cache:
+    paths:
+      - $GRADLE_USER_HOME/wrapper/
+      - $GRADLE_USER_HOME/caches/
+      - $GRADLE_USER_HOME/build-cache/
+  when: on_success
+  only:
+    refs:
+      - develop
+      - develop_app
+
+  after_script:
+    - echo "部署开发环境"
+    - expect run-dev-cd.expect
+    - echo "部署开发环境完成"
+
+pend-giakt:
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^pend-/'
+      when: on_success
+  script:
+    - echo "ready to build test gia app"
+    - make docker-release
+  cache:
+    paths:
+      - $GRADLE_USER_HOME/wrapper/
+      - $GRADLE_USER_HOME/caches/
+      - $GRADLE_USER_HOME/build-cache/
+
+release-giakt:
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^release-/'
+      when: on_success
+  stage: release
+  script:
+    - echo "ready to build test gia app"
+    - make docker-release
+  cache:
+    paths:
+      - $GRADLE_USER_HOME/wrapper/
+      - $GRADLE_USER_HOME/caches/
+      - $GRADLE_USER_HOME/build-cache/
+
+
+.auto_devops: &auto_devops |
+  function test() {
+      echo "script for devops"
+  }
+
+before_script:
+  - export GRADLE_USER_HOME=/home/gradle/.gradle/gia-kt
+  - echo $GRADLE_USER_HOME
+  - cp -f deploy/init.gradle.kts $GRADLE_USER_HOME/
+  - *auto_devops
+
+## 成功时 企业微信通知
+#notifySuccessWeChat:
+#  stage: notify
+#  script:
+#    - wget --post-data="{\"msgtype\":\"text\",\"text\":{\"content\":\"GIA CI 完成\"}}" --header='Content-Type:application/json' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=4de2ae7f-85f8-4fb7-9373-6f3999a8f70f"
+#  when: on_success
+#  only:
+#    refs:
+#      - main
+#
+## 失败时 企业微信通知
+#notifyFailWeChat:
+#  stage: notify
+#  script:
+#    - wget --post-data="{\"msgtype\":\"text\",\"text\":{\"content\":\"GIA CI 失败\"}}" --header='Content-Type:application/json' "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=4de2ae7f-85f8-4fb7-9373-6f3999a8f70f"
+#  when: on_failure
+#  only:
+#    refs:
+#      - main
