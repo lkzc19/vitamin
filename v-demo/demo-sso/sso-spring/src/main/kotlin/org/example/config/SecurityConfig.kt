@@ -23,7 +23,6 @@ import org.springframework.security.oauth2.server.authorization.JdbcOAuth2Author
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
@@ -187,6 +186,16 @@ class SecurityConfig {
 //        return BCryptPasswordEncoder()
 //    }
 
+//    @Bean
+//    fun userDetailsService() = CustomUserDetailsService()
+
     @Bean
-    fun userDetailsService() = CustomUserDetailsService()
+    fun userDetailsService() : UserDetailsService {
+        val user = User.withDefaultPasswordEncoder()
+            .username("root")
+            .password("111111")
+            .roles("USER")
+            .build()
+        return InMemoryUserDetailsManager(user)
+    }
 }

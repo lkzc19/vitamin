@@ -6,6 +6,10 @@ spring:
     name: sso-spring
   profiles:
     active: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:

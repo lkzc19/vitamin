@@ -1,5 +1,8 @@
 plugins {
     kotlin("jvm") version "1.9.25"
+    kotlin("plugin.noarg") version "1.9.25"
+    kotlin("plugin.allopen") version "1.9.25"
+    kotlin("plugin.jpa") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
@@ -14,6 +17,14 @@ java {
     }
 }
 
+noArg {
+    annotation("org.example.anno.NoArg")
+}
+
+allOpen {
+    annotation("org.example.anno.AllOpen")
+}
+
 repositories {
     mavenCentral()
 }
@@ -26,7 +37,7 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
