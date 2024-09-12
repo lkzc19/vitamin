@@ -1,2 +1,8 @@
+# mac
 .DS_Store
+
+# py
+**/.venv
+
+# vitamin
 /tmp
