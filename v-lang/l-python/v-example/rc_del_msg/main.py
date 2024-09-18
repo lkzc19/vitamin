@@ -68,8 +68,8 @@ if __name__ == '__main__':
     # 删除消息
     for it in tqdm(message_list, bar_format=bar_format):
         payload = json.dumps({
-            "msgId": "kq3JijfKH8EvuC42w",
-            "roomId": "3CkTChF3Q2EZjNZvuKsdjALfTt7ASLnybt",
+            "msgId": it['rid'],
+            "roomId": it['_id'],
         })
         response = requests.request(
             method='POST',
