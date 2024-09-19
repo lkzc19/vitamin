@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: t-api
+  profiles:
+    active: dev
