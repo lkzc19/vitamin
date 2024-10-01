@@ -1,0 +1,19 @@
+
+" 设置默认显示行号
+set number
+
+" 设置tab为2个空格
+set tabstop=2
+
+" 启用代码高亮 不需要 set
+syntax on
+
+" 更换.viminfo文件路径 
+set viminfofile=~/.vim/.viminfo
+
+
+
+" vim-plug 插件管理
+call plug#begin()
+  Plug 'itchyny/lightline.vim'
+call plug#end()
