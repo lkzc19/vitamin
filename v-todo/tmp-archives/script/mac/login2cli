@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# 该脚本用于直接登录各种客户端，且作为密码备忘录(都是本地服务)
+
+if [ $# -lt 1 ]
+then
+  echo Not Enough Argument!
+  exit;
+fi
+
+help="1. pg -> PostgreSQL\n2. my -> MySQL"
+
+if [ "$1" == "help" ]; then
+	echo -e "$help"
+elif [ "$1" == "my" ]; then
+	mysql -u root -p'1111'
+elif [ "$1" == "pg" ]; then
+	PGPASSWORD="111111" psql -h 127.0.0.1 -p 5432 -U lkzc19 -d postgres
+elif [ "$1" == "pi" ]; then
+	ssh pi@192.168.31.10
+else 
+	echo "参数错误 请参考如下: "
+	echo -e "$help"
+fi
+

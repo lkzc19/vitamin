@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# 该脚本用于将lkzc19的配置文件同步至zmdot目录下，用于上传至git备份使用
+
+ZMDOT_HOME="$HOME/Projects/Blasphemy/zmdot"
+
+cp $HOME/.zshrc $ZMDOT_HOME/
+cp $HOME/.vimrc $ZMDOT_HOME/
+cp -r $HOME/profile.d $ZMDOT_HOME/
+
+# ztokens.sh中存放的token不可上传于公网，所以将其覆盖
+echo "# 用于存放一些token 如Github API Token 如: " > $ZMDOT_HOME/profile.d/ztoken.sh
+echo "export GITHUB_API_TOKEN=xxx" >> $ZMDOT_HOME/profile.d/ztoken.sh

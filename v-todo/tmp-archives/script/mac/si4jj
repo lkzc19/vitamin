@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# 用于掘金签到
+
+source $ZBIN_HOME/zbin.conf
+
+# $ZBIN_JJ_COOKIE有空格，要使用「""」才不会被当作多个参数传入
+python3 $ZBIN_HOME/lib/si4jj.py --cookie "$ZBIN_JJ_COOKIE" --receiver "lkzc19@foxmail.com"
