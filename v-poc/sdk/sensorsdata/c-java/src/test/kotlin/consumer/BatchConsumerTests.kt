@@ -1,3 +1,6 @@
+package consumer
+
+import Constants
 import com.sensorsdata.analytics.javasdk.SensorsAnalytics
 import com.sensorsdata.analytics.javasdk.bean.*
 import com.sensorsdata.analytics.javasdk.consumer.BatchConsumer
@@ -5,12 +8,19 @@ import java.util.*
 import kotlin.test.Test
 
 
-class Idm3Test {
+class BatchConsumerTests {
 
     @Test
-    fun idm3Test() {
-        val batchConsumer = BatchConsumer("http://127.0.0.1:8000/api/v1/data")
-        val sa = SensorsAnalytics(batchConsumer)
+    fun batchConsumerTest() {
+        // 当缓存的数据量达到50条时，批量发送数据
+        val saBulkSize = 50
+        // 数据同步失败不抛出异常
+        val throwException = true
+        // 内存中数据最大缓存条数，如此值大于0，代表缓存的数据会有条数限制，最小 3000 条，最大 6000 条。否则无条数限制。
+        val maxCacheSize = 0
+        // 使用 BatchConsumer 初始化 SensorsAnalytics
+        // 不要在任何线上的服务中使用此 Consumer
+        val sa = SensorsAnalytics(BatchConsumer(Constants.serverUrl, saBulkSize, throwException, maxCacheSize))
 
         //设置公共属性,以后上传的每一个事件都附带该属性
         val propertiesRecord = SuperPropertiesRecord.builder()
@@ -52,6 +62,16 @@ class Idm3Test {
             .addProperty("ShopName", "8844官方旗舰店")
             .build()
         sa.trackById(lookRecord)
+
+        // 1.3 浏览商品
+        val testRecord = IDMEventRecord.starter()
+            .addIdentityProperty("cookieId", cookieId)
+            .setEventName("train")
+            .addProperty("ProductName", "8844钛金手机")
+            .addProperty("ProductType", "智能手机")
+            .addProperty("ShopName", "8844官方旗舰店")
+            .build()
+        sa.trackById(testRecord)
 
         // 2.2 用户注册时，填充了一些个人信息，可以用Profile接口记录下来
         val interests = listOf("movie", "swim")
