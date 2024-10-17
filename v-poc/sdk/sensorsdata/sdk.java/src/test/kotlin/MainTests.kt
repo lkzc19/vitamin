@@ -1,6 +1,7 @@
 import com.sensorsdata.analytics.javasdk.SensorsAnalytics
 import com.sensorsdata.analytics.javasdk.bean.IDMEventRecord
 import com.sensorsdata.analytics.javasdk.consumer.BatchConsumer
+import com.sensorsdata.analytics.javasdk.consumer.ConcurrentLoggingConsumer
 import org.junit.jupiter.api.Test
 
 
@@ -8,8 +9,9 @@ class MainTests {
 
     @Test
     fun test() {
-        val sa = SensorsAnalytics(BatchConsumer(Constants.serverUrl, 50, true, 0))
+//        val sa = SensorsAnalytics(BatchConsumer(Constants.serverUrl, 50, true, 0))
 //        val sa = SensorsAnalytics(ConsoleConsumer(PrintWriter(System.out)))
+        val sa = SensorsAnalytics(ConcurrentLoggingConsumer("../log"))
 
         val record = IDMEventRecord.starter()
             .addIdentityProperty("cookieId", "nahida")
