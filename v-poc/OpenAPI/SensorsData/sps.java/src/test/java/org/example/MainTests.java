@@ -65,7 +65,7 @@ public class MainTests {
 
         HashMap<String, Object> map1 = new HashMap<>();
         map1.put("upload_filename", "dGVzdC50eHQCEqxgrAQi");
-        map1.put("matched_field", "$first_id");
+        map1.put("matched_field", "user.$first_id");
         map1.put("sync_profile", true);
         map1.put("upload_type", "CREATE");
         map1.put("data_format", "JSON");

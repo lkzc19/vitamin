@@ -1,0 +1,12 @@
+version: '3.8'  # 指定 Docker Compose 文件版本
+
+services:
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/opt/bitnami/prometheus/prometheus.yml
+      - '$PROMETHEUS_HOME/data:/opt/bitnami/prometheus/data'
