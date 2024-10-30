@@ -1,3 +1,5 @@
+Java 17
+
 = Starter
 
 image:https://img.shields.io/badge/vert.x-4.5.10-purple.svg[link="https://vertx.io"]
