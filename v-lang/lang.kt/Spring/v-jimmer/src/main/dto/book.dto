@@ -1,0 +1,8 @@
+export com.example.model.Book
+    -> package com.example.model.dto
+
+input BookInput {
+    #allScalars(this)
+    id(store) // as storeId
+    id(authors) as authorIds
+}

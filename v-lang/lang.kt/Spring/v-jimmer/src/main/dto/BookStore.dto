@@ -1,0 +1,10 @@
+export com.example.model.BookStore
+    -> package com.example.model.dto
+
+input CompositeBookStoreInput {
+    #allScalars(this)
+    books {
+        #allScalars(this)
+        -id
+    }
+}
