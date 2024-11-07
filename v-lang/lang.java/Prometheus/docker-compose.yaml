@@ -9,6 +9,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./example.rules:/opt/bitnami/prometheus/conf/rules/example.rules
       - '$PROMETHEUS_HOME/data:/opt/bitnami/prometheus/data'
   pushgateway:
     image: bitnami/pushgateway:latest
@@ -16,3 +17,10 @@ services:
     restart: always
     ports:
       - "9091:9091"
+  alertmanager:
+    image: bitnami/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager.yml:/opt/bitnami/alertmanager/conf/config.yml
+    ports:
+      - "9093:9093"
