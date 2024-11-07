@@ -8,5 +8,11 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus.yml:/opt/bitnami/prometheus/prometheus.yml
+      - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
       - '$PROMETHEUS_HOME/data:/opt/bitnami/prometheus/data'
+  pushgateway:
+    image: bitnami/pushgateway:latest
+    container_name: pushgateway
+    restart: always
+    ports:
+      - "9091:9091"
