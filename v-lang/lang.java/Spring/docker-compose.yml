@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  pgsql:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: vitamin
+      POSTGRES_USER: vitamin
+      POSTGRES_PASSWORD: vitamin
+    ports:
+      - 5432:5432
