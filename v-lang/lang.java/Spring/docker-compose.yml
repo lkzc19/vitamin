@@ -1,8 +1,9 @@
 version: '3'
 
 services:
-  pgsql:
+  postgres:
     image: postgres:latest
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_DB: vitamin

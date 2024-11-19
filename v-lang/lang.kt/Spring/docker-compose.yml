@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgres:
-    image: postgres
+    image: postgres:latest
     container_name: postgres
     restart: always
     environment:
@@ -10,4 +10,4 @@ services:
       POSTGRES_USER: vitamin
       POSTGRES_PASSWORD: vitamin
     ports:
-      - "3432:5432"
+      - 5432:5432
