@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: v-swagger
+    name: v-springdoc-3.x
 
 springdoc:
   api-docs:
