@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: v-mail
+  mail:
+    host: smtp.qq.com
+    username: drinkice_cat@foxmail.com
+    password: ifwxrywhocoyebjf
