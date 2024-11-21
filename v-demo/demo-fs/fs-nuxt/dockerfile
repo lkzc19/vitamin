@@ -1,8 +1,0 @@
-FROM node:lts-bullseye-slim
-
-WORKDIR /app
-COPY .output /app
-
-EXPOSE 3000
-
-CMD ["node", "./server/index.mjs"]

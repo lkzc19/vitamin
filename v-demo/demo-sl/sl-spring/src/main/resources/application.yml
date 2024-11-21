@@ -1,5 +1,0 @@
-spring:
-    application:
-        name: sl-spring
-    profiles:
-        active: dev
