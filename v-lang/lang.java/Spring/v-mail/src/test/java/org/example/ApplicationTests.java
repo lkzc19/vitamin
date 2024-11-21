@@ -18,7 +18,9 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -91,14 +93,17 @@ class ApplicationTests {
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
         helper.setFrom("drinkice_cat@foxmail.com");
         helper.setTo("lkzc19@foxmail.com");
-        helper.setSubject("验证码");
+        helper.setSubject("foreach test");
 
         // 处理 FTL 模板
         Configuration cfg = freeMarkerConfigurer.getConfiguration();
-        Template template = cfg.getTemplate("vcode.ftl");
+        Template template = cfg.getTemplate("foreach.ftl");
         Map<String, Object> model = new HashMap<>();
-        model.put("username","lkzc19");
-        model.put("vcode","9527");
+        List<String> items = new ArrayList<>();
+        items.add("lkzc19");
+        items.add("lkzc18");
+        items.add("lkzc17");
+        model.put("items", items);
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
         helper.setText(html, true); // true 表示 HTML 格式

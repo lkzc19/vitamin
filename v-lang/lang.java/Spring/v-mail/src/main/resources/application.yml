@@ -5,3 +5,9 @@ spring:
     host: smtp.qq.com
     username: drinkice_cat@foxmail.com
     password: ifwxrywhocoyebjf
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
