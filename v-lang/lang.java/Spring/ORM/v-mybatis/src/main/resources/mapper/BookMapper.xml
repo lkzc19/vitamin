@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.BookMapper">
+
+    <insert id="insert" parameterType="Book" useGeneratedKeys="true" keyProperty="id">
+        insert into t_book (created_at, title, author)
+        values (#{createdAt}, #{title}, #{author})
+    </insert>
+
+    <delete id="deleteById">
+        delete
+        from t_book
+        where id = #{id}
+    </delete>
+
+    <update id="updateById" parameterType="Book">
+        update t_book
+        set title = #{title},
+            author = #{author},
+            updated_at = #{updatedAt}
+        where id = #{id}
+    </update>
+
+    <select id="listAll" resultType="Book">
+        select *
+        from t_book
+    </select>
+
+</mapper>
