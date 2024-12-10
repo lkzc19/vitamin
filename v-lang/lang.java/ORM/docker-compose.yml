@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.29
+    container_name: v-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: vitamin
+      MYSQL_ROOT_PASSWORD: vitamin
+      MYSQL_DEFAULT_CHARACTER_SET: utf8mb4
+      MYSQL_DEFAULT_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
