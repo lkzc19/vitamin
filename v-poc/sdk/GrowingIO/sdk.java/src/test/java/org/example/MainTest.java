@@ -10,7 +10,7 @@ public class MainTest {
 
     @Test
     public void test() {
-        GrowingAPI project = new GrowingAPI.Builder().setProjectKey("your accountId").setDataSourceId("your dataSourceId").build();
+        GrowingAPI project = new GrowingAPI.Builder().setProjectKey("lkzc19").setDataSourceId("lkzc19").build();
 
         GioCdpEventMessage eventMessage = new GioCdpEventMessage.Builder()
                 .eventTime(System.currentTimeMillis())            // 默认为系统当前时间 (选填)
