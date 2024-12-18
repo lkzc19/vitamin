@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    
+    <script type="text/javascript">
+      !(function (e, n, t, s, c) {
+          e[s] =
+              e[s] ||
+              function () {
+                  (e[s].q = e[s].q || []).push(arguments);
+              };
+          (e._gio_local_vds = c = c || 'vds'),
+              (e[c] = e[c] || {}),
+              (e[c].namespace = s);
+          var d = n.createElement('script');
+          var i = n.getElementsByTagName('script')[0];
+          (d.async = !0), (d.src = t);
+          i ? i.parentNode.insertBefore(d, i) : n.head.appendChild(d);
+      })(window, document, 'https://assets.giocdn.com/sdk/webjs/gdp-full.js', 'gdp');
+
+      gdp('init', '111', '2222', {
+          version: '0.0.1',
+          // OP私有部署客户请填写serverUrl，Saas客户请忽略
+          serverUrl: 'http://47.116.195.124:8081/post_data',
+          dataCollect: true,
+          debug: true
+      });
+  </script>
+  <script src="https://assets.giocdn.com/sdk/webjs/giokit.min.js"></script>
+  <script type="text/javascript">
+      var gioKit = new GioKit();
+  </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

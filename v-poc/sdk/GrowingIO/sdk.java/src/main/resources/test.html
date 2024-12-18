@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://assets.giocdn.com/sdk/webjs/cdp/plugins/gioEventAutoTracking.js"></script>
+    <script type="text/javascript">
+        !(function (e, n, t, c, i) {
+            (e[i] =
+                e[i] ||
+                function () {
+                    (e[i].q = e[i].q || []).push(arguments);
+                }),
+                (t = n.createElement('script'));
+            s = n.getElementsByTagName('script')[0];
+            (t.async = 1), (t.src = c), s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://assets.giocdn.com/sdk/webjs/cdp/gdp.js', 'gdp');
+
+        gdp('registerPlugins', [gioEventAutoTracking]);
+
+        gdp('init', '123', '123', {
+            host: '47.116.195.124:8081/post_data',
+            scheme: 'http://',
+            version: 'v0.0.1',
+            debug: true
+        });
+    </script>
+
+    <script src="https://assets.giocdn.com/sdk/webjs/giokit.min.js"></script>
+    <script type="text/javascript">
+        var gioKit = new GioKit();
+    </script>
+</head>
+<body>
+<div class="image">
+    <img src="https://oss-cn-hangzhou.aliyuncs.com/GIO.png" alt="GioPicture" />
+</div>
+<div class="header">
+    <h1 id="slogan">增长，源于对每一个用户行为的洞察</h1>
+</div>
+<h2 id="subtitle">为产品和运营打造的数据分析产品</h2>
+<form class="register">
+    <button>免费试用</button>
+</form>
+</body>
+</html>
