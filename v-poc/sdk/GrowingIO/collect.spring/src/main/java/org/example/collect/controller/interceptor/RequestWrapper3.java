@@ -1,31 +1,27 @@
 package org.example.collect.controller.interceptor;
 
+
+import io.growing.collector.tunnel.protocol.EventDto;
+import io.growing.collector.tunnel.protocol.EventList;
+
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 
-public class RequestWrapper extends HttpServletRequestWrapper {
+public class RequestWrapper3 extends HttpServletRequestWrapper {
     private final String body;
 
-    public RequestWrapper(HttpServletRequest request) {
+    public RequestWrapper3(HttpServletRequest request) {
         super(request);
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
         InputStream inputStream = null;
         try {
             inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            } else {
-                stringBuilder.append("");
-            }
+            EventList e = EventList.parseFrom(inputStream);
+            System.out.println(e);
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {

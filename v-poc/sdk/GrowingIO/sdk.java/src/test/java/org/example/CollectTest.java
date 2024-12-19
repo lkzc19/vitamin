@@ -1,11 +1,16 @@
 package org.example;
 
-import io.growing.collector.codec.CodecUtil;
-import io.growing.collector.codec.CompressCodec;
-import io.growing.collector.utils.Bytes;
+import com.github.os72.protobuf360.InvalidProtocolBufferException;
+import io.growing.collector.tunnel.protocol.EventDto;
+import io.growing.collector.tunnel.protocol.EventList;
+import io.growing.collector.tunnel.protocol.EventRaw;
 import org.junit.Test;
 
-import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class CollectTest {
 
@@ -16,9 +21,17 @@ public class CollectTest {
             "<F0>N\\b<85>|<C8>~#<83><B8><EE>\\u0015<C5><F2><AE>\\u001D<96>\\b!<<A9>\\u0014\\n3<AA>(mB<80>A\\u0004Q\\u0012E<91>\\u0018A.<E3>\\ft<83>*\\u000B.\\u000F&F<86>ԃ\\u0007\\u0012!q<EC>a\\t<93>a\\u00103\\u0011s\\f\\u0012\\u0013ɋ<B8>\\u0010\\u000E%s\\u0011p)\\u0016c<91><98>S\\u0012<C6>\n" +
             "\\u0010<B5>!\\u000E<DB><E0><D0>&<A6>\\u0000<C0>_\\n\\f<E1>|\\b\\u001C\\u0000\\u0002:\\f<A2>\\u0018<CD>aP^?\\u0004\\\"<88><84>\\t<9E>fY<96>5<96>\\u0012<D0>\\u0000/<80>\\u000B<A4>\\u0000\\u0000";
 
+    String str3 = "\\n�\\u0002\\n\\tdevice_id\\u0012\\u000F417abcabcabcbac\\u001A\\u000F417abcabcabcbac*\\u0006lkzc190\\u0001@����2J\\u0011com.growingio.app�\\u0001\\u0005zh_CN�\\u0001\\u00051.2.4�\\u0001\\beventKey�\\u0001\\u0019\\n\\fproduct_name\\u0012\\tcdp苹果�\\u0001\\\"\\n\\u0010product_classify\\u0012\\u000E苹果||香蕉�\\u0001\\u0011\\n\\u0006itemId\\u0012\\u0007itemKey�\\u0001\\u0018growing.123c12fb12f123cc�\\u0002\\u0006google�\\u0002\\u0007Nexus 5�\\u0002\\u0005PHONE�\\u0002\\f看数助手�\\u0003\\u0006lkzc19�\\u0003����2�\\u0003\\u0007account\"";
+
+    String str = "ߏ�/[{\"idfa\":\"\",\"eventType\":\"VISIT\",\"deviceBrand\":\"Apple\",\"languag)ߏ�zh-Hans-CN.\u0010I+ߏ�$278A512C-8E11-430C-8F7F-5419D2B3794A\",\"globalSequen:ߏ�368,\"urlSchembߏ�\tgrowing.abfb78df722fd978p\u0003ߏ�PiPhonߏ�ߏ�\u001DappVersion\":\"6.1.0\",\"screenHeight\":2796,\"ses&\u0001ߏ�ߏ�#42216E8D-FDAA-4A8E-8A41-172940BCF202\",\"networkStatߏ�@WIFIߏ�@omainߏ�\u0005com.plateno.btota\",\"\u0010ߏ�form\":\"iOSߏ�!Naߏ�ߏ�\u0015�ߏ��ߏ��ߏ�\",\"timestamp\":17345760381890\u0004pߏ�FOREGROUNDߏ�&dkߏ�P3.8.1ߏ�\u0001ߏ�\u0001PModelq\u0001\u0014\u0001@17,40\u0001\u0003\u0001ߏ�Width\":1290,ߏ�\u0001ߏ�\u0019v\":\"968E6A12-32F6-43DF-AAE8-F552C89E023F\\rataSourߏ�\u0001ߏ�\u0002\"bcb3fa9dc5a0c3f5ߏ�\u0006ߏ�A18.1ߏ�\u0001^\u0002\u0006ߏ�\u0001P\":9}]";
+
     @Test
-    public void test1() {
-        String stm = "1734433148829";
-        System.out.println(CodecUtil.convertCodec(3, 1, 0, stm));
+    public void test1() throws IOException {
+        String filePath = "/Users/lkzc19/Projects/self/vitamin/v-poc/sdk/GrowingIO/sdk.java/data.log";
+        InputStream inputStream = new FileInputStream(filePath);
+        byte[] fileContent = Files.readAllBytes(Paths.get(filePath));
+
+        EventList eventDto = EventList.parseFrom(str.getBytes());
+        System.out.println(eventDto);
     }
 }
