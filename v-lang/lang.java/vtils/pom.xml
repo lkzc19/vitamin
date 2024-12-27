@@ -77,6 +77,26 @@
             <version>4.12.0</version>
         </dependency>
 
+        <!--  excel  -->
+        <!--xls(03)-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <!--xlsx(07)-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <!--时间格式化工具-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.6</version>
+        </dependency>
+        <!--  excel  -->
 
         <dependency>
             <groupId>junit</groupId>
