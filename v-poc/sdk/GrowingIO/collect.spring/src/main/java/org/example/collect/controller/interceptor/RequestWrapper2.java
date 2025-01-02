@@ -1,7 +1,5 @@
 package org.example.collect.controller.interceptor;
 
-import io.growing.collector.tunnel.protocol.EventList;
-
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;

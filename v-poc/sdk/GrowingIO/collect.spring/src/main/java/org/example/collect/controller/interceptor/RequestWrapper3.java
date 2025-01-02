@@ -1,8 +1,7 @@
 package org.example.collect.controller.interceptor;
 
 
-import io.growing.collector.tunnel.protocol.EventDto;
-import io.growing.collector.tunnel.protocol.EventList;
+import io.growing.collector.tunnel.protocol.EventV3List;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -20,7 +19,7 @@ public class RequestWrapper3 extends HttpServletRequestWrapper {
         InputStream inputStream = null;
         try {
             inputStream = request.getInputStream();
-            EventList e = EventList.parseFrom(inputStream);
+            EventV3List e = EventV3List.parseFrom(inputStream);
             System.out.println(e);
         } catch (IOException ex) {
             ex.printStackTrace();

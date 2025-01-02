@@ -5,12 +5,9 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class RequestWrapper1 extends HttpServletRequestWrapper {
     private final String body;
-
-    private static final AtomicInteger count = new AtomicInteger(0);
 
     public RequestWrapper1(HttpServletRequest request, String compress, String stm) {
         super(request);
@@ -19,9 +16,7 @@ public class RequestWrapper1 extends HttpServletRequestWrapper {
         InputStream inputStream = null;
         try {
             inputStream = request.getInputStream();
-            int i = count.incrementAndGet();
-//            /home/sa_cluster/collect
-            try (OutputStream outputStream = new FileOutputStream("/home/sa_cluster/collect/data_"+ compress + "_" + stm +".log")) {
+            try (OutputStream outputStream = new FileOutputStream("data_"+ compress + "_" + stm +".log")) {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
