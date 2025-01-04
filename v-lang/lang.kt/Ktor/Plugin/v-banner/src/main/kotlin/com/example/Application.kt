@@ -1,5 +1,6 @@
 package com.example
 
+import KBanner
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -8,7 +9,10 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureRouting()
-    install(BannerPlugin) {
+//    install(BannerPlugin) {
+//        location = "fo/banner.txt"
+//    }
+    install(KBanner) {
         location = "fo/banner.txt"
     }
 }
