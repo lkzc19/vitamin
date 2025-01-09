@@ -15,7 +15,6 @@ services:
     volumes:
       - $HOME/dev/mysql:/var/lib/mysql
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
-
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: kafka
