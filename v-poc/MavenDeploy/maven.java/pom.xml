@@ -6,7 +6,7 @@
 
     <groupId>io.github.lkzc19</groupId>
     <artifactId>maven.java</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 
     <name>mj</name>
     <description>test upload pkg</description>
@@ -23,7 +23,7 @@
     <developers>
         <developer>
             <id>lkzc19</id>
-            <name>Lkzc19</name>
+            <name>lkzc19</name>
             <email>lkzc19@example.com</email>
             <url>https://github.com/lkzc19</url>
         </developer>
