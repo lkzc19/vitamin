@@ -1,8 +1,14 @@
 package org.example.json;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.Strictness;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import org.junit.Test;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,5 +45,41 @@ public class GsonUtilsTests {
         TestJsonModel foo = new TestJsonModel("cs", 2, field3);
         String json = GsonUtils.object2Json(foo);
         System.out.println(json);
+    }
+
+    @Test
+    public void testFromFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("data/json.log"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            JsonElement je = GsonUtils.json2Object(line.trim());
+//            System.out.println(JsonParser.parseString(je.getAsString()));
+
+            if (je.isJsonArray()) {
+                System.out.println("数组: " + je);
+            } else {
+                System.out.println("非数组: " + je);
+            }
+        }
+    }
+
+    @Test
+    public void testFromFile1() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("data/json.log"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(JsonParser.parseString(line));
+            System.out.println(GsonUtils.json2Object(line));
+        }
+    }
+
+    @Test
+    public void testFromFile2() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("data/bad_json.log"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String s = GsonUtils.object2Json(GsonUtils.json2Object(line));
+            JacksonUtils.json2Object(s).forEach(System.out::println);
+        }
     }
 }

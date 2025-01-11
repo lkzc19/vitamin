@@ -1,6 +1,7 @@
 package org.example.json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import lombok.experimental.UtilityClass;
 
@@ -19,5 +20,9 @@ public class GsonUtils {
 
     public String object2Json(Object obj) {
         return gson.toJson(obj);
+    }
+
+    public JsonElement json2Object(String json) {
+        return gson.toJsonTree(json);
     }
 }

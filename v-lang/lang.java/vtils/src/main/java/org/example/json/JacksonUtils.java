@@ -1,6 +1,7 @@
 package org.example.json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -18,6 +19,11 @@ public class JacksonUtils {
     @SneakyThrows
     public <T> T json2Object(String json, TypeReference<T> typeRef) {
         return objectMapper.readValue(json, typeRef);
+    }
+
+    @SneakyThrows
+    public JsonNode json2Object(String json) {
+        return objectMapper.readTree(json);
     }
 
     @SneakyThrows

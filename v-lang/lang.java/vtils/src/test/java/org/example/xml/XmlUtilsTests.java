@@ -26,7 +26,6 @@ public class XmlUtilsTests {
 
         XmlMapper xmlMapper = XmlMapper.xmlBuilder()
                 .defaultUseWrapper(true)
-
                 .build();
 
         System.out.println(xmlMapper.writeValueAsString(transaction));
