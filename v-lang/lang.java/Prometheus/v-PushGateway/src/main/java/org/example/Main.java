@@ -24,7 +24,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-//        push();
+        push();
         try {
             counter.labelValues("ok").inc(195);
             counter.labelValues("fail").inc(458);

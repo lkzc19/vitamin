@@ -30,6 +30,13 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
     ports:
       - 9092:9092
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    restart: always
+    ports:
+      - "3000:3000"
   # === 普罗米修斯 相关 ===
   prometheus:
     image: bitnami/prometheus:latest
