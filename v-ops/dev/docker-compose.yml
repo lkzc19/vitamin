@@ -30,6 +30,33 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
     ports:
       - 9092:9092
+  # === 普罗米修斯 相关 ===
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./prometheus/example.rules:/opt/bitnami/prometheus/conf/rules/example.rules
+      - '$HOME/dev/prometheus/data:/opt/bitnami/prometheus/data'
+  pushgateway:
+    image: bitnami/pushgateway:latest
+    container_name: pushgateway
+    restart: always
+    ports:
+      - "9091:9091"
+  alertmanager:
+    image: bitnami/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./prometheus/alertmanager.yml:/opt/bitnami/alertmanager/conf/config.yml
+    ports:
+      - "9093:9093"
+  # === 普罗米修斯 相关 ===
+
+
 
 networks:
   vitamin:
