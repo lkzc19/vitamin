@@ -11,10 +11,10 @@ import org.example.model.WaterSensor;
 @Data
 public class FilterFunc implements FilterFunction<WaterSensor> {
 
-    private String id;
+    private int vc;
 
     @Override
     public boolean filter(WaterSensor waterSensor) {
-        return this.id.equals(waterSensor.getId());
+        return waterSensor.getVc() > vc;
     }
 }
