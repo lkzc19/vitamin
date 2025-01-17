@@ -2,9 +2,11 @@ package org.example;
 
 import io.growing.sdk.java.GrowingAPI;
 import io.growing.sdk.java.dto.GioCdpEventMessage;
+import io.growing.sdk.java.dto.GioCdpUserMessage;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class MainTest {
 
@@ -44,6 +46,27 @@ public class MainTest {
                 .addEventVariable("product_classify", Arrays.asList("苹果", "香蕉"))       // 事件属性 (选填)
 //                .addEventVariables(map)                           // 事件属性集合 (选填)
                 .addItem("itemId", "itemKey")                     // 物品模型ID, KEY (选填)
+                .build();
+
+        project.send(msg);
+    }
+
+    @Test
+    public void test1() {
+        GrowingAPI project = new GrowingAPI.Builder().setProjectKey("lkzc19").setDataSourceId("lkzc19").build();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("foo", "bar");
+
+        GioCdpUserMessage msg = new GioCdpUserMessage.Builder()
+                .time(System.currentTimeMillis())      // 默认为系统当前时间 (选填)
+                .anonymousId("device_id")              // 访问用户ID (选填)
+                .loginUserKey("account")    // 登录用户KEY (选填，需有规划并在平台配置后再上报)
+                .loginUserId("loginUserId")            // 登录用户ID的 (选填)
+                .addUserVariable("gender", "man")      // 登录用户属性 (选填)
+                .addUserVariable("education", Arrays.asList("本科", "硕士"))      // 登录用户属性 (选填)
+                .addUserVariables(map)                 // 登录用户属性集合 (选填)
+                .addUserVariable("certificates", "asd")        // 登录用户属性, 支持单层map类型
                 .build();
 
         project.send(msg);
