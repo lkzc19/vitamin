@@ -9,7 +9,9 @@ import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.kafka.clients.producer.ProducerConfig;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 public class KafkaSinkDemo {
     public static void main(String[] args) throws Exception {

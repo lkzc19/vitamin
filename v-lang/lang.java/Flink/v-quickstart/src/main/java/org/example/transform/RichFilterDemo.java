@@ -4,7 +4,6 @@ import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.example.model.WaterSensor;
-import org.example.udf.FilterFunc;
 import org.example.udf.rich.RichFilterFunc;
 
 public class RichFilterDemo {

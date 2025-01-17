@@ -1,10 +1,8 @@
 package org.example.partition;
 
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.example.model.WaterSensor;
-import org.example.udf.MapFunc;
 
 /**
  * 7 自带分区器 + 1 自定义分区器

@@ -5,7 +5,6 @@ import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.example.model.WaterSensor;
 import org.example.udf.FilterFunc;
-import org.example.udf.MapFunc;
 
 public class FilterDemo {
     public static void main(String[] args) throws Exception {

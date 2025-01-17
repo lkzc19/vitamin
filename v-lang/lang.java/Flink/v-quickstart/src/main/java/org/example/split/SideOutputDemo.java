@@ -8,7 +8,6 @@ import org.apache.flink.streaming.api.functions.ProcessFunction;
 import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;
 import org.example.model.WaterSensor;
-import org.example.partition.MyPartitioner;
 
 /**
  * 测流

@@ -10,7 +10,6 @@ import org.apache.flink.streaming.api.functions.sink.filesystem.OutputFileConfig
 import org.apache.flink.streaming.api.functions.sink.filesystem.bucketassigners.DateTimeBucketAssigner;
 import org.apache.flink.streaming.api.functions.sink.filesystem.rollingpolicies.DefaultRollingPolicy;
 
-import java.time.Duration;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
