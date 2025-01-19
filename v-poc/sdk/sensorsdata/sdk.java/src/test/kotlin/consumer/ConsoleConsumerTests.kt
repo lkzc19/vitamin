@@ -2,9 +2,11 @@ package consumer
 
 import com.sensorsdata.analytics.javasdk.SensorsAnalytics
 import com.sensorsdata.analytics.javasdk.bean.EventRecord
+import com.sensorsdata.analytics.javasdk.bean.UserRecord
 import com.sensorsdata.analytics.javasdk.consumer.ConsoleConsumer
 import java.io.PrintWriter
 import kotlin.test.Test
+
 
 class ConsoleConsumerTests {
 
@@ -27,6 +29,16 @@ class ConsoleConsumerTests {
             .setEventName("UserLogin")
             .build()
         sa.track(loginRecord)
+
+        var userRecord = UserRecord.builder().setDistinctId(distinctId).isLoginId(java.lang.Boolean.TRUE)
+            .addProperty("Sex", "Male") // 设置用户性别属性（Sex）为男性
+            .build()
+        sa.profileSet(userRecord!!)
+
+        userRecord = UserRecord.builder().setDistinctId(distinctId).isLoginId(java.lang.Boolean.TRUE)
+            .addProperty("UserLv", "Elite VIP") // 设置用户等级属性（Level）为 VIP
+            .build()
+        sa.profileSet(userRecord)
 
         // Flush the writer
         writer.flush()
