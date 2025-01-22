@@ -1,0 +1,4 @@
+
+webhook:
+  base-url: qwe
+  x-auth-header: asd

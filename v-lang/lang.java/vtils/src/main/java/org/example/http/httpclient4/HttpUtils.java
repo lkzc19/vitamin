@@ -36,11 +36,8 @@ public class HttpUtils {
 
     public static CloseableHttpResponse send(String url, String requestBody) throws IOException {
         HttpPost post = new HttpPost(url);
-
         post.addHeader("Content-Type", "application/json;charset=UTF-8");
-
         post.setEntity(new StringEntity(requestBody, "utf-8"));
-
         return getClient().execute(post);
     }
 
