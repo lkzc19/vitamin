@@ -1,0 +1,13 @@
+env: dev
+
+app:
+  name: vtils
+  author:
+    - lkzc19
+    - lkzc18
+    - lkzc17
+  foo:
+    - name: zxc
+      age: 8
+    - name: asd
+      age: 7
