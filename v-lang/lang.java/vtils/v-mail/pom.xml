@@ -11,10 +11,20 @@
 
     <artifactId>v-mail</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>1.6.7</version>
+        </dependency>
 
+        <!--https://github.com/cdimascio/dotenv-java-->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <!--Still using Java 8? Use version 2.3.2-->
+            <version>2.3.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

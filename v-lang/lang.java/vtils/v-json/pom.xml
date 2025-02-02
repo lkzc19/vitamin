@@ -15,6 +15,7 @@
     <modules>
         <module>json-jackson</module>
         <module>json-gson</module>
+        <module>json-fastjson</module>
     </modules>
 
 </project>

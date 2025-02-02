@@ -1,11 +1,13 @@
 package org.example.vtils.config;
 
+import lombok.experimental.UtilityClass;
 import org.yaml.snakeyaml.Yaml;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@UtilityClass
 public class YamlProcessor {
     // yaml文件可能的拓展名
     private static final List<String> EXT_YAML = Arrays.asList(".yaml", ".yml");
@@ -70,22 +72,34 @@ public class YamlProcessor {
     /**
      * 递归打平key，构建无嵌套Map的Map
      */
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private static void buildFlattenedMap(Map<String, Object> result, Map<String, Object> source, String path) {
         source.forEach((key, value) -> {
-            // 将key打平
             if (isNotEmpty(path)) {
-                // 目前只做普通map类型的解析
-                key = path + "." + key;
+                if (key.startsWith("[")) {
+                    key = path + key;
+                }
+                else {
+                    key = path + '.' + key;
+                }
             }
-            // put
-            if (value instanceof String) { // 字符串
+            if (value instanceof String) {
                 result.put(key, value);
-            } else if (value instanceof Map) { // map类型打平
-                // 去掉强转警告
-                @SuppressWarnings("unchecked")
+            } else if (value instanceof Map) {
                 Map<String, Object> map = (Map<String, Object>) value;
                 buildFlattenedMap(result, map, key);
-            } else { // 如数字，布尔
+            } else if (value instanceof Collection) {
+                Collection collection = (Collection) value;
+                if (collection.isEmpty()) {
+                    result.put(key, "");
+                }
+                else {
+                    int count = 0;
+                    for (Object object : collection) {
+                        buildFlattenedMap(result, Collections.singletonMap("[" + (count++) + "]", object), key);
+                    }
+                }
+            } else {
                 result.put(key, (value != null ? value : ""));
             }
         });
