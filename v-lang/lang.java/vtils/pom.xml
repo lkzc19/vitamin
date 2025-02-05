@@ -13,6 +13,7 @@
         <module>v-mail</module>
         <module>v-excel</module>
         <module>v-config</module>
+        <module>v-http</module>
     </modules>
 
     <properties>
