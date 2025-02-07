@@ -10,8 +10,8 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 public class HttpbinModel {
-//    private Map<String, Object>  args;
-//    private Map<String, Object> headers;
+    private Map<String, Object>  args;
+    private Map<String, Object> headers;
     private String origin;
     private String url;
 }

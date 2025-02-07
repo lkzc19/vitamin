@@ -1,5 +1,6 @@
 package org.example.vtils.httpclient4;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -21,10 +22,12 @@ public class MainTest {
 //            EntityUtils.consume(entity);
 //        }
 
-//        Map<String, Object> result = httpclient.execute(httpGet, new CustomResponseHandler<>());
-//        result.forEach((k, v) -> System.out.println(k + "=" + v));
+        Map<String, Object> result1 = httpclient.execute(httpGet, new CustomResponseHandler<>(new TypeReference<Map<String, Object>>() {}));
+        result1.forEach((k, v) -> System.out.println(k + "=" + v));
 
-        HttpbinModel result = httpclient.execute(httpGet, new CustomResponseHandler<HttpbinModel>());
-        System.out.println(result);
+        System.out.println("=========================");
+
+        HttpbinModel result2 = httpclient.execute(httpGet, new CustomResponseHandler<>(HttpbinModel.class));
+        System.out.println(result2);
     }
 }

@@ -4,7 +4,6 @@ services:
   mysql:
     image: mysql:8.0.29
     container_name: mysql
-    restart: always
     environment:
       # MYSQL_DATABASE: book
       MYSQL_ROOT_PASSWORD: zxczxc
@@ -15,6 +14,11 @@ services:
     volumes:
       - $HOME/dev/mysql:/var/lib/mysql
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: kafka
@@ -34,14 +38,12 @@ services:
     image: grafana/grafana
     container_name: grafana
     hostname: grafana
-    restart: always
     ports:
       - "3000:3000"
   # === 普罗米修斯 相关 ===
   prometheus:
     image: bitnami/prometheus:latest
     container_name: prometheus
-    restart: always
     ports:
       - "9090:9090"
     volumes:
@@ -51,7 +53,6 @@ services:
   pushgateway:
     image: bitnami/pushgateway:latest
     container_name: pushgateway
-    restart: always
     ports:
       - "9091:9091"
   alertmanager:
