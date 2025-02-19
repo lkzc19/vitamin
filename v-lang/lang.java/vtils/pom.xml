@@ -14,6 +14,8 @@
         <module>v-excel</module>
         <module>v-config</module>
         <module>v-http</module>
+        <module>v-file</module>
+        <module>v-redis</module>
     </modules>
 
     <properties>
