@@ -21,7 +21,7 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: zxczxc
     ports:
-      - 9432:9432
+      - 5432:5432
   redis:
     image: redis:latest
     container_name: redis

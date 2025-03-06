@@ -1,13 +1,10 @@
 package org.example.vtils.jedis;
 
-import redis.clients.jedis.Jedis;
+import org.example.vtils.jedis.demo.Demo1;
 
 public class Main {
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("10.245.23.216", 6178);
-//        jedis.auth("xxx");
-        String ping = jedis.ping();
-        System.out.println(ping);
-        jedis.close();
+        Demo1 demo1 = new Demo1();
+        demo1.print();
     }
 }
