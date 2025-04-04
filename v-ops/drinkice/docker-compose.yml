@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  # 公共服务
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: zxczxc
+    ports:
+      - 5432:5432
+    volumes:
+      - $HOME/dev/postgres:/var/lib/postgresql/data
+
+  # 自建服务
+  loafer:
+    image: ghcr.io/lkzc19/loafer.java:latest
+    container_name: loafer.be
+    ports:
+      - 9101:9101
+
+
+networks:
+  vitamin:
+    driver: bridge

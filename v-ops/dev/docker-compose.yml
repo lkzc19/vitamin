@@ -5,10 +5,8 @@ services:
     image: mysql:8.0.29
     container_name: mysql
     environment:
-      # MYSQL_DATABASE: book
       MYSQL_ROOT_PASSWORD: zxczxc
-      # MYSQL_DEFAULT_CHARACTER_SET: utf8mb4
-      # MYSQL_DEFAULT_COLLATION: utf8mb4_unicode_ci
+      # MYSQL_DATABASE: book
     ports:
       - "3306:3306"
     volumes:
@@ -22,11 +20,16 @@ services:
       POSTGRES_PASSWORD: zxczxc
     ports:
       - 5432:5432
+    volumes:
+      - $HOME/dev/postgres:/var/lib/postgresql/data
   redis:
     image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
+    volumes:
+      - $HOME/dev/redis:/data
+    command: redis-server --appendonly yes  # 启用 AOF 持久化
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: kafka
@@ -42,13 +45,13 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
     ports:
       - 9092:9092
+  # === 普罗米修斯 相关 ===
   grafana:
     image: grafana/grafana
     container_name: grafana
     hostname: grafana
     ports:
       - "3000:3000"
-  # === 普罗米修斯 相关 ===
   prometheus:
     image: bitnami/prometheus:latest
     container_name: prometheus
@@ -71,7 +74,22 @@ services:
     ports:
       - "9093:9093"
   # === 普罗米修斯 相关 ===
-
+  ldap:
+    image: bitnami/openldap:latest
+    container_name: ldap
+    ports:
+      - "3389:389"   # LDAP 非加密端口
+      - "3636:636"   # LDAP SSL 加密端口
+    environment:
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=zxczxc
+      - LDAP_USERS=lkzc19
+      - LDAP_PASSWORDS=zxczxc
+      - LDAP_ROOT=dc=example,dc=org  # 添加根域配置
+      - LDAP_USER_DC=users           # 用户组织单元
+    volumes:
+      - $HOME/dev/ldap:/bitnami/openldap  # 数据持久化
+    restart: unless-stopped
 
 
 networks:

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class HelloTask {
 
     //每3秒执行一次
-    @Scheduled(cron ="*/6 * * * * ?")
+//    @Scheduled(cron ="*/6 * * * * ?")
     private void printHello() {
         System.out.println("hello");
     }
