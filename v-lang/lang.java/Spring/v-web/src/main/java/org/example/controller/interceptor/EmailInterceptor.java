@@ -10,7 +10,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
-@Component
+//@Component
 public class EmailInterceptor implements HandlerInterceptor {
 
     @Override

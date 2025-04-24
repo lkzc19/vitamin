@@ -16,6 +16,7 @@
         <module>v-http</module>
         <module>v-file</module>
         <module>v-redis</module>
+        <module>v-kafka</module>
     </modules>
 
     <properties>
