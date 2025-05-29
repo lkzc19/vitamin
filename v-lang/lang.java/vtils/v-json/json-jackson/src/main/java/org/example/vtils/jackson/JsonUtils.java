@@ -12,6 +12,7 @@ import lombok.experimental.UtilityClass;
 public class JsonUtils {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final static String DOT = "\\.";
 
     @SneakyThrows
     public <T> T json2Object(String json, Class<T> clazz) {
@@ -41,5 +42,21 @@ public class JsonUtils {
     @SneakyThrows
     public ArrayNode newArrayNode() {
         return objectMapper.createArrayNode();
+    }
+
+    public static JsonNode getNode(JsonNode node, String path) {
+        if (node == null || path == null || path.isEmpty()) {
+            return null;
+        }
+        String[] keys = path.split(DOT);
+        JsonNode currentNode = node;
+        for (String key : keys) {
+            if (currentNode.has(key)) {
+                currentNode = currentNode.get(key);
+            } else {
+                return null;
+            }
+        }
+        return currentNode;
     }
 }
