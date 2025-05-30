@@ -1,6 +1,7 @@
 package org.example.vtils.jackson.match;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
@@ -13,22 +14,28 @@ public class MatchBuilder {
         List<MatchCondition> conditions = new ArrayList<>();
 
         matchCondition.fields().forEachRemaining(entry -> {
-            String key = entry.getKey().toLowerCase();
+            String key = entry.getKey();
+            JsonNode value = entry.getValue();
 
             if ("$and".equals(key) || "$or".equals(key) || "$nor".equals(key)) {
                 List<MatchCondition> subConditions = new ArrayList<>();
-                subConditions.add(build(entry.getValue()));
+                if (value.isArray()) {
+                    ArrayNode arrayNode = (ArrayNode) value;
+                    arrayNode.forEach(node -> subConditions.add(build(node)));
+                } else {
+                    subConditions.add(build(value));
+                }
                 conditions.add(new LogicalMatchCondition(subConditions, key));
-            } else if (entry.getValue().isObject()) {
+            } else if (value.isObject()) {
                 // 处理操作符 {$gt: 10} 等
-                entry.getValue().fields().forEachRemaining(it -> {
+                value.fields().forEachRemaining(it -> {
                     String operator = it.getValue().fieldNames().next();
-                    JsonNode value = it.getValue().get(operator);
-                    conditions.add(new BasicMatchCondition(it.getKey(), value, operator));
+                    JsonNode v = it.getValue().get(operator);
+                    conditions.add(new BasicMatchCondition(it.getKey(), v, operator));
                 });
             } else {
                 // 简单相等条件 {name: "Alice"}
-                conditions.add(new BasicMatchCondition(key, entry.getValue()));
+                conditions.add(new BasicMatchCondition(key, value));
             }
         });
 
