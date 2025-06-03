@@ -1,11 +1,9 @@
 package org.example.csv;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import org.junit.Test;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;

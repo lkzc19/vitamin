@@ -1,14 +1,11 @@
 package org.example.vtils.gson;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Map;
 
 public class FileTest {
 
