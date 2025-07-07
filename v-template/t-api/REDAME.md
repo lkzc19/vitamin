@@ -1,1 +1,0 @@
-/swagger-ui/index.html
