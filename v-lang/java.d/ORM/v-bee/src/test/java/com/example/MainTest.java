@@ -4,6 +4,7 @@ import com.example.model.OrmFoo;
 import org.junit.Test;
 import org.teasoft.bee.osql.api.Suid;
 import org.teasoft.bee.osql.api.SuidRich;
+import org.teasoft.honey.osql.core.HoneyConfig;
 import org.teasoft.honey.osql.shortcut.BF;
 
 import java.util.ArrayList;
@@ -46,5 +47,13 @@ public class MainTest {
         suid.insert(ormFoos);
         long t2 = System.nanoTime() / 1000;
         System.out.println(t2 - t1);
+    }
+
+    @Test
+    public void testDelete() {
+        HoneyConfig.getHoneyConfig().notDeleteWholeRecords = false;
+
+        SuidRich suid= BF.getSuidRich();
+        suid.delete(new OrmFoo());
     }
 }

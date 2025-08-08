@@ -1,9 +1,0 @@
-groups:
-- name: example
-  rules:
-  - alert: example
-    expr: lkzc19_total > 100
-    labels:
-      severity: 1
-    annotations:
-      summary: "boom!"

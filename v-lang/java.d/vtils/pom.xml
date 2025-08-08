@@ -17,6 +17,7 @@
         <module>v-file</module>
         <module>v-redis</module>
         <module>v-kafka</module>
+        <module>v-lib</module>
     </modules>
 
     <properties>
