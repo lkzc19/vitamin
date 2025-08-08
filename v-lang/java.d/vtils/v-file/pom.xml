@@ -12,8 +12,10 @@
     <artifactId>v-file</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>v-parquet</module>
-        <module>v-jdk</module>
+        <module>file-parquet</module>
+        <module>file-jdk</module>
+        <module>csv-opencsv</module>
+        <module>excel-fastexcel</module>
     </modules>
 
     <properties>
