@@ -1,0 +1,14 @@
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 设置 Kafka Producer 日志级别 -->
+    <logger name="org.apache.kafka.clients.producer" level="INFO" />
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+    </root>
+</configuration>
