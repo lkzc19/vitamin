@@ -1,4 +1,4 @@
-package org.example.vtils.fastexcel;
+package org.example.x;
 
 import cn.idev.excel.FastExcel;
 import cn.idev.excel.annotation.ExcelProperty;
@@ -12,7 +12,7 @@ public class XyTest {
 
     @Test
     public void mainTest() throws Exception {
-//        Set<String> list = read1("/Users/lkzc19/Projects/startorch/g_xingye/data/数据采集需求文档 (再造手机银行20250715).xlsx");
+//        Set<String> list = read1("/Users/lkzc19/Projects/startorch/g_xingye/data/ebank_mobile#data_collect#prod.xlsx");
         Set<String> list = read2("/Users/lkzc19/Projects/startorch/g_xingye/data/属性比较结果.xlsx");
         list.forEach(System.out::println);
         System.out.println(String.join(",", list));
@@ -82,7 +82,7 @@ public class XyTest {
                 if (data.prop == null) {
                     continue;
                 }
-                if ("org.example.vtils.fastexcel.XyTest".equals(data.prop)) {
+                if ("org.example.vtils.fastexcel.x.XyTest".equals(data.prop)) {
                     continue;
                 }
                 list.add(data.prop);

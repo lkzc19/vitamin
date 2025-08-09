@@ -1,4 +1,4 @@
-package org.example.vtils.fastexcel;
+package org.example.x.bayer;
 
 import cn.idev.excel.annotation.ExcelProperty;
 import lombok.Data;

@@ -11,37 +11,42 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JsonUtils {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final static ObjectMapper _MAPPER = new ObjectMapper();
     private final static String DOT = "\\.";
 
     @SneakyThrows
-    public <T> T json2Object(String json, Class<T> clazz) {
-        return objectMapper.readValue(json, clazz);
+    public static <T> T toObject(String json, Class<T> clazz) {
+        return _MAPPER.readValue(json, clazz);
     }
 
     @SneakyThrows
-    public <T> T json2Object(String json, TypeReference<T> typeRef) {
-        return objectMapper.readValue(json, typeRef);
+    public static <T> T toObject(String json, TypeReference<T> typeRef) {
+        return _MAPPER.readValue(json, typeRef);
     }
 
     @SneakyThrows
-    public JsonNode json2Object(String json) {
-        return objectMapper.readTree(json);
+    public static JsonNode toObject(String json) {
+        return _MAPPER.readTree(json);
     }
 
     @SneakyThrows
-    public String object2Json(Object obj) {
-        return objectMapper.writeValueAsString(obj);
+    public static String toJson(Object obj) {
+        return _MAPPER.writeValueAsString(obj);
     }
 
     @SneakyThrows
-    public ObjectNode newObjectNode() {
-        return objectMapper.createObjectNode();
+    public static ObjectNode newObjectNode() {
+        return _MAPPER.createObjectNode();
     }
 
     @SneakyThrows
-    public ArrayNode newArrayNode() {
-        return objectMapper.createArrayNode();
+    public static ArrayNode newArrayNode() {
+        return _MAPPER.createArrayNode();
+    }
+
+    @SneakyThrows
+    public static ArrayNode newValueNode(Object value) {
+        return _MAPPER.valueToTree(value);
     }
 
     public static JsonNode getNode(JsonNode node, String path) {

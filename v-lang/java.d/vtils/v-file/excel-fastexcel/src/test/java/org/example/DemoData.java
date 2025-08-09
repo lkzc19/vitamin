@@ -1,4 +1,4 @@
-package org.example.vtils.fastexcel;
+package org.example;
 
 import cn.idev.excel.annotation.ExcelIgnore;
 import cn.idev.excel.annotation.ExcelProperty;

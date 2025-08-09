@@ -12,47 +12,47 @@ import java.util.Map;
 public class JsonUtilsTest {
 
     @Test
-    public void testJson2Object1() {
+    public void testToObject1() {
         String json = "{\n" +
                 "  \"field1\": \"qwe\",\n" +
                 "  \"field2\": 1,\n" +
                 "  \"field3\": [\"as\", \"cs\", \"cs\"]\n" +
                 "}";
-        JsonModel model = JsonUtils.json2Object(json, JsonModel.class);
+        JsonModel model = JsonUtils.toObject(json, JsonModel.class);
         System.out.println(model);
     }
 
     @Test
-    public void testJson2Object2() {
+    public void testTo() {
         String json = "{\n" +
                 "  \"field1\": \"qwe\",\n" +
                 "  \"field2\": 1,\n" +
                 "  \"field3\": [\"as\", \"cs\", \"cs\"]\n" +
                 "}";
-        Map<String, Object> map = JsonUtils.json2Object(json, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> map = JsonUtils.toObject(json, new TypeReference<Map<String, Object>>() {});
         map.forEach((k, v) -> System.out.println(k + ":" + v));
     }
 
     @Test
-    public void testJson2Object3() {
+    public void testToObject3() {
         String json = "{\n" +
                 "  \"field1\": \"qwe\",\n" +
                 "  \"field2\": 1,\n" +
                 "  \"field3\": [\"as\", \"cs\", \"cs\"]\n" +
                 "}";
-        JsonNode jn = JsonUtils.json2Object(json);
+        JsonNode jn = JsonUtils.toObject(json);
         ObjectNode on = (ObjectNode) jn;
         on.put("field4", "qwe");
         System.out.println(jn);
     }
 
     @Test
-    public void testObject2Json() {
+    public void testToJson() {
         List<String> field3 = new ArrayList<>();
         field3.add("as");
         field3.add("cs");
         JsonModel foo = new JsonModel("cs", 2, field3);
-        String json = JsonUtils.object2Json(foo);
+        String json = JsonUtils.toJson(foo);
         System.out.println(json);
     }
 }

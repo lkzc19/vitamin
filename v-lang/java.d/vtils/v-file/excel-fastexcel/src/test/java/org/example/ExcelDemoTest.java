@@ -1,4 +1,4 @@
-package org.example.vtils.fastexcel;
+package org.example;
 
 import cn.idev.excel.FastExcel;
 import org.junit.Test;
